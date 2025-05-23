@@ -1,0 +1,9 @@
+.gallery-box {
+  background: #fff6f8;
+  border-left: 5px solid #e91e63;
+  padding: 20px;
+  margin: 20px 0;
+  font-size: 1.1rem;
+  border-radius: 10px;
+  line-height: 1.6;
+}
