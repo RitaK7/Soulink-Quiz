@@ -3,6 +3,14 @@ const language = params.get("language");
 const value = params.get("value");
 const dream = params.get("dream");
 
+const icons = {
+  "Kindness": "🕊️",
+  "Freedom": "🦋",
+  "Adventure": "⛰️",
+  "Trust": "🤝",
+  "Creativity": "🎨"
+};
+
 const container = document.getElementById("portrait");
 
 if (!language || !value || !dream) {
@@ -12,9 +20,11 @@ if (!language || !value || !dream) {
     <a href="index.html"><button>Back</button></a>
   `;
 } else {
+  const icon = icons[value] || "✨";
   container.innerHTML = `
     <h2>Your Soul Portrait</h2>
     <p>You are a Soul Seeker of <strong>${value}</strong>, who speaks in <strong>${language}</strong> and dreams to <strong>${dream}</strong>.</p>
+    <div class="symbol">${icon}</div>
     <button id="downloadBtn">Download as Image</button>
   `;
 
