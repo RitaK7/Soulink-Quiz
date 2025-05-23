@@ -1,16 +1,17 @@
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function() {
+  // TEST DATA SIMULATION
+  localStorage.setItem("soulGallery", "You are a Soul Seeker with a creative spark and deep intuition.");
+
   const output = document.getElementById("galleryOutput");
-  const downloadBtn = document.getElementById("downloadBtn");
+  const storedData = localStorage.getItem("soulGallery");
+  output.textContent = storedData ? storedData : "No data available.";
 
-  const data = localStorage.getItem("soulGallery") || "";
-  output.textContent = data;
-
-  downloadBtn.addEventListener("click", () => {
-    const blob = new Blob([data], { type: "text/plain" });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "my_soul_gallery.txt";
-    a.click();
+  document.getElementById("downloadBtn").addEventListener("click", function() {
+    const blob = new Blob([output.textContent], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "my_soul_gallery.txt";
+    link.click();
   });
 });

@@ -1,19 +1,21 @@
 
-.social-icons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 20px 0;
-}
-.social-icons a {
-  padding: 10px;
-  border-radius: 8px;
-  background: #e0e0e0;
-  text-decoration: none;
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #fdf8f3;
   color: #222;
-  font-weight: bold;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 50px;
 }
-.social-icons a:hover {
-  background: #d4d4f7;
+.container {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+button {
+  margin-top: 15px;
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-weight: bold;
 }
