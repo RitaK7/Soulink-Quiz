@@ -21,11 +21,17 @@ if (!language || !value || !dream) {
   `;
 } else {
   const icon = icons[value] || "✨";
+  const shareURL = encodeURIComponent(window.location.href);
   container.innerHTML = `
     <h2>Your Soul Portrait</h2>
+    <div class="soul-graphic">${icon}</div>
     <p>You are a Soul Seeker of <strong>${value}</strong>, who speaks in <strong>${language}</strong> and dreams to <strong>${dream}</strong>.</p>
-    <div class="symbol">${icon}</div>
     <button id="downloadBtn">Download as Image</button>
+    <div class="share">
+      <p>Share your portrait:</p>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=${shareURL}" target="_blank">Facebook</a> |
+      <a href="https://twitter.com/intent/tweet?text=Check out my Soul Portrait!&url=${shareURL}" target="_blank">Twitter</a>
+    </div>
   `;
 
   document.getElementById("downloadBtn").addEventListener("click", () => {
