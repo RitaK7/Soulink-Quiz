@@ -1,17 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Soul Portrait</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h2>Your Soul Portrait</h2>
-    <p id="portraitText">Loading your soul portrait...</p>
-    <button onclick="window.location.href='index.html'">Back</button>
+  <div class="container portrait">
+    <h1>Your Soul Portrait</h1>
+    <div id="portrait"></div>
+    <button id="downloadBtn">Download as Image</button>
+    <button onclick="history.back()">Back</button>
   </div>
   <script src="portrait.js"></script>
 </body>

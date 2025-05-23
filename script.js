@@ -1,21 +1,19 @@
-
-document.getElementById("quizForm").addEventListener("submit", function (e) {
+document.getElementById('quizForm').addEventListener('submit', function(e) {
   e.preventDefault();
+  const language = document.getElementById('language').value;
+  const value = document.getElementById('value').value;
+  const dream = document.getElementById('dream').value.trim();
 
-  const language = document.getElementById("language").value;
-  const value = document.getElementById("value").value;
-  const dream = document.getElementById("dream").value;
-
-  if (!language || !value || !dream) {
-    alert("Please fill in all fields.");
+  if (!dream) {
+    alert("Please enter your dream before revealing your soul!");
     return;
   }
 
   const query = new URLSearchParams({
-    language: language,
-    value: value,
-    dream: dream
-  });
+    language,
+    value,
+    dream
+  }).toString();
 
-  window.location.href = `soul-portrait.html?${query.toString()}`;
+  window.location.href = `soul-portrait.html?${query}`;
 });
