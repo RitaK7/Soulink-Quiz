@@ -3,21 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Partner Profile</title>
+  <title>Partner Portrait</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1 id="partnerName">Partner</h1>
-    <p id="partnerInfo">Loading partner data...</p>
-    <div id="feedback">
-      <h3>Leave Your Feedback</h3>
-      <form id="feedbackForm">
-        <textarea placeholder="Your thoughts..." required></textarea><br>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-    <p><a href="soulink-match.html">← Back to Matches</a></p>
+    <h1 id="name">Loading...</h1>
+    <p><strong>Love Language:</strong> <span id="language"></span></p>
+    <p><strong>Core Value:</strong> <span id="value"></span></p>
+    <p><strong>Dream:</strong> <span id="dream"></span></p>
+    <a href="my-matches.html" class="button">← Back to Matches</a>
   </div>
   <script src="partner.js"></script>
 </body>

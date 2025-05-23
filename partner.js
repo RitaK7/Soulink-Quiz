@@ -1,13 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const partnerName = "Aurora";
-  const info = "Aurora shares your values in kindness and dreams of global travel. You both prioritize deep emotional connection.";
+  const params = new URLSearchParams(window.location.search);
+  const partnerKey = params.get("partner");
 
-  document.getElementById("partnerName").innerText = partnerName;
-  document.getElementById("partnerInfo").innerText = info;
+  const partners = {
+    a: {
+      name: "Aurora",
+      language: "Words of Affirmation",
+      value: "Freedom",
+      dream: "Travel the world"
+    },
+    b: {
+      name: "Lukas",
+      language: "Quality Time",
+      value: "Kindness",
+      dream: "Peaceful family home"
+    },
+    c: {
+      name: "Isla",
+      language: "Physical Touch",
+      value: "Trust",
+      dream: "Live in nature cabin"
+    },
+    d: {
+      name: "Theo",
+      language: "Acts of Service",
+      value: "Adventure",
+      dream: "Launch a creative studio"
+    }
+  };
 
-  document.getElementById("feedbackForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    alert("Thank you for your feedback!");
-    this.reset();
-  });
+  const partner = partners[partnerKey];
+
+  if (partner) {
+    document.getElementById("name").textContent = partner.name;
+    document.getElementById("language").textContent = partner.language;
+    document.getElementById("value").textContent = partner.value;
+    document.getElementById("dream").textContent = partner.dream;
+  } else {
+    document.getElementById("name").textContent = "Partner not found.";
+  }
 });
