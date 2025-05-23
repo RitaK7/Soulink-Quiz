@@ -1,27 +1,20 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const language = localStorage.getItem("language");
-  const value = localStorage.getItem("value");
-  const dream = localStorage.getItem("dream");
 
-  const container = document.getElementById("portraitContent");
-  const imageContainer = document.getElementById("portraitImageContainer");
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const language = urlParams.get("language");
+  const value = urlParams.get("value");
+  const dream = urlParams.get("dream");
 
-  if (!language || !value || !dream) {
-    container.innerHTML = "<p>Missing data for portrait. Please start from the beginning.</p>";
-    return;
+  const portraitText = document.getElementById("portraitText");
+  const soulText = `You are a Soul Seeker of ${value}, who speaks in ${language} and dreams to "${dream}".`;
+
+  if (language && value && dream) {
+    portraitText.textContent = soulText;
+    const existing = localStorage.getItem("soulGallery") || "";
+    const updated = `${existing}${soulText}
+`;
+    localStorage.setItem("soulGallery", updated);
+  } else {
+    portraitText.textContent = "Missing data for portrait. Please start from the beginning.";
   }
-
-  container.innerHTML = `
-    <p>You are a Soul Seeker of <strong>${value}</strong>,</p>
-    <p>who speaks in <strong>${language}</strong>,</p>
-    <p>and dreams to <strong>${dream}</strong>.</p>
-  `;
-
-  const img = document.createElement("img");
-  img.src = "https://source.unsplash.com/400x200/?" + value.toLowerCase();
-  img.alt = "Soul Portrait Visual";
-  img.style.borderRadius = "12px";
-  img.style.marginTop = "16px";
-
-  imageContainer.appendChild(img);
 });
