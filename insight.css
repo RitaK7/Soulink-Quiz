@@ -1,0 +1,9 @@
+.insight-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fef4f7;
+  border-left: 6px solid #e91e63;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  line-height: 1.6;
+}
