@@ -4,16 +4,11 @@ document.getElementById('quizForm').addEventListener('submit', function(e) {
   const value = document.getElementById('value').value;
   const dream = document.getElementById('dream').value.trim();
 
-  if (!dream) {
-    alert("Please enter your dream before revealing your soul!");
+  if (!language || !value || !dream) {
+    alert('Please fill out all fields before revealing your soul!');
     return;
   }
 
-  const query = new URLSearchParams({
-    language,
-    value,
-    dream
-  }).toString();
-
-  window.location.href = `soul-portrait.html?${query}`;
+  const url = `soul-portrait.html?language=${encodeURIComponent(language)}&value=${encodeURIComponent(value)}&dream=${encodeURIComponent(dream)}`;
+  window.location.href = url;
 });
