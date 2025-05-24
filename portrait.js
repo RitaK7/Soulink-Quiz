@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const language = urlParams.get("language");
@@ -11,8 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (language && value && dream) {
     portraitText.textContent = soulText;
     const existing = localStorage.getItem("soulGallery") || "";
-    const updated = `${existing}${soulText}
-`;
+    const updated = `${existing}<p>${soulText}</p>`;
     localStorage.setItem("soulGallery", updated);
   } else {
     portraitText.textContent = "Missing data for portrait. Please start from the beginning.";
