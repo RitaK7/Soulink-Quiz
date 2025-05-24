@@ -10,8 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (language && value && dream) {
     portraitText.textContent = soulText;
     const existing = localStorage.getItem("soulGallery") || "";
-    const updated = `${existing}<p>${soulText}</p>`;
-    localStorage.setItem("soulGallery", updated);
+    const newEntry = `<p>${soulText}</p>`;
+    localStorage.setItem("soulGallery", newEntry);
+
   } else {
     portraitText.textContent = "Missing data for portrait. Please start from the beginning.";
   }
