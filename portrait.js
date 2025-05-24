@@ -9,10 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (language && value && dream) {
     portraitText.textContent = soulText;
+
     const existing = localStorage.getItem("soulGallery") || "";
     const newEntry = `<p>${soulText}</p>`;
-    localStorage.setItem("soulGallery", newEntry);
 
+    if (!existing.includes(newEntry)) {
+      const updated = `${existing}${newEntry}`;
+      localStorage.setItem("soulGallery", updated);
+    }
   } else {
     portraitText.textContent = "Missing data for portrait. Please start from the beginning.";
   }
