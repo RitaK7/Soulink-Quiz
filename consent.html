@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulink Consent</title>
+  <style>
+    body {
+      background-color: #043f40;
+      font-family: system-ui, sans-serif;
+      color: #fff;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #055556;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    input[type="checkbox"] {
+      margin-right: 0.8rem;
+    }
+    button {
+      width: 100%;
+      background-color: #7eddd6;
+      border: none;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #043f40;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .back-btn {
+      margin-top: 1rem;
+      display: block;
+      text-align: center;
+      color: #b9f0ed;
+      text-decoration: underline;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Consent</h2>
+    <form>
+      <label><input type="checkbox" required> I agree to the Soulink <a href="#" style="color:#b9f0ed">Terms of Service</a> and <a href="#" style="color:#b9f0ed">Privacy Policy</a></label>
+      <label><input type="checkbox"> Allow using my quiz responses for AI compatibility analyses</label>
+      <label><input type="checkbox"> Allow Soulink Mentor to use my reflection responses</label>
+      <label><input type="checkbox"> Allow sending personalized recommendations and invites</label>
+      <label><input type="checkbox"> Allow using my data anonymously to improve Soulink</label>
+      <button type="submit">Save Preferences</button>
+    </form>
+    <a href="#" class="back-btn">Go Back</a>
+  </div>
+</body>
+</html>
