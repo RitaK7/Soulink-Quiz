@@ -65,6 +65,14 @@
       <label><input type="checkbox" id="anonymizedUse"> Allow using my data anonymously to improve Soulink</label>
       <button type="submit">Save Preferences</button>
     </form>
+    <script>
+  document.querySelector("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    localStorage.setItem("soulinkConsent", "true");
+    window.location.href = "index.html";
+  });
+</script>
+
     <a href="index.html" class="back-btn">Go Back</a>
   </div>
 
