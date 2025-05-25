@@ -3,14 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soulink Home</title>
-  <script src="consent-guard.js"></script>
+  <title>SOULINK</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    button {
+      background-color: #7eddd6;
+      color: #043f40;
+      padding: 0.7rem 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      margin-top: 1rem;
+    }
+    button:hover {
+      background-color: #6bcac3;
+    }
+  </style>
 </head>
-  <script src="consent-guard.js"></script>
 <body>
-  <a href="consent.html">Start with Consent</a>
-  <h1>Welcome to Soulink Compatibility Test</h1>
-  <p><a href="soulink-match.html">Go to Match List</a></p>
+  <div class="container">
+    <h1>SOULINK</h1>
+    <h2>Discover Your Compatibility</h2>
+    <form id="quizForm">
+      <label for="language">Love Language:</label>
+      <select id="language" required>
+        <option value="" disabled selected>Select</option>
+        <option value="Words of Affirmation">Words of Affirmation</option>
+        <option value="Quality Time">Quality Time</option>
+        <option value="Receiving Gifts">Receiving Gifts</option>
+        <option value="Acts of Service">Acts of Service</option>
+        <option value="Physical Touch">Physical Touch</option>
+      </select>
+
+      <label for="value">Core Value:</label>
+      <select id="value" required>
+        <option value="" disabled selected>Select</option>
+        <option value="Kindness">Kindness</option>
+        <option value="Freedom">Freedom</option>
+        <option value="Adventure">Adventure</option>
+        <option value="Trust">Trust</option>
+        <option value="Creativity">Creativity</option>
+      </select>
+
+      <label for="dream">Your Dream:</label>
+      <input type="text" id="dream" placeholder="Your deepest dream" required />
+
+      <button type="submit">Reveal My Soul</button>
+    </form>
+
+    <div class="links">
+      <a href="#">Share & Invite</a> |
+      <a href="#">Soul Portrait</a>
+    </div>
+
+    <button onclick="resetConsent()" style="background:#b85c5c;">Reset Consent</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="consent-guard.js"></script>
+  <script>
+    function resetConsent() {
+      localStorage.removeItem("soulinkConsent");
+      alert("Your consent was reset. You'll need to agree again.");
+      window.location.href = "consent.html";
+    }
+  </script>
 </body>
 </html>
-
