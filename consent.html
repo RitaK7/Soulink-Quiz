@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soulink Consent</title>
   <style>
     body {
@@ -57,15 +57,19 @@
 <body>
   <div class="container">
     <h2>Consent</h2>
-    <form>
-      <label><input type="checkbox" required> I agree to the Soulink <a href="#" style="color:#b9f0ed">Terms of Service</a> and <a href="#" style="color:#b9f0ed">Privacy Policy</a></label>
-      <label><input type="checkbox"> Allow using my quiz responses for AI compatibility analyses</label>
-      <label><input type="checkbox"> Allow Soulink Mentor to use my reflection responses</label>
-      <label><input type="checkbox"> Allow sending personalized recommendations and invites</label>
-      <label><input type="checkbox"> Allow using my data anonymously to improve Soulink</label>
+    <form id="consentForm">
+      <label><input type="checkbox" id="agree" required> I agree to the Soulink <a href="#" style="color:#b9f0ed">Terms of Service</a> and <a href="#" style="color:#b9f0ed">Privacy Policy</a></label>
+      <label><input type="checkbox" id="aiUse"> Allow using my quiz responses for AI compatibility analyses</label>
+      <label><input type="checkbox" id="mentorUse"> Allow Soulink Mentor to use my reflection responses</label>
+      <label><input type="checkbox" id="recommendations"> Allow sending personalized recommendations and invites</label>
+      <label><input type="checkbox" id="anonymizedUse"> Allow using my data anonymously to improve Soulink</label>
       <button type="submit">Save Preferences</button>
     </form>
-    <a href="#" class="back-btn">Go Back</a>
+    <a href="index.html" class="back-btn">Go Back</a>
   </div>
+
+  <script src="consent.js"></script>
 </body>
 </html>
+
+
