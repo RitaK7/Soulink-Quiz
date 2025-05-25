@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoulMentor</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #043f40;
+      font-family: system-ui, sans-serif;
+      color: #fff;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #055556;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    #mentorResponse {
+      margin-top: 1rem;
+      padding: 1.2rem;
+      background: #0a6768;
+      border-radius: 10px;
+      white-space: pre-wrap;
+    }
+    button {
+      background-color: #7eddd6;
+      border: none;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      color: #043f40;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Soulink Mentor</h2>
+    <p>Your AI guide based on your soul profile:</p>
+    <div id="mentorResponse">Loading your soul's wisdom...</div>
+    <button onclick="goBack()">Back to Profile</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = 'profile.html';
+    }
+
+    function generateMentorAdvice(language, value, dream) {
+      return `Hello beautiful soul!
+
+Your love language is: ${language}.
+You value most: ${value}.
+And your deepest dream is: "${dream}".
+
+Let this be your guidance:
+- Speak your love language freely.
+- Surround yourself with people who reflect your core value.
+- Take one small step today toward your dream.
+
+You are already on the right path. The universe aligns when you do.`;
+    }
+
+    const data = JSON.parse(localStorage.getItem('soulData'));
+    const mentorBox = document.getElementById('mentorResponse');
+    if (data) {
+      const message = generateMentorAdvice(data.language, data.value, data.dream);
+      mentorBox.textContent = message;
+    } else {
+      mentorBox.textContent = 'Missing soul data. Please return to the quiz and complete it first.';
+    }
+  </script>
+</body>
+</html>
