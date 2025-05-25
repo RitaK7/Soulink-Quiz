@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SoulMentor</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soulink Mentor</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       background-color: #043f40;
@@ -22,66 +22,63 @@
     }
     h2 {
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
-    #mentorResponse {
-      margin-top: 1rem;
-      padding: 1.2rem;
-      background: #0a6768;
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
       border-radius: 10px;
-      white-space: pre-wrap;
+      border: none;
+      resize: vertical;
+      margin-bottom: 1rem;
     }
     button {
       background-color: #7eddd6;
       border: none;
-      padding: 1rem 1.5rem;
-      font-size: 1rem;
+      padding: 1rem 2rem;
       border-radius: 10px;
+      font-weight: bold;
+      font-size: 1rem;
       color: #043f40;
       cursor: pointer;
-      font-weight: bold;
-      margin-top: 1rem;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
+    }
+    .response {
+      margin-top: 1.5rem;
+      background: #0a6768;
+      padding: 1rem;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Soulink Mentor</h2>
-    <p>Your AI guide based on your soul profile:</p>
-    <div id="mentorResponse">Loading your soul's wisdom...</div>
-    <button onclick="goBack()">Back to Profile</button>
+    <p>Ask your question about love, growth, or relationships and get a soul-guided answer.</p>
+    <textarea id="question" rows="5" placeholder="Dear Mentor, I want to understand why I always..." required></textarea>
+    <button onclick="generateResponse()">Get Soul Guidance</button>
+    <div class="response" id="mentorResponse"></div>
   </div>
 
   <script>
-    function goBack() {
-      window.location.href = 'profile.html';
-    }
-
-    function generateMentorAdvice(language, value, dream) {
-      return `Hello beautiful soul!
-
-Your love language is: ${language}.
-You value most: ${value}.
-And your deepest dream is: "${dream}".
-
-Let this be your guidance:
-- Speak your love language freely.
-- Surround yourself with people who reflect your core value.
-- Take one small step today toward your dream.
-
-You are already on the right path. The universe aligns when you do.`;
-    }
-
-    const data = JSON.parse(localStorage.getItem('soulData'));
-    const mentorBox = document.getElementById('mentorResponse');
-    if (data) {
-      const message = generateMentorAdvice(data.language, data.value, data.dream);
-      mentorBox.textContent = message;
-    } else {
-      mentorBox.textContent = 'Missing soul data. Please return to the quiz and complete it first.';
+    function generateResponse() {
+      const q = document.getElementById('question').value.trim();
+      const r = document.getElementById('mentorResponse');
+      if (!q) {
+        r.textContent = 'Please write a question from your heart.';
+        return;
+      }
+      // Simulated mentor response (you can integrate with AI or API later)
+      const examples = [
+        "Trust your journey, even when it feels uncertain. The answers often appear in stillness.",
+        "You are not broken, just in transformation. Let the pain guide you to the truth.",
+        "Love flows where acceptance grows. Begin within.",
+        "The soul attracts not what it wants, but what it needs to evolve.",
+        "Let go of seeking, and the right person will find you when you are most yourself."
+      ];
+      const index = Math.floor(Math.random() * examples.length);
+      r.textContent = examples[index];
     }
   </script>
 </body>
