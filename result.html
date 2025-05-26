@@ -1,19 +1,20 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Soul Archetype</title>
-  <link rel="stylesheet" href="style.css"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soulink</title>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="container">
-    <h2>Your Soul Archetype</h2>
-    <p id="resultText"></p>
-    <a href="index.html" class="try-again">Try Again</a>
-  </div>
-  <script>
+<div class="container">
+<h2>Your Soul Archetype</h2>
+<p id="resultText"></p>
+<a class="try-again" href="index.html">Try Again</a>
+</div>
+<script>
     const params = new URLSearchParams(window.location.search);
     const language = params.get('language');
     const value = params.get('value');
@@ -26,5 +27,9 @@
       resultText.innerText = 'Something went wrong. Please try again.';
     }
   </script>
+
+<footer>
+<p>© 2025 Soulink – Made with ❤️ for soul connection</p>
+</footer>
 </body>
 </html>

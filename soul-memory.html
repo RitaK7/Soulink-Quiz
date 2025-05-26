@@ -1,67 +1,21 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soulink Mentor</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      background-color: #043f40;
-      font-family: system-ui, sans-serif;
-      color: #fff;
-      padding: 2rem;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: #055556;
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    textarea {
-      width: 100%;
-      padding: 1rem;
-      font-size: 1rem;
-      border-radius: 10px;
-      border: none;
-      resize: vertical;
-      margin-bottom: 1rem;
-    }
-    button {
-      background-color: #7eddd6;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 1rem;
-      color: #043f40;
-      cursor: pointer;
-      width: 100%;
-    }
-    .response {
-      margin-top: 1.5rem;
-      background: #0a6768;
-      padding: 1rem;
-      border-radius: 10px;
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soulink</title>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="container">
-    <h2>Soulink Mentor</h2>
-    <p>Ask your question about love, growth, or relationships and get a soul-guided answer.</p>
-    <textarea id="question" rows="5" placeholder="Dear Mentor, I want to understand why I always..." required></textarea>
-    <button onclick="generateResponse()">Get Soul Guidance</button>
-    <div class="response" id="mentorResponse"></div>
-  </div>
-
-  <script>
+<div class="container">
+<h2>Soulink Mentor</h2>
+<p>Ask your question about love, growth, or relationships and get a soul-guided answer.</p>
+<textarea id="question" placeholder="Dear Mentor, I want to understand why I always..." required="" rows="5"></textarea>
+<button onclick="generateResponse()">Get Soul Guidance</button>
+<div class="response" id="mentorResponse"></div>
+</div>
+<script>
     function generateResponse() {
       const q = document.getElementById('question').value.trim();
       const r = document.getElementById('mentorResponse');
@@ -81,5 +35,9 @@
       r.textContent = examples[index];
     }
   </script>
+
+<footer>
+<p>© 2025 Soulink – Made with ❤️ for soul connection</p>
+</footer>
 </body>
 </html>
