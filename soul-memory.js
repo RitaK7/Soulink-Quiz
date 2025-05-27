@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const dream = document.getElementById("dream").value;
 
     if (!language || !value || !dream) {
-      alert("Please fill in all fields");
+      console.log('[ALERT] ', "Please fill in all fields");
       return;
     }
 

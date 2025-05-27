@@ -1,3 +1,4 @@
+// TODO: Check if localStorage getItem is needed
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("consentForm");
 
@@ -6,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const agree = document.getElementById("agree").checked;
     if (!agree) {
-      alert("You must agree to the Terms and Privacy Policy.");
+      console.log('[ALERT] ', "You must agree to the Terms and Privacy Policy.");
       return;
     }
 
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     localStorage.setItem("soulinkConsent", JSON.stringify(preferences));
-    alert("Preferences saved!");
+    console.log('[ALERT] ', "Preferences saved!");
     window.location.href = "index.html";
   });
 });
