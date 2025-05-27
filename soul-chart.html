@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Soul Chart</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #043f43;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #c6f6ff;
+      margin-bottom: 40px;
+    }
+
+    .chart-container {
+      margin-bottom: 40px;
+      background-color: #065a5c;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .highlight {
+      background-color: #0b5c5a;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    canvas {
+      background-color: white;
+      border-radius: 8px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Soul Chart</h1>
+
+  <div class="highlight" id="lifePathText">Loading your Soulprint...</div>
+
+  <div class="chart-container">
+    <h2>Core Values</h2>
+    <canvas id="valuesChart"></canvas>
+  </div>
+
+  <div class="chart-container">
+    <h2>Interests</h2>
+    <canvas id="interestsChart"></canvas>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('soulinkUser'));
+
+    function calculateLifePath(dateStr) {
+      const parts = dateStr.split("-");
+      const digits = parts.join("").split("").map(Number);
+      let sum = digits.reduce((a, b) => a + b, 0);
+      while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+        sum = sum.toString().split("").reduce((a, b) => a + parseInt(b), 0);
+      }
+      return sum;
+    }
+
+    function getLifeMeaning(n) {
+      const m = {
+        1: "Leader",
+        2: "Peacemaker",
+        3: "Creative Communicator",
+        4: "Stabilizer",
+        5: "Explorer",
+        6: "Nurturer",
+        7: "Spiritual Seeker",
+        8: "Powerful Achiever",
+        9: "Humanitarian",
+        11: "Visionary",
+        22: "Master Builder",
+        33: "Master Healer"
+      };
+      return m[n] || "Soul Explorer";
+    }
+
+    if (user) {
+      const lp = calculateLifePath(user.birthdate);
+      const meaning = getLifeMeaning(lp);
+      document.getElementById("lifePathText").innerHTML =
+        `<strong>Life Path ${lp} – ${meaning}</strong>`;
+
+      const values = user.values || [];
+      const interests = user.interests || [];
+
+      const valueLabels = values;
+      const valueData = values.map(() => Math.floor(Math.random() * 50) + 50); // mock strength
+
+      const interestLabels = ["Spirituality", "Nature", "Art", "Science", "Music", "Philosophy"];
+      const interestData = interestLabels.map(label =>
+        interests.includes(label) ? Math.floor(Math.random() * 40) + 60 : Math.floor(Math.random() * 30)
+      );
+
+      new Chart(document.getElementById("valuesChart"), {
+        type: "bar",
+        data: {
+          labels: valueLabels,
+          datasets: [{
+            label: "Strength",
+            data: valueData,
+            backgroundColor: "#62b2b0"
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true, max: 100 }
+          }
+        }
+      });
+
+      new Chart(document.getElementById("interestsChart"), {
+        type: "radar",
+        data: {
+          labels: interestLabels,
+          datasets: [{
+            label: "Interest Intensity",
+            data: interestData,
+            backgroundColor: "rgba(98, 178, 176, 0.4)",
+            borderColor: "#62b2b0",
+            borderWidth: 2
+          }]
+        },
+        options: {
+          scales: {
+            r: { angleLines: { color: '#999' }, suggestedMin: 0, suggestedMax: 100 }
+          }
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
