@@ -1,45 +1,19 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Soulink</title>
+<title>Soulink Page</title>
 <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
-<h2>My Soul Profile</h2>
-<div class="section">Love Language: <span id="language"></span></div>
-<div class="section">Core Value: <span id="value"></span></div>
-<div class="section">Dream: <span id="dream"></span></div>
-<div class="links">
-<a href="soul-portrait.html">View Soul Portrait</a>
-<a href="mentor.html">Ask Soulink Mentor</a>
-<a href="soulink-match.html">See Compatibility Matches</a>
-<a href="index.html">Take Quiz Again</a>
+<h1>Soulink Page</h1>
+<p>This is a sample page.</p>
 </div>
-<button onclick="clearProfile()">Clear Profile</button>
-</div>
-<script>
-    const data = JSON.parse(localStorage.getItem("soulData"));
-    if (data) {
-      document.getElementById("language").textContent = data.language;
-      document.getElementById("value").textContent = data.value;
-      document.getElementById("dream").textContent = data.dream;
-    } else {
-      document.querySelector(".container").innerHTML = '<p>No soul data found. <a href="index.html">Start Quiz</a></p>';
-    }
-
-    function clearProfile() {
-      localStorage.removeItem("soulData");
-      alert("Soul profile cleared.");
-      location.reload();
-    }
-  </script>
-
 <footer>
 <p>© 2025 Soulink – Made with ❤️ for soul connection</p>
-</footer>
+<br/><a href="mission.html">Read Our Mission</a></footer>
 </body>
 </html>

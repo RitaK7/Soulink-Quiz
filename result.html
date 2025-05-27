@@ -4,32 +4,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Soulink</title>
+<title>Soulink Page</title>
 <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
-<h2>Your Soul Archetype</h2>
-<p id="resultText"></p>
-<a class="try-again" href="index.html">Try Again</a>
+<h1>Soulink Page</h1>
+<p>This is a sample page.</p>
 </div>
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const language = params.get('language');
-    const value = params.get('value');
-    const dream = params.get('dream');
-
-    const resultText = document.getElementById('resultText');
-    if (language && value && dream) {
-      resultText.innerText = `You are a Soul Seeker of ${value}, who speaks in ${language} and dreams to "${dream}".`;
-    } else {
-      resultText.innerText = 'Something went wrong. Please try again.';
-    }
-  </script>
-
 <footer>
 <p>© 2025 Soulink – Made with ❤️ for soul connection</p>
-</footer>
+<br/><a href="mission.html">Read Our Mission</a></footer>
 </body>
 </html>

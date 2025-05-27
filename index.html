@@ -1,57 +1,19 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Soulink</title>
+<title>Soulink Page</title>
 <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container">
-<h1>SOULINK</h1>
-<h2>Discover Your Compatibility</h2>
-<form id="quizForm">
-<label for="language">Love Language:</label>
-<select id="language" required="">
-<option disabled="" selected="" value="">Select</option>
-<option value="Words of Affirmation">Words of Affirmation</option>
-<option value="Quality Time">Quality Time</option>
-<option value="Receiving Gifts">Receiving Gifts</option>
-<option value="Acts of Service">Acts of Service</option>
-<option value="Physical Touch">Physical Touch</option>
-</select>
-<label for="value">Core Value:</label>
-<select id="value" required="">
-<option disabled="" selected="" value="">Select</option>
-<option value="Kindness">Kindness</option>
-<option value="Freedom">Freedom</option>
-<option value="Adventure">Adventure</option>
-<option value="Trust">Trust</option>
-<option value="Creativity">Creativity</option>
-</select>
-<label for="dream">Your Dream:</label>
-<input id="dream" placeholder="Your deepest dream" required="" type="text"/>
-<button type="submit">Reveal My Soul</button>
-</form>
-<div class="links">
-<a href="#">Share &amp; Invite</a> |
-      <a href="#">Soul Portrait</a>
+<h1>Soulink Page</h1>
+<p>This is a sample page.</p>
 </div>
-<button onclick="resetConsent()" style="background:#b85c5c;">Reset Consent</button>
-</div>
-<script src="script.js"></script>
-<script src="consent-guard.js"></script>
-<script>
-    function resetConsent() {
-      localStorage.removeItem("soulinkConsent");
-      alert("Your consent was reset. You'll need to agree again.");
-      window.location.href = "consent.html";
-    }
-  </script>
-
 <footer>
 <p>© 2025 Soulink – Made with ❤️ for soul connection</p>
-</footer>
+<br/><a href="mission.html">Read Our Mission</a></footer>
 </body>
 </html>
