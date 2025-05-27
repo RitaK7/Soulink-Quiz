@@ -131,7 +131,10 @@
       const container = document.getElementById("matchesContainer");
       container.innerHTML = "";
 
-      partners.forEach(partner => {
+      
+let maxPartners = isPremiumUser() ? partners.length : 1;
+partners.slice(0, maxPartners).forEach(partner => {
+
         const score = calculateCompatibility(user, partner);
         const lp = calculateLifePath(partner.birthdate);
         const div = document.createElement("div");
@@ -152,7 +155,15 @@
     }
 
     showMatches();
-  </script>
+  
+<script>
+function isPremiumUser() {
+  const user = JSON.parse(localStorage.getItem('soulinkUser'));
+  return user && user.plan === "Premium";
+}
+</script>
+
+</script>
 
 </body>
 </html>

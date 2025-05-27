@@ -116,6 +116,7 @@
   <div class="section">
     <h2>Quick Actions</h2>
     <ul>
+      <li class="locked">Soul Chart (Premium Only)</li>
       <li><a href="profile.html">Edit My Profile</a></li>
       <li><a href="#">Edit My Profile</a></li>
       <li><a href="#">Invite Partner</a></li>
@@ -133,6 +134,14 @@
     <a href="#">Privacy</a> |
     <a href="#">Terms</a>
   </footer>
+
+
+<script>
+function isPremiumUser() {
+  const user = JSON.parse(localStorage.getItem('soulinkUser'));
+  return user && user.plan === "Premium";
+}
+</script>
 
 </body>
 </html>

@@ -48,6 +48,7 @@
 
   <h1>Partner Compatibility Insight</h1>
   <div class="profile" id="partnerProfile">
+<div id="lockNotice"></div>
     Loading partner profile...
   </div>
 
@@ -98,7 +99,21 @@
     if (user && partner) {
       document.getElementById("partnerProfile").innerHTML = buildProfile(user, partner);
     }
-  </script>
+  
+const notice = document.getElementById("lockNotice");
+if (!user || user.plan !== "Premium") {
+  notice.innerHTML = '<p style="color:#ffaaaa; font-style:italic;">This partner analysis is available for Premium users only.</p>';
+  document.getElementById("partnerProfile").style.opacity = 0.5;
+}
+</script>
+
+<script>
+function isPremiumUser() {
+  const user = JSON.parse(localStorage.getItem('soulinkUser'));
+  return user && user.plan === "Premium";
+}
+</script>
+
 
 </body>
 </html>
