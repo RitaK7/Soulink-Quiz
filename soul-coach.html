@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Soul Coach</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #043f43;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 30px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #c6f6ff;
+    }
+
+    #coachBox {
+      background-color: #065a5c;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      min-height: 150px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #62b2b0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #519d9a;
+    }
+
+    .response {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #0b5c5a;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Soul Coach</h1>
+  <div id="coachBox">
+    <p id="greeting">Loading your soul data...</p>
+    <label for="question">Ask me anything:</label>
+    <input type="text" id="question" placeholder="Type your question here..." />
+    <button onclick="getAnswer()">Ask</button>
+    <div id="response" class="response"></div>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('soulinkUser'));
+    if (user) {
+      document.getElementById('greeting').innerHTML = 
+        `Hello, <strong>${user.name}</strong>. I’m your Soul Coach. Ask me anything about love, purpose, or your soul’s path.`;
+    }
+
+    function getAnswer() {
+      const q = document.getElementById('question').value.trim();
+      const resp = document.getElementById('response');
+
+      if (!user || q === "") {
+        resp.innerHTML = "Please enter a question.";
+        return;
+      }
+
+      const lp = user.birthdate ? calculateLifePath(user.birthdate) : null;
+      const pathMeaning = getLifeMeaning(lp);
+      const lang = user.loveLanguage || "love";
+      const values = (user.values || []).join(", ");
+      const ints = (user.interests || []).join(", ");
+
+      const answer = `
+        Based on your Soulprint, you are on Life Path <strong>${lp}</strong> – ${pathMeaning}.
+        Your primary love language is <strong>${lang}</strong>, and you value <strong>${values}</strong>.
+        You are inspired by <strong>${ints}</strong>.
+        <br><br>
+        In response to your question: <em>“${q}”</em><br/>
+        <strong>My guidance:</strong> Trust your path – your soul is seeking depth, connection, and growth.
+        Remember that love expressed through ${lang.toLowerCase()} will bring you closer to true alignment.
+      `;
+      resp.innerHTML = answer;
+    }
+
+    function calculateLifePath(dateStr) {
+      const parts = dateStr.split("-");
+      const digits = parts.join("").split("").map(Number);
+      let sum = digits.reduce((a, b) => a + b, 0);
+      while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+        sum = sum.toString().split("").reduce((a, b) => a + parseInt(b), 0);
+      }
+      return sum;
+    }
+
+    function getLifeMeaning(n) {
+      const m = {
+        1: "Leader",
+        2: "Peacemaker",
+        3: "Creative Communicator",
+        4: "Stabilizer",
+        5: "Explorer",
+        6: "Nurturer",
+        7: "Spiritual Seeker",
+        8: "Powerful Achiever",
+        9: "Humanitarian",
+        11: "Visionary",
+        22: "Master Builder",
+        33: "Master Healer"
+      };
+      return m[n] || "Soul Explorer";
+    }
+  </script>
+
+</body>
+</html>
