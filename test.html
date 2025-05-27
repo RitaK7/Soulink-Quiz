@@ -25,10 +25,25 @@
     function submitFeedback() {
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
-      const feedback = document.getElementById('comment').value;
-      console.log("Feedback from", name, ":", feedback);
-      alert("Thank you, " + name + "! Your feedback has been saved.");
-      document.getElementById('feedbackForm').reset();
+      const comment = document.getElementById('comment').value;
+      const url = "https://script.google.com/macros/s/AKfycbzSa5TXTYtH74GcgWKugsuPxcq62aQ1Ly2PdStsgl-0YmIOgPqF5sfzTbmOIPi57cUrtg/exec";
+
+      fetch(url, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, comment })
+      })
+      .then(() => {
+        alert("Thank you, " + name + "! Your feedback has been submitted.");
+        document.getElementById('feedbackForm').reset();
+      })
+      .catch((error) => {
+        alert("Oops! Something went wrong. Please try again.");
+        console.error(error);
+      });
     }
   </script>
 </head>
