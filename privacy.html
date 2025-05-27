@@ -60,5 +60,13 @@
   <h2>6. Contact</h2>
   <p>If you have any questions about this Privacy Policy, you may contact us at <a href="mailto:info@soulink.ai" style="color: #9fe2ff;">info@soulink.ai</a>.</p>
 
+
+<div id="footer"></div>
+<script>
+fetch("footer.html")
+  .then(r => r.text())
+  .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
 </body>
 </html>

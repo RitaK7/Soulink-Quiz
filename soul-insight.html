@@ -18,5 +18,13 @@
 <footer>
 <p>© 2025 Soulink – Made with ❤️ for soul connection</p>
 </footer>
+
+<div id="footer"></div>
+<script>
+fetch("footer.html")
+  .then(r => r.text())
+  .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
 </body>
 </html>
