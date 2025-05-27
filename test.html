@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulink Test Access</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <script>
+    function checkPassword() {
+      const input = document.getElementById('password').value;
+      if (input === 'soulinktest') {
+        document.getElementById('protected').style.display = 'block';
+        document.getElementById('passwordPrompt').style.display = 'none';
+      } else {
+        alert('Wrong password. Please try again.');
+      }
+    }
+
+    function submitFeedback() {
+      const name = document.getElementById('name').value;
+      const comment = document.getElementById('comment').value;
+      console.log("Feedback from", name, ":", comment);
+      alert("Thank you for your feedback, " + name + "!");
+      document.getElementById('feedbackForm').reset();
+    }
+  </script>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4">
+  <div class="max-w-xl mx-auto mt-10">
+    <h1 class="text-2xl font-bold mb-4">Soulink Test Access</h1>
+    <div id="passwordPrompt" class="mb-6">
+      <p class="mb-2">Please enter the password provided by Rita to access the test page:</p>
+      <input id="password" type="password" class="border p-2 w-full mb-2" placeholder="Enter password...">
+      <button onclick="checkPassword()" class="bg-blue-500 text-white px-4 py-2 rounded">Enter</button>
+    </div>
+
+    <div id="protected" style="display:none;">
+      <div class="bg-white p-6 rounded shadow mb-6">
+        <p class="mb-4">Welcome to the private Soulink testing page! 🧡</p>
+        <a href="home.html" class="bg-green-500 text-white px-4 py-2 rounded">Start Testing the App</a>
+      </div>
+
+      <div class="bg-white p-6 rounded shadow">
+        <h2 class="text-xl font-semibold mb-2">Feedback Form</h2>
+        <form id="feedbackForm" onsubmit="event.preventDefault(); submitFeedback();">
+          <input id="name" type="text" class="border p-2 w-full mb-2" placeholder="Your name">
+          <textarea id="comment" class="border p-2 w-full mb-2" placeholder="Your feedback (What worked well? What didn't?)"></textarea>
+          <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded">Submit Feedback</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
