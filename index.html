@@ -59,6 +59,21 @@
     button:hover {
       background-color: #519d9a;
     }
+
+    .nav-links {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .nav-links a {
+      color: #9fe2ff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -104,6 +119,11 @@
 
     <button type="submit">Submit</button>
   </form>
+
+  <div class="nav-links">
+    <a href="signup.html">Create a new account</a> |
+    <a href="login.html">Login</a>
+  </div>
 
   <script>
     document.getElementById('quizForm').addEventListener('submit', function(event) {
