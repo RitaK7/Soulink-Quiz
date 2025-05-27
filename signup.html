@@ -74,12 +74,18 @@
       const user = {
         name: document.getElementById('name').value,
         birthdate: document.getElementById('birthdate').value,
-        password: document.getElementById('password').value
+        password: document.getElementById('password').value,
+        plan: "Free"
       };
       localStorage.setItem('soulinkUser', JSON.stringify(user));
       alert('Welcome, ' + user.name + '! You can now begin your journey.');
       window.location.href = "index.html";
     });
+
+    function isPremiumUser() {
+      const user = JSON.parse(localStorage.getItem('soulinkUser'));
+      return user && user.plan === "Premium";
+    }
   </script>
 
 </body>
