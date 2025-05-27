@@ -3,8 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soulink Test Access</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <title>Soulink Beta Access</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
   <script>
     function checkPassword() {
       const input = document.getElementById('password').value;
@@ -12,43 +18,51 @@
         document.getElementById('protected').style.display = 'block';
         document.getElementById('passwordPrompt').style.display = 'none';
       } else {
-        alert('Wrong password. Please try again.');
+        alert('Incorrect password. Please try again.');
       }
     }
 
     function submitFeedback() {
       const name = document.getElementById('name').value;
-      const comment = document.getElementById('comment').value;
-      console.log("Feedback from", name, ":", comment);
-      alert("Thank you for your feedback, " + name + "!");
+      const email = document.getElementById('email').value;
+      const feedback = document.getElementById('comment').value;
+      console.log("Feedback from", name, ":", feedback);
+      alert("Thank you, " + name + "! Your feedback has been saved.");
       document.getElementById('feedbackForm').reset();
     }
   </script>
 </head>
-<body class="bg-gray-100 text-gray-800 p-4">
-  <div class="max-w-xl mx-auto mt-10">
-    <h1 class="text-2xl font-bold mb-4">Soulink Test Access</h1>
-    <div id="passwordPrompt" class="mb-6">
-      <p class="mb-2">Please enter the password provided by Rita to access the test page:</p>
-      <input id="password" type="password" class="border p-2 w-full mb-2" placeholder="Enter password...">
-      <button onclick="checkPassword()" class="bg-blue-500 text-white px-4 py-2 rounded">Enter</button>
+<body class="bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 text-gray-800 min-h-screen">
+  <div class="max-w-2xl mx-auto py-16 px-6">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold text-purple-700 mb-2">🔒 Soulink Private Beta</h1>
+      <p class="text-lg text-gray-600">Welcome to a closed test of our AI-powered compatibility app. This page is shared only with trusted soulmates 💜</p>
+    </div>
+
+    <div id="passwordPrompt" class="text-center mb-12">
+      <input id="password" type="password" class="border border-purple-300 p-3 w-full mb-4 rounded" placeholder="Enter password to continue">
+      <button onclick="checkPassword()" class="bg-purple-600 text-white px-6 py-2 rounded shadow hover:bg-purple-700">Unlock Beta Access</button>
     </div>
 
     <div id="protected" style="display:none;">
-      <div class="bg-white p-6 rounded shadow mb-6">
-        <p class="mb-4">Welcome to the private Soulink testing page! 🧡</p>
-        <a href="home.html" class="bg-green-500 text-white px-4 py-2 rounded">Start Testing the App</a>
+      <div class="bg-white p-6 rounded-xl shadow-md mb-10">
+        <h2 class="text-xl font-semibold text-purple-700 mb-2">👣 Step 1: Explore the App</h2>
+        <p class="mb-4">Click below to start using Soulink and discover your soul compatibility.</p>
+        <a href="home.html" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded">Launch Soulink</a>
       </div>
 
-      <div class="bg-white p-6 rounded shadow">
-        <h2 class="text-xl font-semibold mb-2">Feedback Form</h2>
+      <div class="bg-white p-6 rounded-xl shadow-md">
+        <h2 class="text-xl font-semibold text-purple-700 mb-4">📝 Step 2: Share Your Feedback</h2>
         <form id="feedbackForm" onsubmit="event.preventDefault(); submitFeedback();">
-          <input id="name" type="text" class="border p-2 w-full mb-2" placeholder="Your name">
-          <textarea id="comment" class="border p-2 w-full mb-2" placeholder="Your feedback (What worked well? What didn't?)"></textarea>
-          <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded">Submit Feedback</button>
+          <input id="name" type="text" required class="border p-3 w-full mb-4 rounded" placeholder="Your name">
+          <input id="email" type="email" required class="border p-3 w-full mb-4 rounded" placeholder="Your email (optional)">
+          <textarea id="comment" required class="border p-3 w-full mb-4 rounded" placeholder="What worked well? What can we improve?"></textarea>
+          <button type="submit" class="bg-purple-600 text-white font-semibold px-6 py-2 rounded hover:bg-purple-700">Submit Feedback</button>
         </form>
       </div>
     </div>
+
+    <p class="text-center mt-10 text-sm text-gray-500">All responses are private and help us improve Soulink before launch 💫</p>
   </div>
 </body>
 </html>
