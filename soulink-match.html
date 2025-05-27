@@ -33,6 +33,20 @@
       font-weight: bold;
       color: #9fe2ff;
     }
+
+    .btn {
+      margin-top: 10px;
+      display: inline-block;
+      background-color: #62b2b0;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #519d9a;
+    }
   </style>
 </head>
 <body>
@@ -126,10 +140,15 @@
           <strong>${partner.name}</strong><br>
           Life Path: ${lp}<br>
           Love Language: ${partner.loveLanguage}<br>
-          Score: <span class="score">${score}%</span>
+          Score: <span class="score">${score}%</span><br>
+          <a class="btn" href="partner.html" onclick='savePartner(${JSON.stringify(JSON.stringify(partner))})'>View</a>
         `;
         container.appendChild(div);
       });
+    }
+
+    function savePartner(json) {
+      localStorage.setItem("soulinkPartner", JSON.parse(json));
     }
 
     showMatches();
