@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soulink Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #043f43;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 20px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #c6f6ff;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background-color: #62b2b0;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #519d9a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Login to Soulink</h1>
+  <form id="loginForm">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" required />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" required />
+
+    <button type="submit">Login</button>
+  </form>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const saved = JSON.parse(localStorage.getItem('soulinkUser'));
+      const inputName = document.getElementById('name').value;
+      const inputPass = document.getElementById('password').value;
+
+      if (saved && saved.name === inputName && saved.password === inputPass) {
+        alert('Welcome back, ' + inputName + '!');
+        window.location.href = "index.html";
+      } else {
+        alert('Incorrect name or password.');
+      }
+    });
+  </script>
+
+</body>
+</html>
