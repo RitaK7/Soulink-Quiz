@@ -1,62 +1,43 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Soulink</title>
-<link href="style.css" rel="stylesheet"/>
-</head>
-<body>
-<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-<div class="text-xl font-bold text-purple-700">Soulink</div>
-<ul class="flex space-x-4 text-gray-700 font-medium">
-<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
-<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
-<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
-<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
-<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
-<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
-</ul>
-</nav>
-
-<div class="container">
-<h2>My Soul Profile</h2>
-<div class="section">Love Language: <span id="language"></span></div>
-<div class="section">Core Value: <span id="value"></span></div>
-<div class="section">Dream: <span id="dream"></span></div>
-<div class="links">
-<a href="soul-portrait.html">View Soul Portrait</a>
-<a href="mentor.html">Ask Soulink Mentor</a>
-<a href="soulink-match.html">See Compatibility Matches</a>
-<a href="index.html">Take Quiz Again</a>
-</div>
-<button onclick="clearProfile()">Clear Profile</button>
-</div>
-<script>
-    const data = JSON.parse(localStorage.getItem("soulData"));
-    if (data) {
-      document.getElementById("language").textContent = data.language;
-      document.getElementById("value").textContent = data.value;
-      document.getElementById("dream").textContent = data.dream;
-    } else {
-      document.querySelector(".container").innerHTML = '<p>No soul data found. <a href="index.html">Start Quiz</a></p>';
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invite a Soulmate</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+  </style>
+  <script>
+    function generateInvite() {
+      const name = document.getElementById('name').value;
+      const yourName = document.getElementById('yourName').value;
+      const message = `Hello ${name}!\n\nI just discovered Soulink – a platform that matches souls, not just profiles.\nI felt it might inspire you too 💜\nTry it here: https://soulink-quiz.vercel.app/test.html\n\nLove, ${yourName}`;
+      document.getElementById('output').value = message;
     }
 
-    function clearProfile() {
-      localStorage.removeItem("soulData");
-      alert("Soul profile cleared.");
-      location.reload();
+    function copyMessage() {
+      const output = document.getElementById('output');
+      output.select();
+      output.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      alert("Message copied to clipboard! ✉️");
     }
   </script>
-<footer>
-<p>© 2025 Soulink – Made with ❤️ for soul connection</p>
-</footer>
-<div id="footer"></div>
-<script>
-fetch("footer.html")
-  .then(r => r.text())
-  .then(html => document.getElementById("footer").innerHTML = html);
-</script>
+</head>
+<body class="bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 min-h-screen p-6">
+  <div class="max-w-xl mx-auto">
+    <h1 class="text-3xl font-bold text-purple-700 mb-6">💌 Invite Your Soulmate</h1>
+    <p class="mb-4 text-gray-600">Send a gentle invitation to someone you love or trust – maybe this journey is meant to be shared 💫</p>
+
+    <input id="yourName" type="text" placeholder="Your name" class="w-full p-3 border rounded mb-4">
+    <input id="name" type="text" placeholder="Their name" class="w-full p-3 border rounded mb-4">
+
+    <button onclick="generateInvite()" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700">Generate Invite</button>
+
+    <textarea id="output" rows="6" readonly class="w-full mt-4 p-3 border rounded text-sm"></textarea>
+
+    <button onclick="copyMessage()" class="mt-2 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">Copy Message</button>
+  </div>
 </body>
 </html>
