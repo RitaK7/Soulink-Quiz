@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soulink Login</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soulink Login</title>
+<link href="style.css" rel="stylesheet"/>
+<style>
     body {
       background-color: #043f43;
       color: white;
@@ -53,19 +54,27 @@
   </style>
 </head>
 <body>
+<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+<div class="text-xl font-bold text-purple-700">Soulink</div>
+<ul class="flex space-x-4 text-gray-700 font-medium">
+<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
+<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
+<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
+<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
+<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
+<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
+</ul>
+</nav>
 
-  <h1>Login to Soulink</h1>
-  <form id="loginForm">
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" required />
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" required />
-
-    <button type="submit">Login</button>
-  </form>
-
-  <script>
+<h1>Login to Soulink</h1>
+<form id="loginForm">
+<label for="name">Your Name:</label>
+<input id="name" required="" type="text"/>
+<label for="password">Password:</label>
+<input id="password" required="" type="password"/>
+<button type="submit">Login</button>
+</form>
+<script>
     document.getElementById('loginForm').addEventListener('submit', function(event) {
       event.preventDefault();
       const saved = JSON.parse(localStorage.getItem('soulinkUser'));
@@ -80,14 +89,11 @@
       }
     });
   </script>
-
-
 <div id="footer"></div>
 <script>
 fetch("footer.html")
   .then(r => r.text())
   .then(html => document.getElementById("footer").innerHTML = html);
 </script>
-
 </body>
 </html>

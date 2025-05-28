@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Soul Coach</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Soul Coach</title>
+<link href="style.css" rel="stylesheet"/>
+<style>
     body {
       background-color: #043f43;
       color: white;
@@ -65,17 +66,27 @@
   </style>
 </head>
 <body>
+<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+<div class="text-xl font-bold text-purple-700">Soulink</div>
+<ul class="flex space-x-4 text-gray-700 font-medium">
+<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
+<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
+<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
+<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
+<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
+<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
+</ul>
+</nav>
 
-  <h1>Your Soul Coach</h1>
-  <div id="coachBox">
-    <p id="greeting">Loading your soul data...</p>
-    <label for="question">Ask me anything:</label>
-    <input type="text" id="question" placeholder="Type your question here..." />
-    <button onclick="getAnswer()">Ask</button>
-    <div id="response" class="response"></div>
-  </div>
-
-  <script>
+<h1>Your Soul Coach</h1>
+<div id="coachBox">
+<p id="greeting">Loading your soul data...</p>
+<label for="question">Ask me anything:</label>
+<input id="question" placeholder="Type your question here..." type="text"/>
+<button onclick="getAnswer()">Ask</button>
+<div class="response" id="response"></div>
+</div>
+<script>
     const user = JSON.parse(localStorage.getItem('soulinkUser'));
     if (user) {
       document.getElementById('greeting').innerHTML = 
@@ -137,14 +148,11 @@
       return m[n] || "Soul Explorer";
     }
   </script>
-
-
 <div id="footer"></div>
 <script>
 fetch("footer.html")
   .then(r => r.text())
   .then(html => document.getElementById("footer").innerHTML = html);
 </script>
-
 </body>
 </html>

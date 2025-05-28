@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soulink Quiz</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soulink Quiz</title>
+<link href="style.css" rel="stylesheet"/>
+<style>
     body {
       background-color: #043f43;
       color: white;
@@ -77,55 +78,58 @@
   </style>
 </head>
 <body>
+<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+<div class="text-xl font-bold text-purple-700">Soulink</div>
+<ul class="flex space-x-4 text-gray-700 font-medium">
+<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
+<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
+<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
+<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
+<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
+<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
+</ul>
+</nav>
 
-  <h1>Soulink Compatibility Quiz</h1>
-
-  <form id="quizForm">
-    <label for="name">What is your name?</label>
-    <input type="text" id="name" required />
-
-    <label for="birthdate">What is your date of birth?</label>
-    <input type="date" id="birthdate" required />
-
-    <label for="loveLanguage">What is your love language?</label>
-    <select id="loveLanguage" required>
-      <option value="">Select</option>
-      <option value="Words of Affirmation">Words of Affirmation</option>
-      <option value="Acts of Service">Acts of Service</option>
-      <option value="Receiving Gifts">Receiving Gifts</option>
-      <option value="Quality Time">Quality Time</option>
-      <option value="Physical Touch">Physical Touch</option>
-    </select>
-
-    <label>Choose your top 3 core values:</label>
-    <div class="checkbox-group" id="valuesGroup">
-      <label><input type="checkbox" value="Trust" /> Trust</label>
-      <label><input type="checkbox" value="Growth" /> Growth</label>
-      <label><input type="checkbox" value="Connection" /> Connection</label>
-      <label><input type="checkbox" value="Freedom" /> Freedom</label>
-      <label><input type="checkbox" value="Honesty" /> Honesty</label>
-      <label><input type="checkbox" value="Compassion" /> Compassion</label>
-    </div>
-
-    <label>Select your interests:</label>
-    <div class="checkbox-group" id="interestsGroup">
-      <label><input type="checkbox" value="Spirituality" /> Spirituality</label>
-      <label><input type="checkbox" value="Nature" /> Nature</label>
-      <label><input type="checkbox" value="Art" /> Art</label>
-      <label><input type="checkbox" value="Science" /> Science</label>
-      <label><input type="checkbox" value="Music" /> Music</label>
-      <label><input type="checkbox" value="Philosophy" /> Philosophy</label>
-    </div>
-
-    <button type="submit">Submit</button>
-  </form>
-
-  <div class="nav-links">
-    <a href="signup.html">Create a new account</a> |
+<h1>Soulink Compatibility Quiz</h1>
+<form id="quizForm">
+<label for="name">What is your name?</label>
+<input id="name" required="" type="text"/>
+<label for="birthdate">What is your date of birth?</label>
+<input id="birthdate" required="" type="date"/>
+<label for="loveLanguage">What is your love language?</label>
+<select id="loveLanguage" required="">
+<option value="">Select</option>
+<option value="Words of Affirmation">Words of Affirmation</option>
+<option value="Acts of Service">Acts of Service</option>
+<option value="Receiving Gifts">Receiving Gifts</option>
+<option value="Quality Time">Quality Time</option>
+<option value="Physical Touch">Physical Touch</option>
+</select>
+<label>Choose your top 3 core values:</label>
+<div class="checkbox-group" id="valuesGroup">
+<label><input type="checkbox" value="Trust"/> Trust</label>
+<label><input type="checkbox" value="Growth"/> Growth</label>
+<label><input type="checkbox" value="Connection"/> Connection</label>
+<label><input type="checkbox" value="Freedom"/> Freedom</label>
+<label><input type="checkbox" value="Honesty"/> Honesty</label>
+<label><input type="checkbox" value="Compassion"/> Compassion</label>
+</div>
+<label>Select your interests:</label>
+<div class="checkbox-group" id="interestsGroup">
+<label><input type="checkbox" value="Spirituality"/> Spirituality</label>
+<label><input type="checkbox" value="Nature"/> Nature</label>
+<label><input type="checkbox" value="Art"/> Art</label>
+<label><input type="checkbox" value="Science"/> Science</label>
+<label><input type="checkbox" value="Music"/> Music</label>
+<label><input type="checkbox" value="Philosophy"/> Philosophy</label>
+</div>
+<button type="submit">Submit</button>
+</form>
+<div class="nav-links">
+<a href="signup.html">Create a new account</a> |
     <a href="login.html">Login</a>
-  </div>
-
-  <script>
+</div>
+<script>
     document.getElementById('quizForm').addEventListener('submit', function(event) {
       event.preventDefault();
       const name = document.getElementById('name').value;
@@ -150,6 +154,5 @@
       window.location.href = "result.html";
     });
   </script>
-
 </body>
 </html>

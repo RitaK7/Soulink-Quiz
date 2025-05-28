@@ -8,6 +8,18 @@
 <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
+<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+<div class="text-xl font-bold text-purple-700">Soulink</div>
+<ul class="flex space-x-4 text-gray-700 font-medium">
+<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
+<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
+<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
+<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
+<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
+<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
+</ul>
+</nav>
+
 <div class="container">
 <h1>Partner C</h1>
 <p><strong>Compatibility Analysis:</strong></p>
@@ -15,17 +27,14 @@
 <p>Love Language, Core Values, Shared Dreams and Relationship Tips can go here.</p>
 <a href="soulink-match.html">← Back to Matches</a>
 </div>
-
 <footer>
 <p>© 2025 Soulink – Made with ❤️ for soul connection</p>
 </footer>
-
 <div id="footer"></div>
 <script>
 fetch("footer.html")
   .then(r => r.text())
   .then(html => document.getElementById("footer").innerHTML = html);
 </script>
-
 </body>
 </html>

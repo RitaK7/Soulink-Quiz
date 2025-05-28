@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to Soulink</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome to Soulink</title>
+<link href="style.css" rel="stylesheet"/>
+<style>
     body {
       background-color: #043f43;
       color: white;
@@ -75,30 +76,37 @@
   </style>
 </head>
 <body>
-  <img src="soul-heart.png" alt="Soulink Heart Logo" class="logo" />
-  <h1>Welcome to Soulink</h1>
-  <p class="subtitle">Where hearts and values align. Begin your soul journey today.</p>
+<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+<div class="text-xl font-bold text-purple-700">Soulink</div>
+<ul class="flex space-x-4 text-gray-700 font-medium">
+<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
+<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
+<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
+<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
+<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
+<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
+</ul>
+</nav>
 
-  <div class="button-group">
-    <a href="index.html">Start Your Journey</a>
-    <a href="#">Login</a>
-    <a href="#">Sign Up</a>
-  </div>
-
-  <p class="quote">“Your soulmate is not found – they are awakened.”</p>
-
-  <footer>
-    <p>© 2025 Soulink – Made with ❤️ for soul connection</p>
-    <br />
-    <a href="mission.html">Read Our Mission</a>
-  </footer>
-
+<img alt="Soulink Heart Logo" class="logo" src="soul-heart.png"/>
+<h1>Welcome to Soulink</h1>
+<p class="subtitle">Where hearts and values align. Begin your soul journey today.</p>
+<div class="button-group">
+<a href="index.html">Start Your Journey</a>
+<a href="#">Login</a>
+<a href="#">Sign Up</a>
+</div>
+<p class="quote">“Your soulmate is not found – they are awakened.”</p>
+<footer>
+<p>© 2025 Soulink – Made with ❤️ for soul connection</p>
+<br/>
+<a href="mission.html">Read Our Mission</a>
+</footer>
 <div id="footer"></div>
 <script>
 fetch("footer.html")
   .then(r => r.text())
   .then(html => document.getElementById("footer").innerHTML = html);
 </script>
-
 </body>
 </html>

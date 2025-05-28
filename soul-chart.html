@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Soul Chart</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Soul Chart</title>
+<link href="style.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js">
 } else {
     document.getElementById("interestsChart").style.display = "none";
     const div = document.createElement("div");
@@ -14,8 +15,7 @@
     document.querySelector(".chart-container:last-of-type").appendChild(div);
 }
 </script>
-
-  <style>
+<style>
     body {
       background-color: #043f43;
       color: white;
@@ -55,22 +55,29 @@
   </style>
 </head>
 <body>
+<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+<div class="text-xl font-bold text-purple-700">Soulink</div>
+<ul class="flex space-x-4 text-gray-700 font-medium">
+<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
+<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
+<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
+<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
+<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
+<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
+</ul>
+</nav>
 
-  <h1>Your Soul Chart</h1>
-
-  <div class="highlight" id="lifePathText">Loading your Soulprint...</div>
-
-  <div class="chart-container">
-    <h2>Core Values</h2>
-    <canvas id="valuesChart"></canvas>
-  </div>
-
-  <div class="chart-container">
-    <h2>Interests</h2>
-    <canvas id="interestsChart"></canvas>
-  </div>
-
-  <script>
+<h1>Your Soul Chart</h1>
+<div class="highlight" id="lifePathText">Loading your Soulprint...</div>
+<div class="chart-container">
+<h2>Core Values</h2>
+<canvas id="valuesChart"></canvas>
+</div>
+<div class="chart-container">
+<h2>Interests</h2>
+<canvas id="interestsChart"></canvas>
+</div>
+<script>
     const user = JSON.parse(localStorage.getItem('soulinkUser'));
 
     function calculateLifePath(dateStr) {
@@ -165,15 +172,11 @@ if (user.plan === "Premium") {
     document.querySelector(".chart-container:last-of-type").appendChild(div);
 }
 </script>
-
-
-
 <div id="footer"></div>
 <script>
 fetch("footer.html")
   .then(r => r.text())
   .then(html => document.getElementById("footer").innerHTML = html);
 </script>
-
 </body>
 </html>

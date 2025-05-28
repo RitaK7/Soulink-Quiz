@@ -1,17 +1,18 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soulink Beta Access</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soulink Beta Access</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
     body {
       font-family: 'Poppins', sans-serif;
     }
   </style>
-  <script>
+<script>
     function checkPassword() {
       const input = document.getElementById('password').value;
       if (input === 'soulinktest') {
@@ -48,36 +49,44 @@
   </script>
 </head>
 <body class="bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 text-gray-800 min-h-screen">
-  <div class="max-w-2xl mx-auto py-16 px-6">
-    <div class="text-center mb-10">
-      <h1 class="text-4xl font-bold text-purple-700 mb-2">🔒 Soulink Private Beta</h1>
-      <p class="text-lg text-gray-600">Welcome to a closed test of our AI-powered compatibility app. This page is shared only with trusted soulmates 💜</p>
-    </div>
+<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+<div class="text-xl font-bold text-purple-700">Soulink</div>
+<ul class="flex space-x-4 text-gray-700 font-medium">
+<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
+<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
+<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
+<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
+<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
+<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
+</ul>
+</nav>
 
-    <div id="passwordPrompt" class="text-center mb-12">
-      <input id="password" type="password" class="border border-purple-300 p-3 w-full mb-4 rounded" placeholder="Enter password to continue">
-      <button onclick="checkPassword()" class="bg-purple-600 text-white px-6 py-2 rounded shadow hover:bg-purple-700">Unlock Beta Access</button>
-    </div>
-
-    <div id="protected" style="display:none;">
-      <div class="bg-white p-6 rounded-xl shadow-md mb-10">
-        <h2 class="text-xl font-semibold text-purple-700 mb-2">👣 Step 1: Explore the App</h2>
-        <p class="mb-4">Click below to start using Soulink and discover your soul compatibility.</p>
-        <a href="home.html" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded">Launch Soulink</a>
-      </div>
-
-      <div class="bg-white p-6 rounded-xl shadow-md">
-        <h2 class="text-xl font-semibold text-purple-700 mb-4">📝 Step 2: Share Your Feedback</h2>
-        <form id="feedbackForm" onsubmit="event.preventDefault(); submitFeedback();">
-          <input id="name" type="text" required class="border p-3 w-full mb-4 rounded" placeholder="Your name">
-          <input id="email" type="email" required class="border p-3 w-full mb-4 rounded" placeholder="Your email (optional)">
-          <textarea id="comment" required class="border p-3 w-full mb-4 rounded" placeholder="What worked well? What can we improve?"></textarea>
-          <button type="submit" class="bg-purple-600 text-white font-semibold px-6 py-2 rounded hover:bg-purple-700">Submit Feedback</button>
-        </form>
-      </div>
-    </div>
-
-    <p class="text-center mt-10 text-sm text-gray-500">All responses are private and help us improve Soulink before launch 💫</p>
-  </div>
+<div class="max-w-2xl mx-auto py-16 px-6">
+<div class="text-center mb-10">
+<h1 class="text-4xl font-bold text-purple-700 mb-2">🔒 Soulink Private Beta</h1>
+<p class="text-lg text-gray-600">Welcome to a closed test of our AI-powered compatibility app. This page is shared only with trusted soulmates 💜</p>
+</div>
+<div class="text-center mb-12" id="passwordPrompt">
+<input class="border border-purple-300 p-3 w-full mb-4 rounded" id="password" placeholder="Enter password to continue" type="password"/>
+<button class="bg-purple-600 text-white px-6 py-2 rounded shadow hover:bg-purple-700" onclick="checkPassword()">Unlock Beta Access</button>
+</div>
+<div id="protected" style="display:none;">
+<div class="bg-white p-6 rounded-xl shadow-md mb-10">
+<h2 class="text-xl font-semibold text-purple-700 mb-2">👣 Step 1: Explore the App</h2>
+<p class="mb-4">Click below to start using Soulink and discover your soul compatibility.</p>
+<a class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded" href="home.html">Launch Soulink</a>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-md">
+<h2 class="text-xl font-semibold text-purple-700 mb-4">📝 Step 2: Share Your Feedback</h2>
+<form id="feedbackForm" onsubmit="event.preventDefault(); submitFeedback();">
+<input class="border p-3 w-full mb-4 rounded" id="name" placeholder="Your name" required="" type="text"/>
+<input class="border p-3 w-full mb-4 rounded" id="email" placeholder="Your email (optional)" required="" type="email"/>
+<textarea class="border p-3 w-full mb-4 rounded" id="comment" placeholder="What worked well? What can we improve?" required=""></textarea>
+<button class="bg-purple-600 text-white font-semibold px-6 py-2 rounded hover:bg-purple-700" type="submit">Submit Feedback</button>
+</form>
+</div>
+</div>
+<p class="text-center mt-10 text-sm text-gray-500">All responses are private and help us improve Soulink before launch 💫</p>
+</div>
 </body>
 </html>
