@@ -1,70 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Soulink Plans</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Choose Your Plan – Soulink</title>
   <script>
-    function choosePlan(plan) {
-      localStorage.setItem('userPlan', plan);
-      alert('You selected: ' + plan + ' plan');
-      window.location.href = 'my-soul.html';
+    function setPlan(plan) {
+      localStorage.setItem("userPlan", plan);
+      alert("You selected: " + plan.charAt(0).toUpperCase() + plan.slice(1));
+      window.location.href = "my-soul.html";
     }
   </script>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f4f4f4;
-      padding: 30px;
-      text-align: center;
-    }
-    .plans {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .plan {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 250px;
-    }
-    .plan h2 {
-      color: #5a4fcf;
-    }
-    .plan button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #5a4fcf;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .plan button:hover {
-      background: #473cb4;
-    }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Choose Your Soulink Plan</h1>
-  <div class="plans">
-    <div class="plan">
-      <h2>Free</h2>
-      <p>Basic access to your Soulprint.</p>
-      <button onclick="choosePlan('free')">Try Free</button>
-    </div>
-    <div class="plan">
-      <h2>Standard</h2>
-      <p>More insights and daily compatibility results.</p>
-      <button onclick="choosePlan('standard')">Upgrade</button>
-    </div>
-    <div class="plan">
-      <h2>Premium</h2>
-      <p>Full access to Soul Portrait, Charts, Coaching & more.</p>
-      <button onclick="choosePlan('premium')">Go Premium</button>
+<body class="bg-white text-gray-800 font-sans">
+  <div class="min-h-screen flex flex-col items-center justify-center p-6">
+    <h1 class="text-3xl font-bold mb-4">Choose Your Soulink Plan</h1>
+    <p class="mb-8 text-center text-gray-600">To continue using Soulink, please select a plan below 👇</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+      <div class="border rounded-xl p-6 shadow text-center">
+        <h2 class="text-xl font-bold mb-2 text-purple-700">Free</h2>
+        <p class="mb-4 text-sm text-gray-500">Basic access to your Soulprint.</p>
+        <button onclick="setPlan('free')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Try Free</button>
+      </div>
+      <div class="border rounded-xl p-6 shadow text-center">
+        <h2 class="text-xl font-bold mb-2 text-yellow-700">Standard</h2>
+        <p class="mb-4 text-sm text-gray-500">More insights and daily compatibility results.</p>
+        <button onclick="setPlan('standard')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">Upgrade</button>
+      </div>
+      <div class="border rounded-xl p-6 shadow text-center">
+        <h2 class="text-xl font-bold mb-2 text-pink-700">Premium</h2>
+        <p class="mb-4 text-sm text-gray-500">Full access to Soul Portrait, Charts, Coaching & more.</p>
+        <button onclick="setPlan('premium')" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded">Go Premium</button>
+      </div>
     </div>
   </div>
 </body>
