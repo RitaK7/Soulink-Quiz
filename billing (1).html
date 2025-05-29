@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soulink Billing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    async function redirectToCheckout() {
+      const stripe = Stripe("pk_test_1234567890abcdefg"); // 🧪 Test key – replace with your real Stripe key later
+      const { error } = await stripe.redirectToCheckout({
+        lineItems: [{ price: 'price_ABC123', quantity: 1 }], // replace with your price ID
+        mode: 'payment',
+        successUrl: window.location.origin + '/thank-you.html',
+        cancelUrl: window.location.href
+      });
+      if (error) {
+        alert(error.message);
+      }
+    }
+  </script>
+</head>
+<body class="bg-purple-50 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-md text-center max-w-md w-full">
+    <h1 class="text-2xl font-bold text-purple-700 mb-4">Upgrade to Premium</h1>
+    <p class="text-gray-700 mb-6">Unlock full access to Soulprint analysis, compatibility charts, coaching and more!</p>
+    <button onclick="redirectToCheckout()" class="bg-purple-600 text-white px-6 py-3 rounded hover:bg-purple-700">
+      Upgrade with Stripe 💳
+    </button>
+    <p class="mt-6 text-sm text-gray-400">This is a test integration. Replace keys for production.</p>
+  </div>
+</body>
+</html>

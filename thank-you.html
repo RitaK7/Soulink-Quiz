@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You – Soulink</title>
+  <script>
+    // Automatically grant premium plan after Stripe checkout
+    localStorage.setItem("userPlan", "premium");
+    setTimeout(() => {
+      window.location.href = "my-soul.html";
+    }, 3000);
+  </script>
+  <style>
+    body {
+      background-color: #f3f0ff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .box h1 {
+      color: #6b46c1;
+    }
+    .box p {
+      color: #4a5568;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>🎉 Thank You for Upgrading!</h1>
+    <p>Your Premium plan is now active. Redirecting to your dashboard...</p>
+  </div>
+</body>
+</html>
