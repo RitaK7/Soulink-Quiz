@@ -1,98 +1,35 @@
 
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Soulink Login</title>
-<link href="style.css" rel="stylesheet"/>
-<style>
-    body {
-      background-color: #043f43;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 40px 20px;
-      max-width: 400px;
-      margin: 0 auto;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – Soulink</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    function loginUser() {
+      const name = document.getElementById("name").value;
+      const plan = document.querySelector("input[name='plan']:checked").value;
+      localStorage.setItem("userName", name);
+      localStorage.setItem("userPlan", plan);
+      alert("Welcome, " + name + "! Plan: " + plan);
+      window.location.href = "my-soul.html";
     }
-
-    h1 {
-      text-align: center;
-      color: #c6f6ff;
-    }
-
-    label {
-      display: block;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin-top: 5px;
-    }
-
-    button {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background-color: #62b2b0;
-      color: white;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      width: 100%;
-    }
-
-    button:hover {
-      background-color: #519d9a;
-    }
-  </style>
-<script src="checkPlan.js"></script></head>
-<body>
-<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-<div class="text-xl font-bold text-purple-700">Soulink</div>
-<ul class="flex space-x-4 text-gray-700 font-medium">
-<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
-<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
-<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
-<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
-<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
-<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
-</ul>
-</nav>
-<h1>Login to Soulink</h1>
-<form id="loginForm">
-<label for="name">Your Name:</label>
-<input id="name" required="" type="text"/>
-<label for="password">Password:</label>
-<input id="password" required="" type="password"/>
-<button type="submit">Login</button>
-</form>
-<script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const saved = JSON.parse(localStorage.getItem('soulinkUser'));
-      const inputName = document.getElementById('name').value;
-      const inputPass = document.getElementById('password').value;
-
-      if (saved && saved.name === inputName && saved.password === inputPass) {
-        alert('Welcome back, ' + inputName + '!');
-        window.location.href = "index.html";
-      } else {
-        alert('Incorrect name or password.');
-      }
-    });
   </script>
-<div id="footer"></div>
-<script>
-fetch("footer.html")
-  .then(r => r.text())
-  .then(html => document.getElementById("footer").innerHTML = html);
-</script>
+</head>
+<body class="bg-teal-50 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-xl shadow w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center text-purple-700">Login to Soulink</h1>
+    <label class="block mb-2 text-sm font-medium">Your Name:</label>
+    <input id="name" type="text" class="w-full border rounded px-3 py-2 mb-4" required>
+    
+    <label class="block mb-2 text-sm font-medium">Select Plan:</label>
+    <div class="flex flex-col gap-2 mb-4">
+      <label><input type="radio" name="plan" value="free" checked> Free</label>
+      <label><input type="radio" name="plan" value="standard"> Standard</label>
+      <label><input type="radio" name="plan" value="premium"> Premium</label>
+    </div>
+    <button onclick="loginUser()" class="w-full bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Log In</button>
+  </div>
 </body>
 </html>
