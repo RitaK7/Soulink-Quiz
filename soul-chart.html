@@ -7,7 +7,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Your Soul Chart</title>
 <link href="style.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js">
+<script src="checkPlan.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js">
 } else {
     document.getElementById("interestsChart").style.display = "none";
     const div = document.createElement("div");
@@ -53,8 +53,8 @@
       padding: 10px;
     }
   </style>
-</head>
-<body>
+<script src="restrictFeatures.js"></script></head>
+<body><section data-required-plan="premium">This content is available only for Premium plan users.</section>
 <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
 <div class="text-xl font-bold text-purple-700">Soulink</div>
 <ul class="flex space-x-4 text-gray-700 font-medium">
@@ -66,7 +66,6 @@
 <li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
 </ul>
 </nav>
-
 <h1>Your Soul Chart</h1>
 <div class="highlight" id="lifePathText">Loading your Soulprint...</div>
 <div class="chart-container">
