@@ -1,18 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Soul</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-<body>
-  <h1>Welcome to Your Soul Dashboard</h1>
-  <div id="planBox"></div>
-
+  <title>My Soul Dashboard</title>
   <script>
-    const plan = localStorage.getItem('userPlan') || 'free';
-    const planBox = document.getElementById('planBox');
-    planBox.innerHTML = `<h2>Your Plan: ${plan.charAt(0).toUpperCase() + plan.slice(1)}</h2>`;
+    document.addEventListener('DOMContentLoaded', () => {
+      const plan = localStorage.getItem('userPlan') || 'free';
+      document.getElementById('userPlan').textContent = plan.charAt(0).toUpperCase() + plan.slice(1);
+    });
   </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-teal-900 text-white min-h-screen font-sans">
+  <nav class="bg-teal-800 p-4 flex justify-between">
+    <div class="text-xl font-bold">Soulink</div>
+    <ul class="flex space-x-4">
+      <li><a href="home.html" class="hover:underline">Home</a></li>
+      <li><a href="quiz.html" class="hover:underline">Soul Quiz</a></li>
+      <li><a href="my-soul.html" class="hover:underline">My Soul</a></li>
+      <li><a href="result.html" class="hover:underline">Results</a></li>
+      <li><a href="profile.html" class="hover:underline">Edit Profile</a></li>
+      <li><a href="feedback.html" class="hover:underline">Feedback</a></li>
+    </ul>
+  </nav>
+
+  <main class="max-w-3xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4">Welcome to Your Soul Dashboard</h1>
+
+    <section class="mb-6">
+      <h2 class="text-xl mb-2">Your Soulprint</h2>
+      <div class="bg-teal-700 p-4 rounded">
+        <p><strong>Life Path:</strong> 7 – Spiritual Seeker</p>
+        <p><strong>Love Language:</strong> Quality Time</p>
+        <p><strong>Core Values:</strong> Trust, Connection, Growth</p>
+      </div>
+    </section>
+
+    <section class="mb-6">
+      <h2 class="text-xl mb-2">Your Plan: <span id="userPlan" class="font-semibold text-yellow-300">Free</span></h2>
+      <p class="text-sm text-teal-100 mb-4">You are currently using the Free Plan.</p>
+      <p class="mb-4">Upgrade to unlock full access:</p>
+      <ul class="list-disc list-inside mb-4">
+        <li>Detailed Soul Portrait with Numerology Breakdown</li>
+        <li>Daily Compatibility Match Results</li>
+        <li>Advanced Matching Insights (Love Language, Archetypes)</li>
+        <li>Visual Partner Comparison Charts</li>
+        <li>Full Access to Soulink Circle & Communication Tools</li>
+        <li>Future AI-guided Relationship Coaching</li>
+      </ul>
+      <a href="plans.html" class="bg-yellow-400 text-teal-900 font-bold px-6 py-2 rounded hover:bg-yellow-300">Upgrade My Plan</a>
+    </section>
+  </main>
 </body>
 </html>
