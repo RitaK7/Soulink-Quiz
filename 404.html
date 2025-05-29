@@ -1,18 +1,42 @@
-<!DOCTYPE html>
 
-<html><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Soulink</title>
-<link href="style.css" rel="stylesheet"/>
-<script src="checkPlan.js"></script></head><body><h1>404 - Page Not Found</h1><p>Sorry, this page does not exist. <a href="index.html">Go home</a></p>
-<footer>
-<p>© 2025 Soulink – Made with ❤️ for soul connection</p>
-</footer>
-<div id="footer"></div>
-<script>
-fetch("footer.html")
-  .then(r => r.text())
-  .then(html => document.getElementById("footer").innerHTML = html);
-</script>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Page Not Found – Soulink</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="include.js" defer></script>
+  <style>
+    main {
+      text-align: center;
+      padding: 5rem 1rem;
+    }
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    a.button {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>404</h1>
+    <p>Oops! The page you're looking for doesn't exist.</p>
+    <a class="button" href="home.html">Go to Home</a>
+    <br /><br />
+    <a class="button" href="quiz.html">Take the Soul Quiz</a>
+  </main>
+</body>
+</html>
