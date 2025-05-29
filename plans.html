@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Soulink Plans</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script>
+    function choosePlan(plan) {
+      localStorage.setItem('userPlan', plan);
+      alert('You selected: ' + plan + ' plan');
+      window.location.href = 'my-soul.html';
+    }
+  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+      text-align: center;
+    }
+    .plans {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .plan {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 250px;
+    }
+    .plan h2 {
+      color: #5a4fcf;
+    }
+    .plan button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #5a4fcf;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .plan button:hover {
+      background: #473cb4;
+    }
+  </style>
+</head>
+<body>
+  <h1>Choose Your Soulink Plan</h1>
+  <div class="plans">
+    <div class="plan">
+      <h2>Free</h2>
+      <p>Basic access to your Soulprint.</p>
+      <button onclick="choosePlan('free')">Try Free</button>
+    </div>
+    <div class="plan">
+      <h2>Standard</h2>
+      <p>More insights and daily compatibility results.</p>
+      <button onclick="choosePlan('standard')">Upgrade</button>
+    </div>
+    <div class="plan">
+      <h2>Premium</h2>
+      <p>Full access to Soul Portrait, Charts, Coaching & more.</p>
+      <button onclick="choosePlan('premium')">Go Premium</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,160 +1,18 @@
-
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>My Soul Dashboard</title>
-<link href="style.css" rel="stylesheet"/>
-<style>
-    body {
-      background-color: #043f43;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    h1 {
-      color: #c6f6ff;
-      font-size: 28px;
-      text-align: center;
-    }
-
-    h2 {
-      color: #9fe2ff;
-      margin-top: 30px;
-    }
-
-    .section {
-      margin-bottom: 30px;
-    }
-
-    .highlight {
-      background-color: #0b5c5a;
-      padding: 12px 20px;
-      border-radius: 12px;
-      margin-top: 10px;
-    }
-
-    .locked {
-      opacity: 0.6;
-      font-style: italic;
-    }
-
-    .cta {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .cta a {
-      display: inline-block;
-      background-color: #62b2b0;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-
-    .cta a:hover {
-      background-color: #519d9a;
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 14px;
-      text-align: center;
-      color: #cccccc;
-    }
-
-    footer a {
-      color: #cccccc;
-      margin: 0 8px;
-      text-decoration: none;
-    }
-
-    ul.benefits {
-      list-style-type: square;
-      margin-left: 20px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>My Soul</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
-<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-<div class="text-xl font-bold text-purple-700">Soulink</div>
-<ul class="flex space-x-4 text-gray-700 font-medium">
-<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
-<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
-<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
-<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
-<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
-<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
-</ul>
-</nav>
+  <h1>Welcome to Your Soul Dashboard</h1>
+  <div id="planBox"></div>
 
-<h1>Welcome to Your Soul Dashboard</h1>
-<div class="section">
-<h2>Your Soulprint</h2>
-<div class="highlight">
-      Life Path: 7 – Spiritual Seeker<br/>
-      Love Language: Quality Time<br/>
-      Core Values: Trust, Connection, Growth
-    </div>
-</div>
-<div class="section">
-<h2>Your Plan: Free</h2>
-<p>You are currently using the Free Plan.</p>
-<p>Upgrade to unlock full access:</p>
-<ul class="benefits">
-<li>Detailed Soul Portrait with Numerology Breakdown</li>
-<li>Daily Compatibility Match Results</li>
-<li>Advanced Matching Insights (Love Language, Archetypes)</li>
-<li>Visual Partner Comparison Charts</li>
-<li>Full Access to Soulink Circle &amp; Communication Tools</li>
-<li>Future AI-guided Relationship Coaching</li>
-</ul>
-<div class="cta">
-<a href="#">Upgrade to Premium</a>
-</div>
-</div>
-<div class="section">
-<h2>Quick Actions</h2>
-<ul>
-<li><a href="soul-chart.html">View Your Soul Chart</a></li>
-<li><a href="soul-coach.html">Ask Your Soul Coach</a></li>
-<li class="locked">Soul Chart (Premium Only)</li>
-<li><a href="profile.html">Edit My Profile</a></li>
-<li><a href="#">Edit My Profile</a></li>
-<li><a href="#">Invite Partner</a></li>
-<li><a href="#">Join Community</a></li>
-<li class="locked">See My Matches (Premium Only)</li>
-<li class="locked">Access Full Soul Portrait (Premium Only)</li>
-<li class="locked">Numerology Analysis (Premium Only)</li>
-<li class="locked">Soul Chart Comparison (Premium Only)</li>
-</ul>
-</div>
-<footer>
-<p>© 2025 Soulink – Made with ❤️ for soul connection</p>
-<a href="mission.html">Mission</a> |
-    <a href="#">Privacy</a> |
-    <a href="#">Terms</a>
-</footer>
-<script>
-function isPremiumUser() {
-  const user = JSON.parse(localStorage.getItem('soulinkUser'));
-  return user && user.plan === "Premium";
-}
-</script>
-<div id="footer"></div>
-<script>
-fetch("footer.html")
-  .then(r => r.text())
-  .then(html => document.getElementById("footer").innerHTML = html);
-</script>
+  <script>
+    const plan = localStorage.getItem('userPlan') || 'free';
+    const planBox = document.getElementById('planBox');
+    planBox.innerHTML = `<h2>Your Plan: ${plan.charAt(0).toUpperCase() + plan.slice(1)}</h2>`;
+  </script>
 </body>
 </html>
