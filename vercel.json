@@ -1,0 +1,12 @@
+
+{
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1",
+      "headers": {
+        "Authorization": "Basic c291bGxpbms6cGFzc3dvcmQ="
+      }
+    }
+  ]
+}
