@@ -1,1 +1,31 @@
-<!-- signup.html HTML content -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Soulink Signup</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    function saveSignupData() {
+      const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
+      if (relationshipType) {
+        localStorage.setItem("relationshipType", relationshipType);
+        alert("Signup data saved!");
+      }
+    }
+  </script>
+</head>
+<body>
+  <main>
+    <h2>Create Your Soulink Profile</h2>
+    <form onsubmit="saveSignupData(); return false;">
+      <p>What are you looking for?</p>
+      <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label><br>
+      <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label><br>
+      <label><input type="radio" name="relationshipType" value="both" /> Both</label><br><br>
+
+      <button type="submit">Continue</button>
+    </form>
+  </main>
+</body>
+</html>

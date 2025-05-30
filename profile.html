@@ -1,1 +1,40 @@
-<!-- profile.html HTML content -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Profile – Soulink</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    function loadProfile() {
+      const selected = localStorage.getItem("relationshipType");
+      if (selected) {
+        document.querySelector(`input[value="${selected}"]`).checked = true;
+      }
+    }
+
+    function updateProfile() {
+      const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
+      if (relationshipType) {
+        localStorage.setItem("relationshipType", relationshipType);
+        alert("Profile updated!");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadProfile);
+  </script>
+</head>
+<body>
+  <main>
+    <h2>Edit Your Relationship Preferences</h2>
+    <form onsubmit="updateProfile(); return false;">
+      <p>What are you looking for?</p>
+      <label><input type="radio" name="relationshipType" value="romantic" /> Romantic relationship</label><br>
+      <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label><br>
+      <label><input type="radio" name="relationshipType" value="both" /> Both</label><br><br>
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </main>
+</body>
+</html>
