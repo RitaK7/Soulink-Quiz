@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Soulink – Friendship Matches</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="include.js" defer></script>
+  <style>
+    .match-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+      background: #f9f9f9;
+    }
+    .match-card h3 {
+      margin-top: 0;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const type = localStorage.getItem("relationshipType");
+      const container = document.getElementById("friendship-matches");
+
+      if (type === "friendship" || type === "both") {
+        // Simulated user list (replace with real data later)
+        const users = [
+          { name: "Luna", match: 92, language: "Quality Time", hobbies: "Reading, Nature Walks" },
+          { name: "Kai", match: 88, language: "Words of Affirmation", hobbies: "Art, Photography" },
+          { name: "Nora", match: 84, language: "Acts of Service", hobbies: "Volunteering, Meditation" }
+        ];
+
+        container.innerHTML = "<h2>Your Friendship Matches 🤝</h2>";
+        users.forEach(user => {
+          container.innerHTML += `
+            <div class="match-card">
+              <h3>${user.name}</h3>
+              <p><strong>Friendship Match:</strong> ${user.match}%</p>
+              <p><strong>Love Language:</strong> ${user.language}</p>
+              <p><strong>Shared Interests:</strong> ${user.hobbies}</p>
+            </div>
+          `;
+        });
+      } else {
+        container.innerHTML = "<p>You chose only romantic connections. Switch to 'both' or 'friendship' in your profile to see friend suggestions.</p>";
+      }
+    });
+  </script>
+</head>
+<body>
+  <main id="friendship-matches">
+    <p>Loading friendship matches...</p>
+  </main>
+</body>
+</html>
