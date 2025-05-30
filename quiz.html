@@ -2,28 +2,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Soulink Quiz</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="include.js" defer></script>
+  <meta charset="UTF-8" />
+  <title>Soulink Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="include.js" defer></script>
 </head>
 <body>
-    <main>
-        <form id="quiz-form">
-            <p>1. What's your love language?</p>
-            <input type="text" name="loveLanguage" required>
+  <main>
+    <form id="quiz-form">
+      <h2>Soulink Compatibility Quiz</h2>
 
-            <p>2. Your core values?</p>
-            <input type="text" name="values" required>
+      <p>1. What are you currently looking for?</p>
+      <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label><br>
+      <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label><br>
+      <label><input type="radio" name="relationshipType" value="both" /> Both</label><br><br>
 
-            <p>3. Hobbies and passions?</p>
-            <input type="text" name="hobbies" required>
+      <p>2. What's your love language?</p>
+      <input type="text" name="loveLanguage" required>
 
-            <p>4. Date of birth?</p>
-            <input type="date" name="birthdate" required>
+      <p>3. Your core values?</p>
+      <input type="text" name="values" required>
 
-            <button type="submit">See Results</button>
-        </form>
-    </main>
+      <p>4. Hobbies and passions?</p>
+      <input type="text" name="hobbies" required>
+
+      <p>5. Date of birth?</p>
+      <input type="date" name="birthdate" required>
+
+      <br><br>
+      <button type="submit">See Results</button>
+    </form>
+  </main>
 </body>
 </html>
