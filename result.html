@@ -2,15 +2,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Your Soulprint</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="include.js" defer></script>
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <title>Your Soulprint Result</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="include.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("results");
+
+      // Retrieve data from localStorage
+      const relationshipType = localStorage.getItem("relationshipType");
+      const loveLanguage = localStorage.getItem("loveLanguage");
+      const values = localStorage.getItem("values");
+      const hobbies = localStorage.getItem("hobbies");
+
+      // Basic fake scores for demo (replace with real AI later)
+      const loveScore = Math.floor(Math.random() * 41) + 60;  // 60–100%
+      const friendshipScore = Math.floor(Math.random() * 51) + 50; // 50–100%
+
+      container.innerHTML = "<h2>Your Soulprint Analysis</h2>";
+
+      if (relationshipType === "romantic" || relationshipType === "both") {
+        container.innerHTML += `<p><strong>💘 Love Compatibility:</strong> ${loveScore}%</p>`;
+      }
+
+      if (relationshipType === "friendship" || relationshipType === "both") {
+        container.innerHTML += `<p><strong>🤝 Friendship Match:</strong> ${friendshipScore}%</p>`;
+      }
+
+      container.innerHTML += `
+        <h3>Your Profile Summary</h3>
+        <ul>
+          <li><strong>Love Language:</strong> ${loveLanguage}</li>
+          <li><strong>Core Values:</strong> ${values}</li>
+          <li><strong>Hobbies:</strong> ${hobbies}</li>
+        </ul>
+      `;
+    });
+  </script>
 </head>
 <body>
-    <main id="results">
-        <p>Loading your compatibility analysis...</p>
-    </main>
+  <main id="results">
+    <p>Loading your Soulprint...</p>
+  </main>
 </body>
 </html>
