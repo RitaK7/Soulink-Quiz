@@ -1,34 +1,102 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>
-<!-- GDPR Notice -->
-<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-Soulink Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soulink – Sign Up</title>
   <link rel="stylesheet" href="style.css" />
-  <script>
-    function saveSignupData() {
-      const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
-      if (relationshipType) {
-        localStorage.setItem("relationshipType", relationshipType);
-        alert("Signup data saved!");
-      }
-    }
-  </script>
 </head>
 <body>
-  <main>
+  <div class="container">
     <h2>Create Your Soulink Profile</h2>
-    <form onsubmit="saveSignupData(); return false;">
-      <p>What are you looking for?</p>
-      <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label><br>
-      <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label><br>
-      <label><input type="radio" name="relationshipType" value="both" /> Both</label><br><br>
+    <form id="signupForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
 
-      <button type="submit">Continue</button>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+
+      <label>What type of connection are you looking for?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic</label>
+        <label><input type="radio" name="relationshipType" value="friendship" /> Friendship</label>
+        <label><input type="radio" name="relationshipType" value="both" /> Both</label>
+      </div>
+
+      <button type="submit">Sign Up</button>
     </form>
-  </main>
+    <p>Already have an account? <a href="login.html">Login here</a>.</p>
+  </div>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #033d4a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #05545f;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00c2a8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00a694;
+    }
+
+    a {
+      color: #00ffe7;
+    }
+
+    p {
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
 </body>
 </html>
