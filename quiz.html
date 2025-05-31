@@ -3,7 +3,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Soulink Quiz</title>
+  <title>
+<!-- GDPR Notice -->
+<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
+Soulink Quiz</title>
   <link rel="stylesheet" href="style.css" />
   <script src="include.js" defer></script>
 </head>
@@ -18,38 +21,18 @@
       <label><input type="radio" name="relationshipType" value="both" /> Both</label><br><br>
 
       <p>2. What's your love language?</p>
-      <select name="loveLanguage" required>
-        <option value="">Select one...</option>
-        <option value="Words of Affirmation">Words of Affirmation</option>
-        <option value="Acts of Service">Acts of Service</option>
-        <option value="Receiving Gifts">Receiving Gifts</option>
-        <option value="Quality Time">Quality Time</option>
-        <option value="Physical Touch">Physical Touch</option>
-      </select><br><br>
+      <input type="text" name="loveLanguage" required>
 
       <p>3. Your core values?</p>
-      <input list="valuesList" name="values" required>
-      <datalist id="valuesList">
-        <option value="Honesty">
-        <option value="Empathy">
-        <option value="Adventure">
-        <option value="Kindness">
-        <option value="Growth">
-      </datalist><br><br>
+      <input type="text" name="values" required>
 
       <p>4. Hobbies and passions?</p>
-      <input list="hobbyList" name="hobbies" required>
-      <datalist id="hobbyList">
-        <option value="Music">
-        <option value="Art">
-        <option value="Travel">
-        <option value="Books">
-        <option value="Nature">
-      </datalist><br><br>
+      <input type="text" name="hobbies" required>
 
       <p>5. Date of birth?</p>
-      <input type="date" name="birthdate" required><br><br>
+      <input type="date" name="birthdate" required>
 
+      <br><br>
       <button type="submit">See Results</button>
     </form>
   </main>
