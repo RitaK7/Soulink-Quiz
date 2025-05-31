@@ -3,31 +3,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>
-<!-- GDPR Notice -->
-<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-Soulink Quiz</title>
+  <meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
+  <title>Soulink Quiz</title>
   <link rel="stylesheet" href="style.css" />
   <script src="include.js" defer></script>
+  <style>
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    select, input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+  </style>
 </head>
 <body>
   <main>
-    <form id="quiz-form">
+    <form id="quiz-form" action="result.html" method="GET">
       <h2>Soulink Compatibility Quiz</h2>
 
       <p>1. What are you currently looking for?</p>
-      <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label><br>
-      <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label><br>
-      <label><input type="radio" name="relationshipType" value="both" /> Both</label><br><br>
+      <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label>
+      <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label>
+      <label><input type="radio" name="relationshipType" value="both" /> Both</label>
 
-      <p>2. What's your love language?</p>
-      <input type="text" name="loveLanguage" required>
+      <p>2. What’s your love language?</p>
+      <select name="loveLanguage" required>
+        <option value="">Select one...</option>
+        <option value="Words of Affirmation">Words of Affirmation</option>
+        <option value="Acts of Service">Acts of Service</option>
+        <option value="Receiving Gifts">Receiving Gifts</option>
+        <option value="Quality Time">Quality Time</option>
+        <option value="Physical Touch">Physical Touch</option>
+      </select>
 
       <p>3. Your core values?</p>
-      <input type="text" name="values" required>
+      <input type="text" name="values" placeholder="e.g. Honesty, Kindness" required>
 
       <p>4. Hobbies and passions?</p>
-      <input type="text" name="hobbies" required>
+      <input type="text" name="hobbies" placeholder="e.g. Reading, Sports" required>
 
       <p>5. Date of birth?</p>
       <input type="date" name="birthdate" required>
