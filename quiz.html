@@ -18,18 +18,38 @@
       <label><input type="radio" name="relationshipType" value="both" /> Both</label><br><br>
 
       <p>2. What's your love language?</p>
-      <input type="text" name="loveLanguage" required>
+      <select name="loveLanguage" required>
+        <option value="">Select one...</option>
+        <option value="Words of Affirmation">Words of Affirmation</option>
+        <option value="Acts of Service">Acts of Service</option>
+        <option value="Receiving Gifts">Receiving Gifts</option>
+        <option value="Quality Time">Quality Time</option>
+        <option value="Physical Touch">Physical Touch</option>
+      </select><br><br>
 
       <p>3. Your core values?</p>
-      <input type="text" name="values" required>
+      <input list="valuesList" name="values" required>
+      <datalist id="valuesList">
+        <option value="Honesty">
+        <option value="Empathy">
+        <option value="Adventure">
+        <option value="Kindness">
+        <option value="Growth">
+      </datalist><br><br>
 
       <p>4. Hobbies and passions?</p>
-      <input type="text" name="hobbies" required>
+      <input list="hobbyList" name="hobbies" required>
+      <datalist id="hobbyList">
+        <option value="Music">
+        <option value="Art">
+        <option value="Travel">
+        <option value="Books">
+        <option value="Nature">
+      </datalist><br><br>
 
       <p>5. Date of birth?</p>
-      <input type="date" name="birthdate" required>
+      <input type="date" name="birthdate" required><br><br>
 
-      <br><br>
       <button type="submit">See Results</button>
     </form>
   </main>
