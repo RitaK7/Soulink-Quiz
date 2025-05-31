@@ -1,60 +1,110 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-  <title>Soulink Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soulink Compatibility Quiz</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="include.js" defer></script>
   <style>
-    label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+    body {
+      font-family: Arial, sans-serif;
+      background: #033d4a;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
     }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #05545f;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin: 20px 0 10px;
+    }
+
     select, input[type="text"], input[type="date"] {
       width: 100%;
-      padding: 8px;
-      margin-bottom: 16px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00c2a8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00a694;
     }
   </style>
 </head>
 <body>
-  <main>
-    <form id="quiz-form" action="result.html" method="GET">
-      <h2>Soulink Compatibility Quiz</h2>
+  <div class="container">
+    <h2>Soulink Compatibility Quiz</h2>
+    <form id="quizForm">
+      <label>1. What are you currently looking for?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label>
+        <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label>
+        <label><input type="radio" name="relationshipType" value="both" /> Both</label>
+      </div>
 
-      <p>1. What are you currently looking for?</p>
-      <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label>
-      <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label>
-      <label><input type="radio" name="relationshipType" value="both" /> Both</label>
-
-      <p>2. What’s your love language?</p>
-      <select name="loveLanguage" required>
+      <label for="loveLanguage">2. What’s your love language?</label>
+      <select id="loveLanguage" name="loveLanguage" required>
         <option value="">Select one...</option>
-        <option value="Words of Affirmation">Words of Affirmation</option>
-        <option value="Acts of Service">Acts of Service</option>
-        <option value="Receiving Gifts">Receiving Gifts</option>
-        <option value="Quality Time">Quality Time</option>
-        <option value="Physical Touch">Physical Touch</option>
+        <option value="words">Words of Affirmation</option>
+        <option value="touch">Physical Touch</option>
+        <option value="gifts">Receiving Gifts</option>
+        <option value="time">Quality Time</option>
+        <option value="acts">Acts of Service</option>
       </select>
 
-      <p>3. Your core values?</p>
-      <input type="text" name="values" placeholder="e.g. Honesty, Kindness" required>
-
-      <p>4. Hobbies and passions?</p>
-      <input type="text" name="hobbies" placeholder="e.g. Reading, Sports" required>
-
-      <p>5. Date of birth?</p>
-      <input type="date" name="birthdate" required>
-
-      <br><br>
       <button type="submit">See Results</button>
     </form>
-  </main>
+  </div>
+
+  <script>
+    document.getElementById("quizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
+      const loveLanguage = document.getElementById("loveLanguage").value;
+
+      if (relationshipType && loveLanguage) {
+        // Store answers to localStorage
+        localStorage.setItem("relationshipType", relationshipType);
+        localStorage.setItem("loveLanguage", loveLanguage);
+        // Redirect
+        window.location.href = "result.html";
+      } else {
+        alert("Please answer all questions.");
+      }
+    });
+  </script>
 </body>
 </html>
