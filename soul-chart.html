@@ -1,184 +1,73 @@
-
+<!-- ✅ soul-chart.html – Testavimo versija be Premium blokavimo -->
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>
-<!-- GDPR Notice -->
-<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-Your Soul Chart</title>
-<link href="style.css" rel="stylesheet"/>
-<script src="checkPlan.js"></script><script src="https://cdn.jsdelivr.net/npm/chart.js">
-} else {
-    document.getElementById("interestsChart").style.display = "none";
-    const div = document.createElement("div");
-    div.innerHTML = "<p style='color:#ffaaaa; font-style:italic;'>Upgrade to Premium to unlock your full Interest Chart 🌟</p>";
-    document.querySelector(".chart-container:last-of-type").appendChild(div);
-}
-</script>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Soul Chart</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
     body {
-      background-color: #043f43;
+      font-family: Arial, sans-serif;
+      background: #033d4a;
       color: white;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: 0 auto;
+      margin: 0;
+      padding: 40px;
     }
 
-    h1 {
+    h2 {
       text-align: center;
-      color: #c6f6ff;
-      margin-bottom: 40px;
-    }
-
-    .chart-container {
-      margin-bottom: 40px;
-      background-color: #065a5c;
-      padding: 20px;
-      border-radius: 12px;
-    }
-
-    .highlight {
-      background-color: #0b5c5a;
-      padding: 12px;
-      border-radius: 10px;
+      font-size: 28px;
       margin-bottom: 30px;
-      font-size: 18px;
-      text-align: center;
     }
 
-    canvas {
-      background-color: white;
-      border-radius: 8px;
-      padding: 10px;
+    .chart-section {
+      background-color: #044850;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 12px;
+      max-width: 700px;
+    }
+
+    .chart-section h3 {
+      margin-bottom: 10px;
     }
   </style>
-<script src="restrictFeatures.js"></script></head>
-<body><section data-required-plan="premium">This content is available only for Premium plan users.</section>
-<nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
-<div class="text-xl font-bold text-purple-700">Soulink</div>
-<ul class="flex space-x-4 text-gray-700 font-medium">
-<li><a class="hover:text-purple-600" href="home.html">Home</a></li>
-<li><a class="hover:text-purple-600" href="quiz.html">Soul Quiz</a></li>
-<li><a class="hover:text-purple-600" href="my-soul.html">My Soul</a></li>
-<li><a class="hover:text-purple-600" href="result.html">Results</a></li>
-<li><a class="hover:text-purple-600" href="profile.html">Edit Profile</a></li>
-<li><a class="hover:text-purple-600" href="feedback.html">Feedback</a></li>
-</ul>
-</nav>
-<h1>Your Soul Chart</h1>
-<div class="highlight" id="lifePathText">Loading your Soulprint...</div>
-<div class="chart-container">
-<h2>Core Values</h2>
-<canvas id="valuesChart"></canvas>
-</div>
-<div class="chart-container">
-<h2>Interests</h2>
-<canvas id="interestsChart"></canvas>
-</div>
-<script>
-    const user = JSON.parse(localStorage.getItem('soulinkUser'));
+</head>
+<body>
+  <h2>Your Soul Chart</h2>
 
-    function calculateLifePath(dateStr) {
-      const parts = dateStr.split("-");
-      const digits = parts.join("").split("").map(Number);
-      let sum = digits.reduce((a, b) => a + b, 0);
-      while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
-        sum = sum.toString().split("").reduce((a, b) => a + parseInt(b), 0);
-      }
-      return sum;
-    }
+  <div class="chart-section">
+    <h3>Core Values</h3>
+    <p id="coreValues">Loading your Soulprint...</p>
+  </div>
 
-    function getLifeMeaning(n) {
-      const m = {
-        1: "Leader",
-        2: "Peacemaker",
-        3: "Creative Communicator",
-        4: "Stabilizer",
-        5: "Explorer",
-        6: "Nurturer",
-        7: "Spiritual Seeker",
-        8: "Powerful Achiever",
-        9: "Humanitarian",
-        11: "Visionary",
-        22: "Master Builder",
-        33: "Master Healer"
-      };
-      return m[n] || "Soul Explorer";
-    }
+  <div class="chart-section">
+    <h3>Interests</h3>
+    <p id="interests">You are curious and multifaceted. Your passions reflect your soul’s diversity 🌈</p>
+  </div>
 
-    if (user) {
-      const lp = calculateLifePath(user.birthdate);
-      const meaning = getLifeMeaning(lp);
-      document.getElementById("lifePathText").innerHTML =
-        `<strong>Life Path ${lp} – ${meaning}</strong>`;
+  <script>
+    const relationship = localStorage.getItem("relationshipType") || "unknown";
+    const language = localStorage.getItem("loveLanguage") || "unknown";
 
-      const values = user.values || [];
-      const interests = user.interests || [];
+    const coreMap = {
+      romantic: "You value deep emotional connection and shared purpose.",
+      friendship: "You value honesty, laughter and meaningful presence.",
+      both: "You blend romantic intimacy with soulful companionship.",
+      unknown: "Your soul is still exploring what matters most."
+    };
 
-      const valueLabels = values;
-      const valueData = values.map(() => Math.floor(Math.random() * 50) + 50); // mock strength
+    const langMap = {
+      touch: "You express care through closeness.",
+      words: "Words are your bridge to love.",
+      time: "Presence is your ultimate gift.",
+      gifts: "You notice the little things.",
+      acts: "You love by doing.",
+      unknown: "You are learning your language of love."
+    };
 
-      const interestLabels = ["Spirituality", "Nature", "Art", "Science", "Music", "Philosophy"];
-      const interestData = interestLabels.map(label =>
-        interests.includes(label) ? Math.floor(Math.random() * 40) + 60 : Math.floor(Math.random() * 30)
-      );
-
-      new Chart(document.getElementById("valuesChart"), {
-        type: "bar",
-        data: {
-          labels: valueLabels,
-          datasets: [{
-            label: "Strength",
-            data: valueData,
-            backgroundColor: "#62b2b0"
-          }]
-        },
-        options: {
-          scales: {
-            y: { beginAtZero: true, max: 100 }
-          }
-        }
-      });
-
-      
-if (user.plan === "Premium") {
-    new Chart(document.getElementById("interestsChart"), {
-
-        type: "radar",
-        data: {
-          labels: interestLabels,
-          datasets: [{
-            label: "Interest Intensity",
-            data: interestData,
-            backgroundColor: "rgba(98, 178, 176, 0.4)",
-            borderColor: "#62b2b0",
-            borderWidth: 2
-          }]
-        },
-        options: {
-          scales: {
-            r: { angleLines: { color: '#999' }, suggestedMin: 0, suggestedMax: 100 }
-          }
-        }
-      });
-    }
-  
-} else {
-    document.getElementById("interestsChart").style.display = "none";
-    const div = document.createElement("div");
-    div.innerHTML = "<p style='color:#ffaaaa; font-style:italic;'>Upgrade to Premium to unlock your full Interest Chart 🌟</p>";
-    document.querySelector(".chart-container:last-of-type").appendChild(div);
-}
-</script>
-<div id="footer"></div>
-<script>
-fetch("footer.html")
-  .then(r => r.text())
-  .then(html => document.getElementById("footer").innerHTML = html);
-</script>
+    document.getElementById("coreValues").textContent = `${coreMap[relationship] || coreMap.unknown} ${langMap[language] || langMap.unknown}`;
+  </script>
 </body>
 </html>
