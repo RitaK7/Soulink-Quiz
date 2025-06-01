@@ -1,18 +1,70 @@
-
+<!-- ✅ soul-coach.html – AI komentarų prototipas pagal loveLanguage ir relationshipType -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>
-<!-- GDPR Notice -->
-<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-Soul Coach</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="include.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Soul Coach</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #033d4a;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .coach-box {
+      background: #05545f;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 700px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
-    <main>
-        <p>This page is available for Premium users only.</p>
-    </main>
+  <div class="coach-box">
+    <h2>🌟 Soul Coach Says 🌟</h2>
+    <p id="coachMessage"></p>
+  </div>
+
+  <script>
+    const type = localStorage.getItem("relationshipType") || "unknown";
+    const lang = localStorage.getItem("loveLanguage") || "unknown";
+
+    let message = "Your soul is unique. Let's find harmony together.";
+
+    if (type === "romantic" && lang === "touch") {
+      message = "You connect through closeness and gentle touch. A romantic partner who understands your physical warmth will open your soul.";
+    } else if (type === "friendship" && lang === "words") {
+      message = "You thrive in friendships where words uplift and encourage. Seek kindred spirits who speak your truth.";
+    } else if (type === "both" && lang === "time") {
+      message = "Your soul blossoms in shared moments. Whether romantic or platonic, deep presence is the love language of your spirit.";
+    } else if (lang === "gifts") {
+      message = "You give and receive love through meaningful gestures. Let others know your worth is not material—but remembered.";
+    } else if (lang === "acts") {
+      message = "You show love through effort and care. A soul who appreciates your actions will nurture your inner harmony.";
+    } else {
+      message = "You are on a journey to understand what moves your heart. Be kind to yourself. Discovery is sacred.";
+    }
+
+    document.getElementById("coachMessage").textContent = message;
+  </script>
 </body>
 </html>
