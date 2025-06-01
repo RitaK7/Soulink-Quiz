@@ -1,25 +1,36 @@
-
+<!-- ✅ my-soul.html – testavimo režimas, Premium blokavimas išjungtas -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>
-<!-- GDPR Notice -->
-<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-My Soul</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="include.js" defer></script>
-    <script src="checkPlan.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Soul Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <main>
-        <h2>Welcome to Your Soul Dashboard</h2>
-        <ul>
-            <li><a href="soul-coach.html">Soul Coach</a></li>
-            <li><a href="soul-chart.html">Soul Chart</a></li>
-            <li><a href="profile.html">Edit Profile</a></li>
-            <li><a href="friends.html">Soul Friends</a></li>
-        </ul>
-    </main>
-</body>
-</html>
+  <div class="container">
+    <h2>Welcome to Your Soul Dashboard 💫</h2>
+
+    <p><strong>Relationship type:</strong> <span id="relType"></span></p>
+    <p><strong>Love language:</strong> <span id="loveLang"></span></p>
+
+    <ul>
+      <li><a href="soul-coach.html">Your Soul Coach</a></li>
+      <li><a href="soul-chart.html">Your Soul Chart</a></li>
+      <li><a href="profile.html">Edit Profile</a></li>
+      <li><a href="logout.html">Log out</a></li>
+    </ul>
+  </div>
+
+  <script>
+    // Premium tikrinimas išjungtas testavimui 👇
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn) {
+      alert("Please sign up or log in to continue.");
+      window.location.href = "signup.html";
+    }
+
+    document.getElementById("relType").textContent = localStorage.getItem("relationshipType") || "N/A";
+    document.getElementById("loveLang").textContent = localStorage.getItem("loveLanguage") || "N/A";
+  </script>
+</b
