@@ -1,28 +1,88 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>
-<!-- GDPR Notice -->
-<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-Your Soulprint</title>
+  <title>Your Soulprint Result</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #033d4a;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #05545f;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .result-box {
+      background-color: #044850;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #00ffe7;
+    }
+
+    .value {
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: #00ffe7;
+    }
+
+    .btn {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 12px 20px;
+      background: #00c2a8;
+      border-radius: 8px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #00a694;
+    }
+  </style>
 </head>
 <body>
-  <main id="results">
-    <p>Loading your Soulprint...</p>
-  </main>
+  <div class="container">
+    <h2>🌟 Your Soulprint Result 🌟</h2>
+    <div class="result-box">
+      <p class="label">Relationship type:</p>
+      <p class="value" id="relationshipTypeResult"></p>
 
-  <div style="text-align: center; margin-top: 40px;">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfbgA44se9fj6XMskWlWUV-wXOpEbv6VnR8Qjh1i9z_udo4AQ/viewform?usp=header" 
-   target="_blank" class="button"
-   style="padding: 12px 24px; background-color: #7f5af0; color: white; border-radius: 12px; text-decoration: none;">
-   💬 Leave Your Feedback
-</a>
+      <p class="label">Love language:</p>
+      <p class="value" id="loveLanguageResult"></p>
+    </div>
 
-    </a>
+    <a href="my-soul.html" class="btn">Continue to Your Soul Dashboard</a>
   </div>
+
+  <script>
+    // Fetch answers from localStorage
+    document.getElementById("relationshipTypeResult").textContent =
+      localStorage.getItem("relationshipType") || "Not selected";
+    document.getElementById("loveLanguageResult").textContent =
+      localStorage.getItem("loveLanguage") || "Not selected";
+  </script>
 </body>
 </html>
