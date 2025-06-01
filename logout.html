@@ -1,0 +1,42 @@
+<!-- ✅ logout.html – išvalomas localStorage ir nukreipiama į home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logging Out...</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #033d4a;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .message {
+      background-color: #05545f;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 0 15px rgba(0,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="message">
+    <h2>🔒 You have been logged out.</h2>
+    <p>Redirecting to home...</p>
+  </div>
+
+  <script>
+    localStorage.clear();
+    setTimeout(() => {
+      window.location.href = "home.html";
+    }, 2000);
+  </script>
+</body>
+</html>
