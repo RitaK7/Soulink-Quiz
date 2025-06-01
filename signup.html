@@ -1,3 +1,4 @@
+<!-- ✅ signup.html su localStorage prisijungimo simuliacija -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,75 +29,13 @@
     <p>Already have an account? <a href="login.html">Login here</a>.</p>
   </div>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #033d4a;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      background: #05545f;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      width: 100%;
-      max-width: 500px;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-
-    .radio-group {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 15px;
-    }
-
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #00c2a8;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #00a694;
-    }
-
-    a {
-      color: #00ffe7;
-    }
-
-    p {
-      margin-top: 10px;
-      text-align: center;
-    }
-  </style>
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("plan", "free");
+      window.location.href = "quiz.html";
+    });
+  </script>
 </body>
 </html>
