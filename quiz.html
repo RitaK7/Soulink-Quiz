@@ -1,3 +1,4 @@
+<!-- ✅ quiz.html – pilnas testas su localStorage ir taisytais taškais -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +46,13 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     button {
@@ -91,15 +99,12 @@
   <script>
     document.getElementById("quizForm").addEventListener("submit", function(e) {
       e.preventDefault();
-
       const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
       const loveLanguage = document.getElementById("loveLanguage").value;
 
       if (relationshipType && loveLanguage) {
-        // Store answers to localStorage
         localStorage.setItem("relationshipType", relationshipType);
         localStorage.setItem("loveLanguage", loveLanguage);
-        // Redirect
         window.location.href = "result.html";
       } else {
         alert("Please answer all questions.");
