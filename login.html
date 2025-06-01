@@ -1,4 +1,4 @@
-<!-- login.html HTML content -->
+<!-- ✅ login.html su localStorage prisijungimo simuliacija -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,68 +22,13 @@
     <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
   </div>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #033d4a;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      background: #05545f;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-      width: 100%;
-      max-width: 400px;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #00c2a8;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #00a694;
-    }
-
-    p {
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    a {
-      color: #00ffe7;
-    }
-  </style>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("plan", "free");
+      window.location.href = "my-soul.html";
+    });
+  </script>
 </body>
 </html>
