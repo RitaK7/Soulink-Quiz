@@ -81,5 +81,19 @@
     document.getElementById("logged").textContent = localStorage.getItem("isLoggedIn") || "false";
     document.getElementById("plan").textContent = localStorage.getItem("plan") || "none";
   </script>
+
+<div class="button-container">
+  <button onclick="localStorage.clear(); alert('LocalStorage cleared')">🧹 Clear localStorage</button>
+  <button onclick="localStorage.setItem('plan', 'free'); alert('Set as FREE')">🔓 Set as Free User</button>
+  <button onclick="localStorage.setItem('plan', 'premium'); alert('✨ Premium mode activated!');">💎 Set as Premium User</button>
+  <button onclick="window.location.href='signup.html'">➡️ Go to Signup</button>
+  <button onclick="window.location.href='login.html'">🔐 Go to Login</button>
+  <button onclick="window.location.href='quiz.html'">🧠 Go to Quiz</button>
+  <button onclick="window.location.href='result.html'">📊 Go to Result</button>
+  <button onclick="window.location.href='my-soul.html'">🌟 Go to My Soul</button>
+  <button onclick="window.location.href='soul-chart.html'">📈 Go to Soul Chart</button>
+  <button onclick="window.location.href='soul-coach.html'">🧙‍♂️ Go to Soul Coach</button>
+</div>
+
 </body>
 </html>
