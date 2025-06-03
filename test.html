@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,10 +33,17 @@
     button:hover {
       background-color: #008478;
     }
+    .status-box {
+      margin-top: 2em;
+      font-size: 14px;
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
-  <h1>🌟 Soulink Test Panel</h1>
+  <h1>🔧 Soulink Test Panel</h1>
   <div class="button-container">
     <button onclick="clearStorage()">🧹 Clear localStorage</button>
     <button onclick="setFree()">🔓 Set as Free User</button>
@@ -51,25 +57,44 @@
     <button onclick="goTo('soul-coach.html')">🧙‍♂️ Go to Soul Coach</button>
   </div>
 
+  <div class="status-box" id="statusBox">
+    <strong>Status:</strong><br>
+    Logged in: <span id="loggedInStatus">-</span><br>
+    Plan: <span id="planStatus">-</span>
+  </div>
+
   <script>
     function clearStorage() {
       localStorage.clear();
-      alert("LocalStorage cleared");
+      updateStatus();
+      alert("🧹 LocalStorage cleared");
     }
 
     function setFree() {
       localStorage.setItem("plan", "free");
+      localStorage.setItem("isLoggedIn", "true");
+      updateStatus();
       alert("🔓 Set as FREE");
     }
 
     function setAsPremium() {
       localStorage.setItem("plan", "premium");
-      alert("✨ Premium mode activated!");
+      localStorage.setItem("isLoggedIn", "true");
+      updateStatus();
+      alert("💎 Premium mode activated!");
     }
 
     function goTo(path) {
       window.location.href = path;
     }
+
+    function updateStatus() {
+      document.getElementById("loggedInStatus").textContent = localStorage.getItem("isLoggedIn") || "false";
+      document.getElementById("planStatus").textContent = localStorage.getItem("plan") || "none";
+    }
+
+    // Update status on load
+    updateStatus();
   </script>
 </body>
 </html>
