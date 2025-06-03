@@ -1,99 +1,75 @@
-<!-- ✅ test.html – testavimo valdymo pultas -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soulink Test Panel</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #011f26;
-      color: #fff;
-      padding: 40px;
-    }
-
-    .panel {
-      max-width: 600px;
-      margin: auto;
-      background: #033d4a;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-    }
-
-    h2 {
+      background-color: #002F33;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2em;
       text-align: center;
-      margin-bottom: 30px;
     }
-
-    button, a.button {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
+    h1 {
+      margin-bottom: 1em;
+    }
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    button {
+      background-color: #00a698;
+      color: white;
+      padding: 12px 24px;
       border: none;
       border-radius: 8px;
-      background: #00c2a8;
-      color: white;
       font-size: 16px;
       cursor: pointer;
-      text-align: center;
-      text-decoration: none;
+      transition: background-color 0.3s ease;
     }
-
-    button:hover, a.button:hover {
-      background: #00a694;
-    }
-
-    .info {
-      margin-top: 20px;
-      padding: 10px;
-      background: #044850;
-      border-radius: 8px;
+    button:hover {
+      background-color: #008478;
     }
   </style>
 </head>
 <body>
-  <div class="panel">
-    <h2>🔧 Soulink Test Panel</h2>
-
-    <button onclick="localStorage.clear(); alert('LocalStorage cleared!');">🧹 Clear localStorage</button>
-
-    <button onclick="localStorage.setItem('isLoggedIn','true'); localStorage.setItem('plan','free'); alert('Set as FREE');">🔓 Set as Free User</button>
-    <button onclick="localStorage.setItem('isLoggedIn','true'); localStorage.setItem('plan','premium'); alert('Set as PREMIUM');">💎 Set as Premium User</button>
-
-    <a class="button" href="signup.html">➡️ Go to Signup</a>
-    <a class="button" href="login.html">➡️ Go to Login</a>
-    <a class="button" href="quiz.html">🧠 Go to Quiz</a>
-    <a class="button" href="result.html">📊 Go to Result</a>
-    <a class="button" href="my-soul.html">💫 Go to My Soul</a>
-
-    <div class="info">
-      <p><strong>Status:</strong></p>
-      <p>Logged in: <span id="logged"></span></p>
-      <p>Plan: <span id="plan"></span></p>
-    </div>
+  <h1>🌟 Soulink Test Panel</h1>
+  <div class="button-container">
+    <button onclick="clearStorage()">🧹 Clear localStorage</button>
+    <button onclick="setFree()">🔓 Set as Free User</button>
+    <button onclick="setAsPremium()">💎 Set as Premium User</button>
+    <button onclick="goTo('signup.html')">➡️ Go to Signup</button>
+    <button onclick="goTo('login.html')">🔐 Go to Login</button>
+    <button onclick="goTo('quiz.html')">🧠 Go to Quiz</button>
+    <button onclick="goTo('result.html')">📊 Go to Result</button>
+    <button onclick="goTo('my-soul.html')">🌟 Go to My Soul</button>
+    <button onclick="goTo('soul-chart.html')">📈 Go to Soul Chart</button>
+    <button onclick="goTo('soul-coach.html')">🧙‍♂️ Go to Soul Coach</button>
   </div>
 
   <script>
-    document.getElementById("logged").textContent = localStorage.getItem("isLoggedIn") || "false";
-    document.getElementById("plan").textContent = localStorage.getItem("plan") || "none";
+    function clearStorage() {
+      localStorage.clear();
+      alert("LocalStorage cleared");
+    }
+
+    function setFree() {
+      localStorage.setItem("plan", "free");
+      alert("🔓 Set as FREE");
+    }
+
+    function setAsPremium() {
+      localStorage.setItem("plan", "premium");
+      alert("✨ Premium mode activated!");
+    }
+
+    function goTo(path) {
+      window.location.href = path;
+    }
   </script>
-
-<div class="button-container">
-  <button onclick="localStorage.clear(); alert('LocalStorage cleared')">🧹 Clear localStorage</button>
-  <button onclick="localStorage.setItem('plan', 'free'); alert('Set as FREE')">🔓 Set as Free User</button>
-  <button onclick="localStorage.setItem('plan', 'premium'); alert('✨ Premium mode activated!');">💎 Set as Premium User</button>
-  <button onclick="window.location.href='signup.html'">➡️ Go to Signup</button>
-  <button onclick="window.location.href='login.html'">🔐 Go to Login</button>
-  <button onclick="window.location.href='quiz.html'">🧠 Go to Quiz</button>
-  <button onclick="window.location.href='result.html'">📊 Go to Result</button>
-  <button onclick="window.location.href='my-soul.html'">🌟 Go to My Soul</button>
-  <button onclick="window.location.href='soul-chart.html'">📈 Go to Soul Chart</button>
-  <button onclick="window.location.href='soul-coach.html'">🧙‍♂️ Go to Soul Coach</button>
-</div>
-
 </body>
 </html>
