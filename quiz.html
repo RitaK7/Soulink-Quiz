@@ -1,4 +1,3 @@
-<!-- ✅ quiz.html – pilnas testas su localStorage ir taisytais taškais -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #033d4a;
+      background: #012b33;
       color: #fff;
       margin: 0;
       padding: 20px;
@@ -18,7 +17,7 @@
     .container {
       max-width: 700px;
       margin: auto;
-      background: #05545f;
+      background: #054d57;
       padding: 30px;
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
@@ -77,13 +76,13 @@
     <form id="quizForm">
       <label>1. What are you currently looking for?</label>
       <div class="radio-group">
-        <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label>
+        <label><input type="radio" name="relationshipType" value="romantic" /> Romantic relationship</label>
         <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label>
         <label><input type="radio" name="relationshipType" value="both" /> Both</label>
       </div>
 
       <label for="loveLanguage">2. What’s your love language?</label>
-      <select id="loveLanguage" name="loveLanguage" required>
+      <select id="loveLanguage" name="loveLanguage">
         <option value="">Select one...</option>
         <option value="words">Words of Affirmation</option>
         <option value="touch">Physical Touch</option>
@@ -102,13 +101,18 @@
       const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
       const loveLanguage = document.getElementById("loveLanguage").value;
 
-      if (relationshipType && loveLanguage) {
-        localStorage.setItem("relationshipType", relationshipType);
-        localStorage.setItem("loveLanguage", loveLanguage);
-        window.location.href = "result.html";
-      } else {
+      if (!relationshipType || !loveLanguage) {
         alert("Please answer all questions.");
+        return;
       }
+
+      // Save to localStorage
+      localStorage.setItem("relationshipType", relationshipType);
+      localStorage.setItem("loveLanguage", loveLanguage);
+      localStorage.setItem("quizCompleted", "true");
+
+      // Redirect
+      window.location.href = "result.html";
     });
   </script>
 </body>
