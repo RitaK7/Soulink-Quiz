@@ -13,6 +13,7 @@
       margin: 0;
       padding: 20px;
     }
+
     .container {
       max-width: 700px;
       margin: auto;
@@ -21,30 +22,29 @@
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
       text-align: center;
-      animation: fadeIn 1s ease-in;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    h2 {
+      margin-bottom: 20px;
     }
-    h2 { margin-bottom: 20px; }
+
     .result-box {
       background-color: #044850;
       padding: 20px;
       border-radius: 12px;
       margin-top: 20px;
     }
+
     .label {
       font-weight: bold;
       color: #00ffe7;
     }
+
     .value {
       margin-bottom: 15px;
     }
-    a {
-      color: #00ffe7;
-    }
-    .btn {
+
+    a.btn {
       margin-top: 30px;
       display: inline-block;
       padding: 12px 20px;
@@ -53,7 +53,8 @@
       color: white;
       text-decoration: none;
     }
-    .btn:hover {
+
+    a.btn:hover {
       background: #00a694;
     }
   </style>
@@ -64,31 +65,27 @@
     <div class="result-box">
       <p class="label">Relationship type:</p>
       <p class="value" id="relationshipTypeResult"></p>
+
       <p class="label">Love language:</p>
       <p class="value" id="loveLanguageResult"></p>
     </div>
+
     <a href="my-soul.html" class="btn">Continue to Your Soul Dashboard</a>
   </div>
+
   <script>
-    if (!localStorage.getItem("quizCompleted")) {
-      window.location.href = "quiz.html";
+    // Tikrina, ar naudotojas prisijungęs
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn || isLoggedIn !== "true") {
+      alert("Please sign up or log in to continue.");
+      window.location.href = "signup.html";
     }
-    const relationshipMap = {
-      romantic: "Romantic Relationship 💖",
-      friendship: "Friendship / Kindred Spirits 🤝",
-      both: "Both 💫"
-    };
-    const loveLanguageMap = {
-      words: "Words of Affirmation 💬",
-      touch: "Physical Touch 🤗",
-      gifts: "Receiving Gifts 🎁",
-      time: "Quality Time 🕰️",
-      acts: "Acts of Service 🙌"
-    };
+
+    // Jei prisijungęs, rodomi rezultatai
     document.getElementById("relationshipTypeResult").textContent =
-      relationshipMap[localStorage.getItem("relationshipType")] || "Not selected";
+      localStorage.getItem("relationshipType") || "Not selected";
     document.getElementById("loveLanguageResult").textContent =
-      loveLanguageMap[localStorage.getItem("loveLanguage")] || "Not selected";
+      localStorage.getItem("loveLanguage") || "Not selected";
   </script>
 </body>
 </html>
