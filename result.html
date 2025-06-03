@@ -1,4 +1,3 @@
-<!-- ✅ result.html – rodomi atsakymai iš quiz + kelias į my-soul.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,6 @@
       margin: 0;
       padding: 20px;
     }
-
     .container {
       max-width: 700px;
       margin: auto;
@@ -23,32 +21,29 @@
       border-radius: 16px;
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
       text-align: center;
+      animation: fadeIn 1s ease-in;
     }
-
-    h2 {
-      margin-bottom: 20px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
+    h2 { margin-bottom: 20px; }
     .result-box {
       background-color: #044850;
       padding: 20px;
       border-radius: 12px;
       margin-top: 20px;
     }
-
     .label {
       font-weight: bold;
       color: #00ffe7;
     }
-
     .value {
       margin-bottom: 15px;
     }
-
     a {
       color: #00ffe7;
     }
-
     .btn {
       margin-top: 30px;
       display: inline-block;
@@ -58,7 +53,6 @@
       color: white;
       text-decoration: none;
     }
-
     .btn:hover {
       background: #00a694;
     }
@@ -70,19 +64,31 @@
     <div class="result-box">
       <p class="label">Relationship type:</p>
       <p class="value" id="relationshipTypeResult"></p>
-
       <p class="label">Love language:</p>
       <p class="value" id="loveLanguageResult"></p>
     </div>
-
     <a href="my-soul.html" class="btn">Continue to Your Soul Dashboard</a>
   </div>
-
   <script>
+    if (!localStorage.getItem("quizCompleted")) {
+      window.location.href = "quiz.html";
+    }
+    const relationshipMap = {
+      romantic: "Romantic Relationship 💖",
+      friendship: "Friendship / Kindred Spirits 🤝",
+      both: "Both 💫"
+    };
+    const loveLanguageMap = {
+      words: "Words of Affirmation 💬",
+      touch: "Physical Touch 🤗",
+      gifts: "Receiving Gifts 🎁",
+      time: "Quality Time 🕰️",
+      acts: "Acts of Service 🙌"
+    };
     document.getElementById("relationshipTypeResult").textContent =
-      localStorage.getItem("relationshipType") || "Not selected";
+      relationshipMap[localStorage.getItem("relationshipType")] || "Not selected";
     document.getElementById("loveLanguageResult").textContent =
-      localStorage.getItem("loveLanguage") || "Not selected";
+      loveLanguageMap[localStorage.getItem("loveLanguage")] || "Not selected";
   </script>
 </body>
 </html>
