@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+<div id=\"statusMessage\"></div>
   <div class="container">
     <h2>Welcome to Your Soul Dashboard 💫</h2>
     <p><strong>Relationship type:</strong> <span id="relType"></span></p>
@@ -21,7 +22,7 @@
   <script>
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn !== "true") {
-      alert("Please log in first.");
+      document.getElementById('statusMessage').textContent = "Please log in first.";
       window.location.href = "login.html";
     }
     document.getElementById("relType").textContent = localStorage.getItem("relationshipType") || "N/A";

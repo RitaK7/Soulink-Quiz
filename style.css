@@ -47,3 +47,10 @@ button:hover {
     padding: 12px;
   }
 }
+
+
+/* Remove bullet points from all unordered lists */
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
