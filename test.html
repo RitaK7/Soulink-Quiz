@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,56 +7,21 @@
   <title>Soulink Test Panel</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #033d4a;
-      color: #fff;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-    }
-
     .grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
     }
-
-    button {
-      background-color: #00c2a8;
-      border: none;
-      padding: 14px 20px;
-      font-size: 16px;
-      border-radius: 12px;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
-      min-width: 220px;
+    .status-box {
+      background: #014044;
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 500px;
+      margin: 0 auto;
     }
-
-    button:hover {
-      background-color: #00a896;
-    }
-
-    .notice {
-      color: orange;
-      margin: 20px 0;
-      font-weight: bold;
-    }
-
-    .status {
-      margin-top: 30px;
-      background-color: #044a4d;
-      padding: 16px;
-      border-radius: 10px;
-      font-size: 16px;
-      color: #aafaf3;
+    .status-box p {
+      margin: 6px 0;
     }
   </style>
 </head>
@@ -63,11 +29,10 @@
   <div class="container">
     <h1>🛠️ Soulink Test Panel</h1>
     <p class="notice">⚠️ Test mode only – changes apply in localStorage</p>
-
     <div class="grid">
       <button onclick="clearStorage()">🧹 Clear localStorage</button>
       <button onclick="setFree()">🔓 Set as Free User</button>
-      <button onclick="setPremium()">💎 Set as Premium User</button>
+      <button onclick="setAsPremium()">💎 Set as Premium User</button>
       <button onclick="goTo('signup.html')">➡️ Go to Signup</button>
       <button onclick="goTo('login.html')">🔐 Go to Login</button>
       <button onclick="goTo('quiz.html')">🧠 Go to Quiz</button>
@@ -76,9 +41,10 @@
       <button onclick="goTo('soul-chart.html')">📈 Go to Soul Chart</button>
       <button onclick="goTo('soul-coach.html')">🧙‍♂️ Go to Soul Coach</button>
     </div>
-
-    <div class="status" id="statusBox">
-      🔍 Checking localStorage...
+    <div class="status-box">
+      <p><strong>Status:</strong></p>
+      <p>Logged in: <span id="statusLoggedIn">false</span></p>
+      <p>Plan: <span id="statusPlan">none</span></p>
     </div>
   </div>
 
@@ -94,7 +60,7 @@
       updateStatus();
     }
 
-    function setPremium() {
+    function setAsPremium() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("plan", "premium");
       updateStatus();
@@ -105,10 +71,10 @@
     }
 
     function updateStatus() {
-      const isLoggedIn = localStorage.getItem("isLoggedIn") || "false";
-      const plan = localStorage.getItem("plan") || "none";
-      document.getElementById("statusBox").innerHTML =
-        `<strong>Status:</strong><br>Logged in: ${isLoggedIn}<br>Plan: ${plan}`;
+      document.getElementById("statusLoggedIn").textContent =
+        localStorage.getItem("isLoggedIn") || "false";
+      document.getElementById("statusPlan").textContent =
+        localStorage.getItem("plan") || "none";
     }
 
     updateStatus();
