@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +9,9 @@
     body {
       font-family: Arial, sans-serif;
       background: #033d4a;
-      color: #fff;
-      margin: 0;
-      padding: 40px 20px;
+      color: white;
       text-align: center;
+      padding: 40px 20px;
     }
     .container {
       max-width: 600px;
@@ -45,10 +43,10 @@
 <body>
   <div class="container">
     <h1>🔧 Soulink Test Panel</h1>
-    <p class="notice">⚠️ Test mode only – changes apply in localStorage</p>
+    <p class="notice">⚠️ Test mode – changes apply in localStorage only</p>
     <button onclick="clearStorage()">🧹 Clear localStorage</button>
-    <button onclick="setFree()">🔓 Set as Free User</button>
-    <button onclick="setAsPremium()">💎 Set as Premium User</button>
+    <button onclick="setFree()">🔓 Set as Free User + Go to Dashboard</button>
+    <button onclick="setPremium()">💎 Set as Premium User + Go to Dashboard</button>
     <button onclick="goTo('signup.html')">➡️ Go to Signup</button>
     <button onclick="goTo('login.html')">🔐 Go to Login</button>
     <button onclick="goTo('quiz.html')">🧠 Go to Quiz</button>
@@ -61,18 +59,20 @@
   <script>
     function clearStorage() {
       localStorage.clear();
-      console.log("LocalStorage cleared");
+      alert("LocalStorage cleared");
     }
 
     function setFree() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("plan", "free");
+      alert("Free user set. Redirecting...");
       window.location.href = "my-soul.html";
     }
 
-    function setAsPremium() {
+    function setPremium() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("plan", "premium");
+      alert("Premium user set. Redirecting...");
       window.location.href = "my-soul.html";
     }
 
