@@ -12,7 +12,12 @@
       text-align: center;
     }
     h1 {
-      margin-bottom: 1em;
+      margin-bottom: 0.5em;
+    }
+    p {
+      color: #ffa500;
+      font-weight: bold;
+      margin-bottom: 2em;
     }
     .button-container {
       display: flex;
@@ -33,17 +38,11 @@
     button:hover {
       background-color: #008478;
     }
-    .status-box {
-      margin-top: 2em;
-      font-size: 14px;
-      background: rgba(255,255,255,0.1);
-      padding: 10px;
-      border-radius: 8px;
-    }
   </style>
 </head>
 <body>
-  <h1>🔧 Soulink Test Panel</h1>
+  <h1>🌟 Soulink Test Panel</h1>
+  <p>⚠️ Test mode only – changes apply in localStorage</p>
   <div class="button-container">
     <button onclick="clearStorage()">🧹 Clear localStorage</button>
     <button onclick="setFree()">🔓 Set as Free User</button>
@@ -57,44 +56,25 @@
     <button onclick="goTo('soul-coach.html')">🧙‍♂️ Go to Soul Coach</button>
   </div>
 
-  <div class="status-box" id="statusBox">
-    <strong>Status:</strong><br>
-    Logged in: <span id="loggedInStatus">-</span><br>
-    Plan: <span id="planStatus">-</span>
-  </div>
-
   <script>
     function clearStorage() {
       localStorage.clear();
-      updateStatus();
-      alert("🧹 LocalStorage cleared");
+      console.log("🧹 Storage cleared");
     }
 
     function setFree() {
       localStorage.setItem("plan", "free");
-      localStorage.setItem("isLoggedIn", "true");
-      updateStatus();
-      alert("🔓 Set as FREE");
+      console.log("🔓 Free user set");
     }
 
     function setAsPremium() {
       localStorage.setItem("plan", "premium");
-      localStorage.setItem("isLoggedIn", "true");
-      updateStatus();
-      alert("💎 Premium mode activated!");
+      console.log("💎 Premium user set");
     }
 
     function goTo(path) {
       window.location.href = path;
     }
-
-    function updateStatus() {
-      document.getElementById("loggedInStatus").textContent = localStorage.getItem("isLoggedIn") || "false";
-      document.getElementById("planStatus").textContent = localStorage.getItem("plan") || "none";
-    }
-
-    // Update status on load
-    updateStatus();
   </script>
 </body>
 </html>
