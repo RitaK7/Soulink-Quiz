@@ -5,56 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Soulink Test Panel</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #033d4a;
-      color: #fff;
-      margin: 0;
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-    }
-    h1 {
-      margin-bottom: 10px;
-    }
-    .notice {
-      color: orange;
-      margin-bottom: 20px;
-    }
-    button {
-      background-color: #00c2a8;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      margin: 8px 0;
-      cursor: pointer;
-      width: 100%;
-    }
-    button:hover {
-      background-color: #009e8c;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
     <h1>🔧 Soulink Test Panel</h1>
-    <p class="notice">⚠️ Test mode only – changes apply in localStorage</p>
-    <button onclick="clearStorage()">🧹 Clear localStorage</button>
-    <button onclick="setFree()">🔓 Set as Free User</button>
-    <button onclick="setAsPremium()">💎 Set as Premium User</button>
-    <button onclick="goTo('signup.html')">➡️ Go to Signup</button>
-    <button onclick="goTo('login.html')">🔐 Go to Login</button>
-    <button onclick="goTo('quiz.html')">🧠 Go to Quiz</button>
-    <button onclick="goTo('result.html')">📊 Go to Result</button>
-    <button onclick="goTo('my-soul.html')">🌟 Go to My Soul</button>
-    <button onclick="goTo('soul-chart.html')">📈 Go to Soul Chart</button>
-    <button onclick="goTo('soul-coach.html')">🧙‍♂️ Go to Soul Coach</button>
+    <p class="notice" style="color: orange;">⚠️ Test mode only – changes apply in localStorage</p>
+
+    <button class="btn" onclick="clearStorage()">🧹 Clear localStorage</button>
+    <button class="btn" onclick="setFree()">🔓 Set as Free User</button>
+    <button class="btn" onclick="setAsPremium()">💎 Set as Premium User</button>
+
+    <button class="btn" onclick="goTo('signup.html')">➡️ Go to Signup</button>
+    <button class="btn" onclick="goTo('login.html')">🔐 Go to Login</button>
+    <button class="btn" onclick="goTo('quiz.html')">🧠 Go to Quiz</button>
+    <button class="btn" onclick="goTo('result.html')">📊 Go to Result</button>
+    <button class="btn" onclick="goTo('my-soul.html')">🌟 Go to My Soul</button>
+    <button class="btn" onclick="goTo('soul-chart.html')">📈 Go to Soul Chart</button>
+    <button class="btn" onclick="goTo('soul-coach.html')">🧙‍♂️ Go to Soul Coach</button>
   </div>
 
   <script>
