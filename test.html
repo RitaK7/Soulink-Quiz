@@ -1,49 +1,51 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Soulink Test Panel</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      background-color: #002F33;
-      color: #ffffff;
-      font-family: 'Segoe UI', sans-serif;
-      padding: 2em;
+      font-family: Arial, sans-serif;
+      background: #033d4a;
+      color: #fff;
+      margin: 0;
+      padding: 40px 20px;
       text-align: center;
     }
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
     h1 {
-      margin-bottom: 0.5em;
+      margin-bottom: 10px;
     }
-    p {
-      color: #ffa500;
-      font-weight: bold;
-      margin-bottom: 2em;
-    }
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: center;
+    .notice {
+      color: orange;
+      margin-bottom: 20px;
     }
     button {
-      background-color: #00a698;
+      background-color: #00c2a8;
       color: white;
-      padding: 12px 24px;
+      padding: 12px 20px;
       border: none;
       border-radius: 8px;
       font-size: 16px;
+      margin: 8px 0;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      width: 100%;
     }
     button:hover {
-      background-color: #008478;
+      background-color: #009e8c;
     }
   </style>
 </head>
 <body>
-  <h1>🌟 Soulink Test Panel</h1>
-  <p>⚠️ Test mode only – changes apply in localStorage</p>
-  <div class="button-container">
+  <div class="container">
+    <h1>🔧 Soulink Test Panel</h1>
+    <p class="notice">⚠️ Test mode only – changes apply in localStorage</p>
     <button onclick="clearStorage()">🧹 Clear localStorage</button>
     <button onclick="setFree()">🔓 Set as Free User</button>
     <button onclick="setAsPremium()">💎 Set as Premium User</button>
@@ -59,17 +61,19 @@
   <script>
     function clearStorage() {
       localStorage.clear();
-      console.log("🧹 Storage cleared");
+      console.log("LocalStorage cleared");
     }
 
     function setFree() {
+      localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("plan", "free");
-      console.log("🔓 Free user set");
+      console.log("Set as FREE");
     }
 
     function setAsPremium() {
+      localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("plan", "premium");
-      console.log("💎 Premium user set");
+      console.log("Set as PREMIUM");
     }
 
     function goTo(path) {
