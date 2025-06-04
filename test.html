@@ -5,46 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Soulink Test Panel</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #033d4a;
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #00c2a8;
+      border: none;
+      padding: 14px 20px;
+      font-size: 16px;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      min-width: 220px;
+    }
+
+    button:hover {
+      background-color: #00a896;
+    }
+
+    .notice {
+      color: orange;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    .status {
+      margin-top: 30px;
+      background-color: #044a4d;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 16px;
+      color: #aafaf3;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>🔧 Soulink Test Panel</h1>
-    <p class="notice" style="color: orange;">⚠️ Test mode only – changes apply in localStorage</p>
+    <h1>🛠️ Soulink Test Panel</h1>
+    <p class="notice">⚠️ Test mode only – changes apply in localStorage</p>
 
-    <button class="btn" onclick="clearStorage()">🧹 Clear localStorage</button>
-    <button class="btn" onclick="setFree()">🔓 Set as Free User</button>
-    <button class="btn" onclick="setAsPremium()">💎 Set as Premium User</button>
+    <div class="grid">
+      <button onclick="clearStorage()">🧹 Clear localStorage</button>
+      <button onclick="setFree()">🔓 Set as Free User</button>
+      <button onclick="setPremium()">💎 Set as Premium User</button>
+      <button onclick="goTo('signup.html')">➡️ Go to Signup</button>
+      <button onclick="goTo('login.html')">🔐 Go to Login</button>
+      <button onclick="goTo('quiz.html')">🧠 Go to Quiz</button>
+      <button onclick="goTo('result.html')">📊 Go to Result</button>
+      <button onclick="goTo('my-soul.html')">🌟 Go to My Soul</button>
+      <button onclick="goTo('soul-chart.html')">📈 Go to Soul Chart</button>
+      <button onclick="goTo('soul-coach.html')">🧙‍♂️ Go to Soul Coach</button>
+    </div>
 
-    <button class="btn" onclick="goTo('signup.html')">➡️ Go to Signup</button>
-    <button class="btn" onclick="goTo('login.html')">🔐 Go to Login</button>
-    <button class="btn" onclick="goTo('quiz.html')">🧠 Go to Quiz</button>
-    <button class="btn" onclick="goTo('result.html')">📊 Go to Result</button>
-    <button class="btn" onclick="goTo('my-soul.html')">🌟 Go to My Soul</button>
-    <button class="btn" onclick="goTo('soul-chart.html')">📈 Go to Soul Chart</button>
-    <button class="btn" onclick="goTo('soul-coach.html')">🧙‍♂️ Go to Soul Coach</button>
+    <div class="status" id="statusBox">
+      🔍 Checking localStorage...
+    </div>
   </div>
 
   <script>
     function clearStorage() {
       localStorage.clear();
-      console.log("🧹 LocalStorage cleared");
+      updateStatus();
     }
 
     function setFree() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("plan", "free");
-      console.log("🔓 Set as FREE");
+      updateStatus();
     }
 
-    function setAsPremium() {
+    function setPremium() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("plan", "premium");
-      console.log("💎 Set as PREMIUM");
+      updateStatus();
     }
 
     function goTo(path) {
       window.location.href = path;
     }
+
+    function updateStatus() {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") || "false";
+      const plan = localStorage.getItem("plan") || "none";
+      document.getElementById("statusBox").innerHTML =
+        `<strong>Status:</strong><br>Logged in: ${isLoggedIn}<br>Plan: ${plan}`;
+    }
+
+    updateStatus();
   </script>
 </body>
 </html>
