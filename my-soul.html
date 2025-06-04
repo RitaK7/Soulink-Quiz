@@ -5,55 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Soul Dashboard</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #033d4a;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: #05545f;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    li {
-      margin: 10px 0;
-    }
-
-    a {
-      color: #00ffe7;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
 </head>
 <body>
   <div class="container">
     <h2>Welcome to Your Soul Dashboard 💫</h2>
-
-    <p><strong>Relationship type:</strong> <span id="relType">Loading...</span></p>
-    <p><strong>Love language:</strong> <span id="loveLang">Loading...</span></p>
-
+    <p><strong>Relationship type:</strong> <span id="relType"></span></p>
+    <p><strong>Love language:</strong> <span id="loveLang"></span></p>
     <ul>
       <li><a href="soul-coach.html">Your Soul Coach</a></li>
       <li><a href="soul-chart.html">Your Soul Chart</a></li>
@@ -61,20 +18,14 @@
       <li><a href="logout.html">Log out</a></li>
     </ul>
   </div>
-
   <script>
-    // Prisijungimo tikrinimas
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn || isLoggedIn !== "true") {
-      alert("Please sign up or log in to continue.");
-      window.location.href = "signup.html";
+    if (isLoggedIn !== "true") {
+      alert("Please log in first.");
+      window.location.href = "login.html";
     }
-
-    // Parodo atsakymus iš quiz
-    document.getElementById("relType").textContent =
-      localStorage.getItem("relationshipType") || "N/A";
-    document.getElementById("loveLang").textContent =
-      localStorage.getItem("loveLanguage") || "N/A";
+    document.getElementById("relType").textContent = localStorage.getItem("relationshipType") || "N/A";
+    document.getElementById("loveLang").textContent = localStorage.getItem("loveLanguage") || "N/A";
   </script>
 </body>
 </html>

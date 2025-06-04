@@ -1,4 +1,3 @@
-<!-- ✅ soul-coach.html – WOW versija: AI komentaras + animacija + simboliai -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,95 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Soul Coach</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #011f26;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .coach-box {
-      background: radial-gradient(circle at center, #05545f, #033d4a);
-      padding: 40px;
-      border-radius: 24px;
-      max-width: 720px;
-      box-shadow: 0 0 30px rgba(0,255,255,0.3);
-      text-align: center;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    h2 {
-      font-size: 28px;
-      margin-bottom: 20px;
-    }
-
-    .icon {
-      font-size: 64px;
-      margin-bottom: 20px;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    p {
-      font-size: 20px;
-      line-height: 1.6;
-      opacity: 0;
-      animation: fadeInText 2s forwards;
-      animation-delay: 1s;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeInText {
-      to { opacity: 1; }
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #00fff2, 0 0 20px #00fff2; }
-      to { text-shadow: 0 0 20px #00ffe0, 0 0 40px #00ffe0; }
-    }
-  </style>
 </head>
 <body>
-  <div class="coach-box">
-    <div id="icon" class="icon">🌟</div>
-    <h2>Your Soul Coach Says</h2>
-    <p id="coachMessage"></p>
+  <div class="container">
+    <h2>🌟 Your Soul Coach Says</h2>
+    <p>This is your personalized advice panel.</p>
   </div>
-
-  <script>
-    const type = localStorage.getItem("relationshipType") || "unknown";
-    const lang = localStorage.getItem("loveLanguage") || "unknown";
-
-    let message = "You are on a sacred journey. Your soul is ready for deeper connection.";
-    let icon = "🌟";
-
-    if (type === "romantic" && lang === "touch") {
-      icon = "🤝";
-      message = "You connect through closeness and gentle touch. A romantic partner who understands your physical warmth will open your soul.";
-    } else if (type === "friendship" && lang === "words") {
-      icon = "💬";
-      message = "You thrive in friendships where words uplift and encourage. Seek kindred spirits who speak your truth.";
-    } else if (type === "both" && lang === "time") {
-      icon = "⏳";
-      message = "Your soul blossoms in shared moments. Whether romantic or platonic, deep presence is the love language of your spirit.";
-    } else if (lang === "gifts") {
-      icon = "🎁";
-      message = "You give and receive love through meaningful gestures. Let others know your worth is not material—but remembered.";
-    } else if (lang === "acts") {
-      icon = "👐";
-      message = "You show love through effort and care. A soul who appreciates your actions will nurture your inner harmony.";
-    } else {
-      icon = "🧭";
-      message = "You are discovering your emotional compass. Be gentle with yourself—your journey is sacred.";
-    }
-
-    document.getElementById("co
+</body>
+</html>
