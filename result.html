@@ -2,90 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Soulprint Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Soulprint</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #033d4a;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: #05545f;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-    }
-
-    .result-box {
-      background-color: #044850;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-
-    .label {
-      font-weight: bold;
-      color: #00ffe7;
-    }
-
-    .value {
-      margin-bottom: 15px;
-    }
-
-    a.btn {
-      margin-top: 30px;
-      display: inline-block;
-      padding: 12px 20px;
-      background: #00c2a8;
-      border-radius: 8px;
-      color: white;
-      text-decoration: none;
-    }
-
-    a.btn:hover {
-      background: #00a694;
-    }
-  </style>
+  <script defer src="result.js"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>🌟 Your Soulprint Result 🌟</h2>
-    <div class="result-box">
-      <p class="label">Relationship type:</p>
-      <p class="value" id="relationshipTypeResult"></p>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center">
+    <h1 class="text-3xl font-bold text-purple-700">🧬 Your Soulprint Revealed</h1>
+    <p class="text-gray-600">Explore your unique soul signature</p>
+  </header>
 
-      <p class="label">Love language:</p>
-      <p class="value" id="loveLanguageResult"></p>
+  <main class="max-w-3xl mx-auto p-6 space-y-8">
+    <section id="soulSummary" class="bg-white rounded-xl shadow p-6 text-center">
+      <h2 class="text-xl font-semibold mb-2">🌟 Your Soul Summary</h2>
+      <div class="space-y-2 text-lg text-gray-700" id="soulDetails">
+        <!-- Filled by JS -->
+      </div>
+    </section>
+
+    <section class="bg-purple-100 rounded-xl p-6 text-center">
+      <h2 class="text-lg font-bold text-purple-800 mb-2">✨ AI Reflection</h2>
+      <p id="aiReflection" class="italic text-gray-700">
+        <!-- AI-generated reflection will appear here -->
+      </p>
+    </section>
+
+    <div class="text-center">
+      <a href="my-soul.html" class="inline-block mt-4 px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Go to Dashboard</a>
     </div>
-
-    <a href="my-soul.html" class="btn">Continue to Your Soul Dashboard</a>
-  </div>
-
-  <script>
-    // Tikrina, ar naudotojas prisijungęs
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn || isLoggedIn !== "true") {
-      alert("Please sign up or log in to continue.");
-      window.location.href = "signup.html";
-    }
-
-    // Jei prisijungęs, rodomi rezultatai
-    document.getElementById("relationshipTypeResult").textContent =
-      localStorage.getItem("relationshipType") || "Not selected";
-    document.getElementById("loveLanguageResult").textContent =
-      localStorage.getItem("loveLanguage") || "Not selected";
-  </script>
+  </main>
 </body>
 </html>
