@@ -140,6 +140,14 @@ function sendMessage(name, btn) {
   if (!alreadySent) {
     sent.push({ name, message });
     localStorage.setItem("sentMessagesFull", JSON.stringify(sent));
+
+    // ✨ ADDITIONAL SYNC FOR MESSAGE-CENTER ✨
+    let shortList = JSON.parse(localStorage.getItem("sentMessages") || "[]");
+    if (!shortList.includes(name)) {
+      shortList.push(name);
+      localStorage.setItem("sentMessages", JSON.stringify(shortList));
+    }
+
     alert(`✅ Message sent to ${name}!`);
   } else {
     alert("🔒 Premium feature – unlock full communication 💎");
