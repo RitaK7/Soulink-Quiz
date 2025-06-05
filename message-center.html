@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Message Center</title>
+  <title>Soulink | Message Center</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="message-center.js"></script>
 </head>
-<body class="bg-gradient-to-br from-purple-50 to-pink-100 min-h-screen p-6">
+<body class="bg-gradient-to-br from-purple-50 to-pink-100 min-h-screen p-6 font-sans text-gray-800">
   <header class="text-center mb-6">
     <h1 class="text-3xl font-bold text-purple-700">💌 Your Message Center</h1>
     <p class="text-gray-600">Here are the messages you've sent so far</p>
     <a href="my-soul.html" class="text-sm text-blue-600 hover:underline">⬅ Back to My Soul</a>
   </header>
 
-  <main id="messageList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></main>
+  <main id="messageList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Messages will be inserted here by JS -->
+  </main>
 </body>
 </html>
