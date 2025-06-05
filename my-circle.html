@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Soul Circle</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer>
+    const testProfiles = [
+      { name: "Luna", image: "https://i.pravatar.cc/150?img=12", zodiac: "pisces", chineseSign: "rabbit", loveLanguage: "time", coreValue: "kindness" },
+      { name: "Orion", image: "https://i.pravatar.cc/150?img=5", zodiac: "leo", chineseSign: "dragon", loveLanguage: "words", coreValue: "growth" },
+      { name: "Sora", image: "https://i.pravatar.cc/150?img=21", zodiac: "scorpio", chineseSign: "snake", loveLanguage: "touch", coreValue: "loyalty" },
+      { name: "Mira", image: "https://i.pravatar.cc/150?img=30", zodiac: "cancer", chineseSign: "goat", loveLanguage: "acts", coreValue: "creativity" },
+      { name: "Nova", image: "https://i.pravatar.cc/150?img=7", zodiac: "gemini", chineseSign: "monkey", loveLanguage: "gifts", coreValue: "adventure" },
+      { name: "Kai", image: "https://i.pravatar.cc/150?img=17", zodiac: "virgo", chineseSign: "ox", loveLanguage: "time", coreValue: "freedom" }
+    ];
+
+    function loadSoulCircle() {
+      const myCircle = JSON.parse(localStorage.getItem("mySoulCircle") || "[]");
+      const matches = testProfiles.filter(p => myCircle.includes(p.name));
+      const container = document.getElementById("circleList");
+      container.innerHTML = "";
+
+      if (matches.length === 0) {
+        container.innerHTML = '<p class="text-center text-gray-500">You haven\'t added any soul yet 🌙</p>';
+        return;
+      }
+
+      matches.forEach(profile => {
+        const card = document.createElement("div");
+        card.className = "bg-white p-4 rounded-xl shadow flex flex-col items-center text-center";
+        card.innerHTML = `
+          <img src="${profile.image}" alt="${profile.name}" class="w-24 h-24 rounded-full mb-2">
+          <h3 class="text-lg font-semibold">${profile.name}</h3>
+          <p class="text-sm text-gray-600">Zodiac: ${profile.zodiac}, Chinese: ${profile.chineseSign}</p>
+          <p class="text-sm">❤️ ${profile.loveLanguage} | 🌟 ${profile.coreValue}</p>
+          <button class="mt-2 px-3 py-1 text-sm rounded-full bg-red-100 text-red-700" onclick="removeFromCircle('${profile.name}')">🗑 Remove</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function removeFromCircle(name) {
+      let myCircle = JSON.parse(localStorage.getItem("mySoulCircle") || "[]");
+      myCircle = myCircle.filter(n => n !== name);
+      localStorage.setItem("mySoulCircle", JSON.stringify(myCircle));
+      loadSoulCircle();
+    }
+
+    window.addEventListener("DOMContentLoaded", loadSoulCircle);
+  </script>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-pink-100 text-gray-800 font-sans">
+  <header class="p-4 shadow bg-white sticky top-0 z-10">
+    <h1 class="text-2xl font-bold text-center">💞 Your Soul Circle</h1>
+  </header>
+  <main class="p-6 max-w-4xl mx-auto">
+    <section id="circleList" class="grid gap-4 md:grid-cols-2"></section>
+  </main>
+</body>
+</html>
