@@ -26,7 +26,9 @@
 
     function loadSoulCircle() {
       const myCircle = JSON.parse(localStorage.getItem("mySoulCircle") || "[]");
-      const matches = testProfiles.filter(p => myCircle.includes(p.name));
+      const messaged = JSON.parse(localStorage.getItem("sentMessages") || "[]");
+      const combinedNames = Array.from(new Set([...myCircle, ...messaged]));
+      const matches = testProfiles.filter(p => combinedNames.includes(p.name));
       const avatars = document.getElementById("circleAvatars");
       const container = document.getElementById("circleList");
 
@@ -34,7 +36,7 @@
       container.innerHTML = "";
 
       if (matches.length === 0) {
-        container.innerHTML = '<p class="text-center text-gray-500">You haven\'t added any soul yet 🌙</p>';
+        container.innerHTML = '<p class="text-center text-gray-500">You haven\'t connected with any soul yet 🌙</p>';
         return;
       }
 
