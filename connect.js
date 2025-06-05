@@ -78,6 +78,8 @@ function displayMatches(matches) {
   const container = document.getElementById("matches");
   container.innerHTML = "";
 
+  const myCircle = JSON.parse(localStorage.getItem("mySoulCircle") || "[]");
+
   if (matches.length === 0) {
     container.innerHTML = '<p class="text-center text-gray-500">No matches found. Try adjusting your filters.</p>';
     return;
@@ -86,15 +88,32 @@ function displayMatches(matches) {
   matches.forEach(profile => {
     const card = document.createElement("div");
     card.className = "bg-white p-4 rounded-xl shadow flex flex-col items-center text-center";
+    const isInCircle = myCircle.includes(profile.name);
+
     card.innerHTML = `
       <img src="${profile.image}" alt="${profile.name}" class="w-24 h-24 rounded-full mb-2">
       <h3 class="text-lg font-semibold">${profile.name}</h3>
       <p class="text-sm text-gray-600">Zodiac: ${profile.zodiac}, Chinese: ${profile.chineseSign}</p>
       <p class="text-sm">❤️ ${profile.loveLanguage} | 🌟 ${profile.coreValue}</p>
       <p class="text-sm italic text-purple-600 mt-1">Match Level: ${Math.floor(Math.random() * 21) + 80}%</p>
+      <button class="mt-2 px-3 py-1 text-sm rounded-full ${isInCircle ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'}" onclick="addToSoulCircle('${profile.name}', this)" ${isInCircle ? 'disabled' : ''}>
+        ${isInCircle ? '💫 In Your Circle' : '➕ Add to Soul Circle'}
+      </button>
     `;
     container.appendChild(card);
   });
+}
+
+function addToSoulCircle(name, btn) {
+  let myCircle = JSON.parse(localStorage.getItem("mySoulCircle") || "[]");
+  if (!myCircle.includes(name)) {
+    myCircle.push(name);
+    localStorage.setItem("mySoulCircle", JSON.stringify(myCircle));
+    btn.textContent = "💫 In Your Circle";
+    btn.disabled = true;
+    btn.classList.remove("bg-purple-100", "text-purple-700");
+    btn.classList.add("bg-green-100", "text-green-700");
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => displayMatches(testProfiles));
