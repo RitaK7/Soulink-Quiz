@@ -79,6 +79,7 @@ function displayMatches(matches) {
   container.innerHTML = "";
 
   const myCircle = JSON.parse(localStorage.getItem("mySoulCircle") || "[]");
+  const sentMessages = JSON.parse(localStorage.getItem("sentMessages") || "[]");
 
   if (matches.length === 0) {
     container.innerHTML = '<p class="text-center text-gray-500">No matches found. Try adjusting your filters.</p>';
@@ -89,6 +90,7 @@ function displayMatches(matches) {
     const card = document.createElement("div");
     card.className = "bg-white p-4 rounded-xl shadow flex flex-col items-center text-center";
     const isInCircle = myCircle.includes(profile.name);
+    const messageSent = sentMessages.includes(profile.name);
 
     card.innerHTML = `
       <img src="${profile.image}" alt="${profile.name}" class="w-24 h-24 rounded-full mb-2">
@@ -99,6 +101,11 @@ function displayMatches(matches) {
       <button class="mt-2 px-3 py-1 text-sm rounded-full ${isInCircle ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'}" onclick="addToSoulCircle('${profile.name}', this)" ${isInCircle ? 'disabled' : ''}>
         ${isInCircle ? '💫 In Your Circle' : '➕ Add to Soul Circle'}
       </button>
+      <button class="mt-2 px-3 py-1 text-sm rounded-full bg-blue-100 text-blue-700" onclick="toggleMessageForm('${profile.name}', this)">📩 Send Message</button>
+      <div id="msgbox-${profile.name}" class="hidden w-full mt-2">
+        <textarea class="w-full p-2 border rounded text-sm" rows="2" placeholder="Write your message..."></textarea>
+        <button class="mt-1 px-3 py-1 bg-blue-500 text-white text-sm rounded" onclick="sendMessage('${profile.name}', this)">Send</button>
+      </div>
     `;
     container.appendChild(card);
   });
@@ -114,6 +121,30 @@ function addToSoulCircle(name, btn) {
     btn.classList.remove("bg-purple-100", "text-purple-700");
     btn.classList.add("bg-green-100", "text-green-700");
   }
+}
+
+function toggleMessageForm(name, btn) {
+  const box = document.getElementById(`msgbox-${name}`);
+  box.classList.toggle("hidden");
+}
+
+function sendMessage(name, btn) {
+  const box = btn.parentElement;
+  const textarea = box.querySelector("textarea");
+  const message = textarea.value.trim();
+  if (!message) return alert("Please enter a message ✍️");
+
+  let sent = JSON.parse(localStorage.getItem("sentMessages") || "[]");
+  if (!sent.includes(name)) {
+    sent.push(name);
+    localStorage.setItem("sentMessages", JSON.stringify(sent));
+    alert(`✅ Message sent to ${name}!`);
+  } else {
+    alert("🔒 Premium feature – unlock full communication 💎");
+  }
+
+  textarea.value = "";
+  box.classList.add("hidden");
 }
 
 window.addEventListener("DOMContentLoaded", () => displayMatches(testProfiles));
