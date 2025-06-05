@@ -13,7 +13,6 @@
   </header>
 
   <main class="p-6 max-w-4xl mx-auto">
-    <!-- Filter section -->
     <section class="bg-white p-4 rounded-2xl shadow mb-6">
       <h2 class="text-xl font-semibold mb-4">🔍 Filter your soul connection</h2>
       <div class="grid md:grid-cols-2 gap-4">
@@ -37,14 +36,32 @@
           <option value="">Zodiac Sign</option>
           <option value="aries">Aries</option>
           <option value="taurus">Taurus</option>
-          <!-- ... all signs ... -->
+          <option value="gemini">Gemini</option>
+          <option value="cancer">Cancer</option>
+          <option value="leo">Leo</option>
+          <option value="virgo">Virgo</option>
+          <option value="libra">Libra</option>
+          <option value="scorpio">Scorpio</option>
+          <option value="sagittarius">Sagittarius</option>
+          <option value="capricorn">Capricorn</option>
+          <option value="aquarius">Aquarius</option>
+          <option value="pisces">Pisces</option>
         </select>
 
         <select id="chineseSign" class="w-full p-2 rounded border">
           <option value="">Chinese Zodiac</option>
           <option value="rat">Rat</option>
           <option value="ox">Ox</option>
-          <!-- ... all signs ... -->
+          <option value="tiger">Tiger</option>
+          <option value="rabbit">Rabbit</option>
+          <option value="dragon">Dragon</option>
+          <option value="snake">Snake</option>
+          <option value="horse">Horse</option>
+          <option value="goat">Goat</option>
+          <option value="monkey">Monkey</option>
+          <option value="rooster">Rooster</option>
+          <option value="dog">Dog</option>
+          <option value="pig">Pig</option>
         </select>
 
         <select id="coreValue" class="w-full p-2 rounded border">
@@ -53,13 +70,14 @@
           <option value="loyalty">Loyalty</option>
           <option value="growth">Personal Growth</option>
           <option value="adventure">Adventure</option>
+          <option value="creativity">Creativity</option>
+          <option value="kindness">Kindness</option>
         </select>
       </div>
       <button onclick="filterConnections()" class="mt-4 px-4 py-2 bg-purple-500 text-white rounded-xl">Find Matches</button>
     </section>
 
-    <!-- Matches display -->
-    <section id="matches" class="grid gap-4"></section>
+    <section id="matches" class="grid gap-4 md:grid-cols-2"></section>
   </main>
 </body>
 </html>
