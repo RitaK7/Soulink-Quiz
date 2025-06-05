@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Soul Circle</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .avatar-glow {
+      transition: transform 0.3s ease;
+    }
+    .avatar-glow:hover {
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: 0 0 12px rgba(128, 90, 213, 0.6);
+    }
+  </style>
   <script defer>
     const testProfiles = [
       { name: "Luna", image: "https://i.pravatar.cc/150?img=12", zodiac: "pisces", chineseSign: "rabbit", loveLanguage: "time", coreValue: "kindness" },
@@ -18,7 +27,10 @@
     function loadSoulCircle() {
       const myCircle = JSON.parse(localStorage.getItem("mySoulCircle") || "[]");
       const matches = testProfiles.filter(p => myCircle.includes(p.name));
+      const avatars = document.getElementById("circleAvatars");
       const container = document.getElementById("circleList");
+
+      avatars.innerHTML = "";
       container.innerHTML = "";
 
       if (matches.length === 0) {
@@ -26,6 +38,16 @@
         return;
       }
 
+      // avatar row
+      matches.forEach(profile => {
+        const avatar = document.createElement("img");
+        avatar.src = profile.image;
+        avatar.alt = profile.name;
+        avatar.className = "w-16 h-16 rounded-full avatar-glow border-2 border-purple-300";
+        avatars.appendChild(avatar);
+      });
+
+      // detailed cards
       matches.forEach(profile => {
         const card = document.createElement("div");
         card.className = "bg-white p-4 rounded-xl shadow flex flex-col items-center text-center";
@@ -52,9 +74,13 @@
 </head>
 <body class="bg-gradient-to-br from-purple-50 to-pink-100 text-gray-800 font-sans">
   <header class="p-4 shadow bg-white sticky top-0 z-10">
-    <h1 class="text-2xl font-bold text-center">💞 Your Soul Circle</h1>
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold">💞 Your Soul Circle</h1>
+      <a href="my-soul.html" class="text-purple-600 hover:underline">⬅ Back to My Soul</a>
+    </div>
   </header>
   <main class="p-6 max-w-4xl mx-auto">
+    <div id="circleAvatars" class="flex gap-4 justify-center mb-6"></div>
     <section id="circleList" class="grid gap-4 md:grid-cols-2"></section>
   </main>
 </body>
