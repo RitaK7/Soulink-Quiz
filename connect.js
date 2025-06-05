@@ -79,7 +79,7 @@ function displayMatches(matches) {
   container.innerHTML = "";
 
   const myCircle = JSON.parse(localStorage.getItem("mySoulCircle") || "[]");
-  const sentMessages = JSON.parse(localStorage.getItem("sentMessages") || "[]");
+  const sentMessages = JSON.parse(localStorage.getItem("sentMessagesFull") || "[]");
 
   if (matches.length === 0) {
     container.innerHTML = '<p class="text-center text-gray-500">No matches found. Try adjusting your filters.</p>';
@@ -90,7 +90,7 @@ function displayMatches(matches) {
     const card = document.createElement("div");
     card.className = "bg-white p-4 rounded-xl shadow flex flex-col items-center text-center";
     const isInCircle = myCircle.includes(profile.name);
-    const messageSent = sentMessages.includes(profile.name);
+    const messageSent = sentMessages.find(entry => entry.name === profile.name);
 
     card.innerHTML = `
       <img src="${profile.image}" alt="${profile.name}" class="w-24 h-24 rounded-full mb-2">
@@ -134,10 +134,12 @@ function sendMessage(name, btn) {
   const message = textarea.value.trim();
   if (!message) return alert("Please enter a message ✍️");
 
-  let sent = JSON.parse(localStorage.getItem("sentMessages") || "[]");
-  if (!sent.includes(name)) {
-    sent.push(name);
-    localStorage.setItem("sentMessages", JSON.stringify(sent));
+  let sent = JSON.parse(localStorage.getItem("sentMessagesFull") || "[]");
+  const alreadySent = sent.find(entry => entry.name === name);
+
+  if (!alreadySent) {
+    sent.push({ name, message });
+    localStorage.setItem("sentMessagesFull", JSON.stringify(sent));
     alert(`✅ Message sent to ${name}!`);
   } else {
     alert("🔒 Premium feature – unlock full communication 💎");
