@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soulink | Soul Connect</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="connect.js"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 shadow-md bg-white sticky top-0 z-10">
+    <h1 class="text-2xl font-bold text-center">🌟 Soul Connect – Find Your Soul Tribe</h1>
+  </header>
+
+  <main class="p-6 max-w-4xl mx-auto">
+    <!-- Filter section -->
+    <section class="bg-white p-4 rounded-2xl shadow mb-6">
+      <h2 class="text-xl font-semibold mb-4">🔍 Filter your soul connection</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <select id="relationshipType" class="w-full p-2 rounded border">
+          <option value="">Relationship type</option>
+          <option value="romantic">Romantic</option>
+          <option value="friendship">Friendship</option>
+          <option value="both">Both</option>
+        </select>
+
+        <select id="loveLanguage" class="w-full p-2 rounded border">
+          <option value="">Love language</option>
+          <option value="words">Words of Affirmation</option>
+          <option value="touch">Physical Touch</option>
+          <option value="time">Quality Time</option>
+          <option value="acts">Acts of Service</option>
+          <option value="gifts">Receiving Gifts</option>
+        </select>
+
+        <select id="zodiac" class="w-full p-2 rounded border">
+          <option value="">Zodiac Sign</option>
+          <option value="aries">Aries</option>
+          <option value="taurus">Taurus</option>
+          <!-- ... all signs ... -->
+        </select>
+
+        <select id="chineseSign" class="w-full p-2 rounded border">
+          <option value="">Chinese Zodiac</option>
+          <option value="rat">Rat</option>
+          <option value="ox">Ox</option>
+          <!-- ... all signs ... -->
+        </select>
+
+        <select id="coreValue" class="w-full p-2 rounded border">
+          <option value="">Core Value</option>
+          <option value="freedom">Freedom</option>
+          <option value="loyalty">Loyalty</option>
+          <option value="growth">Personal Growth</option>
+          <option value="adventure">Adventure</option>
+        </select>
+      </div>
+      <button onclick="filterConnections()" class="mt-4 px-4 py-2 bg-purple-500 text-white rounded-xl">Find Matches</button>
+    </section>
+
+    <!-- Matches display -->
+    <section id="matches" class="grid gap-4"></section>
+  </main>
+</body>
+</html>
