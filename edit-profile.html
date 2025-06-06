@@ -5,79 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edit Profile</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .preview-img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-top: 10px;
-    }
-  </style>
 </head>
-<body class="bg-gradient-to-br from-purple-50 to-pink-100 p-6">
-  <header class="text-center mb-6">
-    <h1 class="text-3xl font-bold text-purple-700">🖊️ Edit Your Profile</h1>
-    <a href="my-soul.html" class="text-sm text-blue-600 hover:underline">⬅ Back to My Soul</a>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
+    <h1 class="text-2xl font-bold">📝 Edit Your Profile</h1>
   </header>
 
-  <main class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow space-y-6">
-    <form id="profileForm">
-      <label class="block mb-2 font-semibold">Name:</label>
-      <input type="text" id="name" class="w-full p-2 border rounded" />
+  <main class="p-6 max-w-xl mx-auto space-y-6">
+    <!-- Avatar Upload -->
+    <section class="bg-white p-6 rounded-xl shadow text-center">
+      <h2 class="text-lg font-semibold mb-2">🖼️ Upload Your Avatar</h2>
+      <input type="file" id="avatarInput" accept="image/*" class="mb-4" />
+      <div>
+        <img id="avatarPreview" src="" alt="Preview" class="mx-auto rounded-full w-32 h-32 object-cover hidden" />
+      </div>
+    </section>
 
-      <label class="block mt-4 mb-2 font-semibold">Love Language:</label>
-      <input type="text" id="loveLanguage" class="w-full p-2 border rounded" />
+    <!-- Bio Input -->
+    <section class="bg-white p-6 rounded-xl shadow text-center">
+      <h2 class="text-lg font-semibold mb-2">💬 About Me</h2>
+      <textarea id="bioInput" placeholder="Tell us a little about yourself..." rows="4" class="w-full p-2 border rounded"></textarea>
+    </section>
 
-      <label class="block mt-4 mb-2 font-semibold">Core Value:</label>
-      <input type="text" id="coreValue" class="w-full p-2 border rounded" />
-
-      <label class="block mt-4 mb-2 font-semibold">Upload Profile Picture:</label>
-      <input type="file" id="profileImage" accept="image/*" class="w-full" />
-      <img id="imagePreview" class="preview-img hidden" />
-
-      <button type="submit" class="mt-4 w-full bg-purple-600 text-white p-2 rounded hover:bg-purple-700">💾 Save Profile</button>
-    </form>
+    <div class="text-center">
+      <button id="saveButton" class="px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition">Save Profile</button>
+    </div>
   </main>
 
   <script>
-    const nameInput = document.getElementById("name");
-    const loveInput = document.getElementById("loveLanguage");
-    const valueInput = document.getElementById("coreValue");
-    const imgInput = document.getElementById("profileImage");
-    const imgPreview = document.getElementById("imagePreview");
+    const avatarInput = document.getElementById('avatarInput');
+    const avatarPreview = document.getElementById('avatarPreview');
+    const bioInput = document.getElementById('bioInput');
+    const saveButton = document.getElementById('saveButton');
 
-    // Load saved data
-    window.addEventListener("DOMContentLoaded", () => {
-      nameInput.value = localStorage.getItem("userName") || "";
-      loveInput.value = localStorage.getItem("userLoveLanguage") || "";
-      valueInput.value = localStorage.getItem("userCoreValue") || "";
-      const imgData = localStorage.getItem("userProfileImage");
-      if (imgData) {
-        imgPreview.src = imgData;
-        imgPreview.classList.remove("hidden");
-      }
-    });
+    // Load existing avatar and bio
+    const storedAvatar = localStorage.getItem('userAvatar');
+    const storedBio = localStorage.getItem('userBio');
 
-    imgInput.addEventListener("change", () => {
-      const file = imgInput.files[0];
+    if (storedAvatar) {
+      avatarPreview.src = storedAvatar;
+      avatarPreview.classList.remove('hidden');
+    }
+    if (storedBio) {
+      bioInput.value = storedBio;
+    }
+
+    avatarInput.addEventListener('change', () => {
+      const file = avatarInput.files[0];
       if (file) {
         const reader = new FileReader();
-        reader.onload = e => {
-          imgPreview.src = e.target.result;
-          imgPreview.classList.remove("hidden");
-          localStorage.setItem("userProfileImage", e.target.result);
+        reader.onload = () => {
+          localStorage.setItem('userAvatar', reader.result);
+          avatarPreview.src = reader.result;
+          avatarPreview.classList.remove('hidden');
         };
         reader.readAsDataURL(file);
       }
     });
 
-    document.getElementById("profileForm").addEventListener("submit", e => {
-      e.preventDefault();
-      localStorage.setItem("userName", nameInput.value);
-      localStorage.setItem("userLoveLanguage", loveInput.value);
-      localStorage.setItem("userCoreValue", valueInput.value);
-      alert("✅ Profile saved successfully!");
+    saveButton.addEventListener('click', () => {
+      localStorage.setItem('userBio', bioInput.value);
+      alert('Profile saved!');
     });
   </script>
 </body>
