@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .preview-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-pink-100 p-6">
+  <header class="text-center mb-6">
+    <h1 class="text-3xl font-bold text-purple-700">🖊️ Edit Your Profile</h1>
+    <a href="my-soul.html" class="text-sm text-blue-600 hover:underline">⬅ Back to My Soul</a>
+  </header>
+
+  <main class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow space-y-6">
+    <form id="profileForm">
+      <label class="block mb-2 font-semibold">Name:</label>
+      <input type="text" id="name" class="w-full p-2 border rounded" />
+
+      <label class="block mt-4 mb-2 font-semibold">Love Language:</label>
+      <input type="text" id="loveLanguage" class="w-full p-2 border rounded" />
+
+      <label class="block mt-4 mb-2 font-semibold">Core Value:</label>
+      <input type="text" id="coreValue" class="w-full p-2 border rounded" />
+
+      <label class="block mt-4 mb-2 font-semibold">Upload Profile Picture:</label>
+      <input type="file" id="profileImage" accept="image/*" class="w-full" />
+      <img id="imagePreview" class="preview-img hidden" />
+
+      <button type="submit" class="mt-4 w-full bg-purple-600 text-white p-2 rounded hover:bg-purple-700">💾 Save Profile</button>
+    </form>
+  </main>
+
+  <script>
+    const nameInput = document.getElementById("name");
+    const loveInput = document.getElementById("loveLanguage");
+    const valueInput = document.getElementById("coreValue");
+    const imgInput = document.getElementById("profileImage");
+    const imgPreview = document.getElementById("imagePreview");
+
+    // Load saved data
+    window.addEventListener("DOMContentLoaded", () => {
+      nameInput.value = localStorage.getItem("userName") || "";
+      loveInput.value = localStorage.getItem("userLoveLanguage") || "";
+      valueInput.value = localStorage.getItem("userCoreValue") || "";
+      const imgData = localStorage.getItem("userProfileImage");
+      if (imgData) {
+        imgPreview.src = imgData;
+        imgPreview.classList.remove("hidden");
+      }
+    });
+
+    imgInput.addEventListener("change", () => {
+      const file = imgInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          imgPreview.src = e.target.result;
+          imgPreview.classList.remove("hidden");
+          localStorage.setItem("userProfileImage", e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById("profileForm").addEventListener("submit", e => {
+      e.preventDefault();
+      localStorage.setItem("userName", nameInput.value);
+      localStorage.setItem("userLoveLanguage", loveInput.value);
+      localStorage.setItem("userCoreValue", valueInput.value);
+      alert("✅ Profile saved successfully!");
+    });
+  </script>
+</body>
+</html>
