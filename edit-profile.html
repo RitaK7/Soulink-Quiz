@@ -39,7 +39,7 @@
     const saveButton = document.getElementById('saveButton');
 
     // Load existing avatar and bio
-    const storedAvatar = localStorage.getItem('userAvatar');
+    const storedAvatar = localStorage.getItem('userProfileImage');
     const storedBio = localStorage.getItem('userBio');
 
     if (storedAvatar) {
@@ -55,7 +55,7 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = () => {
-          localStorage.setItem('userAvatar', reader.result);
+          localStorage.setItem('userProfileImage', reader.result);
           avatarPreview.src = reader.result;
           avatarPreview.classList.remove('hidden');
         };
