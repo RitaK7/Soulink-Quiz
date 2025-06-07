@@ -1,119 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Soul</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="my-soul.js"></script>
-</head>
-<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow sticky top-0 z-10">
-    <h1 class="text-2xl font-bold text-center">🌟 Welcome to Your Soul Dashboard</h1>
-  </header>
+<!-- Z2: MY-SOUL PAGE GILINIMAS -->
+<section class="mt-8 p-6 bg-purple-50 rounded-xl shadow">
+  <h3 class="text-2xl font-semibold mb-4">What I'm Looking For</h3>
+  <textarea class="w-full p-3 border rounded-md" placeholder="Describe your ideal connection..." id="idealConnection"></textarea>
+</section>
 
-  <main class="p-6 max-w-4xl mx-auto space-y-6">
+<section class="mt-6 p-6 bg-pink-50 rounded-xl shadow">
+  <h3 class="text-2xl font-semibold mb-4">What I Wish to Avoid</h3>
+  <textarea class="w-full p-3 border rounded-md" placeholder="Mention traits or habits you'd like to avoid..." id="avoidTraits"></textarea>
+</section>
 
-    <!-- Soul Essence (dynamic) -->
-    <section class="bg-white p-6 rounded-xl shadow text-center">
-      <img id="soulAvatar" src="" alt="Your Avatar" class="w-24 h-24 mx-auto rounded-full mb-2 hidden" />
-      <h2 class="text-xl font-semibold" id="soulName">🧬 Your Soul Essence</h2>
-      <p id="soulBio" class="text-sm text-gray-600 italic">Loading your unique frequency...</p>
-      <p id="lastUpdated" class="text-xs text-gray-400 mt-2 hidden"></p>
-      <div class="mt-4">
-        <button id="shareProfile" class="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-600">🔗 Share My Profile</button>
-      </div>
-    </section>
+<script>
+  document.getElementById('idealConnection').addEventListener('input', (e) => {
+    localStorage.setItem('idealConnection', e.target.value);
+  });
+  document.getElementById('avoidTraits').addEventListener('input', (e) => {
+    localStorage.setItem('avoidTraits', e.target.value);
+  });
 
-    <!-- Soulprint Summary -->
-    <section class="bg-white p-6 rounded-xl shadow text-center">
-      <h2 class="text-xl font-semibold mb-2">📜 Your Soulprint Summary</h2>
-      <p class="text-gray-600">See love language, values, astrology & more...</p>
-      <a href="result.html" class="mt-3 inline-block px-4 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition">
-        View Full Soulprint
-      </a>
-    </section>
-
-    <!-- Soul Circle -->
-    <section class="bg-purple-50 p-6 rounded-xl shadow">
-      <div class="flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-4">
-        <div>
-          <h2 class="text-lg font-semibold mb-1">💞 Your Soul Circle</h2>
-          <p class="text-sm text-gray-600">Souls you've felt a connection with.</p>
-        </div>
-        <a href="my-circle.html" class="px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">
-          Go to My Soul Circle
-        </a>
-      </div>
-    </section>
-
-    <!-- Message Center -->
-    <section class="bg-blue-50 p-6 rounded-xl shadow">
-      <div class="flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-4">
-        <div>
-          <h2 class="text-lg font-semibold mb-1">💌 Your Messages</h2>
-          <p class="text-sm text-gray-600">Messages sent to kindred spirits.</p>
-        </div>
-        <a href="message-center.html" class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">
-          Go to Message Center
-        </a>
-      </div>
-    </section>
-
-    <!-- Profile Upload -->
-    <section class="bg-pink-50 p-6 rounded-xl shadow text-center">
-      <h2 class="text-lg font-semibold mb-2">🖼️ Upload Profile Media</h2>
-      <p class="text-sm text-gray-600">Add your photo or video to personalize your Soul Profile.</p>
-      <a href="edit-profile.html" class="mt-3 inline-block px-4 py-2 bg-pink-600 text-white rounded-full hover:bg-pink-700 transition">
-        Go to Edit Profile
-      </a>
-    </section>
-
-    <!-- AI Coach & Chart -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-green-50 p-6 rounded-xl shadow text-center">
-        <h2 class="text-lg font-semibold mb-2">🧠 Soul Coach</h2>
-        <p class="text-sm text-gray-600">Personalized insights and next steps.</p>
-        <a href="soul-coach.html" class="mt-3 inline-block px-4 py-2 bg-green-600 text-white rounded-full hover:bg-green-700 transition">
-          Go to Soul Coach
-        </a>
-      </div>
-
-      <div class="bg-yellow-50 p-6 rounded-xl shadow text-center">
-        <h2 class="text-lg font-semibold mb-2">🗺️ Soul Chart</h2>
-        <p class="text-sm text-gray-600">Energetic soul map and connections.</p>
-        <a href="soul-chart.html" class="mt-3 inline-block px-4 py-2 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 transition">
-          View Soul Chart
-        </a>
-      </div>
-    </section>
-  </main>
-  <script>
-window.addEventListener("DOMContentLoaded", () => {
-  const avatar = document.getElementById("soulAvatar");
-  const name = localStorage.getItem("userName") || "";
-  const lang = localStorage.getItem("userLoveLanguage") || "";
-  const core = localStorage.getItem("userCoreValue") || "";
-  const img = localStorage.getItem("userProfileImage");
-
-  const nameEl = document.getElementById("soulName");
-  const bioEl = document.getElementById("soulBio");
-  const dateEl = document.getElementById("lastUpdated");
-
-  if (img && avatar) {
-    avatar.src = img;
-    avatar.classList.remove("hidden");
-  }
-
-  if (name || lang || core) {
-    nameEl.textContent = `🧬 ${name || "Your Soul"}`;
-    bioEl.textContent = `Love Language: ${lang || "-"} • Core Value: ${core || "-"}`;
-    const date = new Date().toLocaleDateString("en-GB");
-    dateEl.textContent = `Last updated: ${date}`;
-    dateEl.classList.remove("hidden");
-  }
-});
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('idealConnection').value = localStorage.getItem('idealConnection') || '';
+    document.getElementById('avoidTraits').value = localStorage.getItem('avoidTraits') || '';
+  });
 </script>
-
-</body>
-</html>
