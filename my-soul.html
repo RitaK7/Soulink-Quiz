@@ -88,27 +88,6 @@
     </section>
   </main>
 
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const avatar = document.getElementById("avatarPreview");
-      const storedImg = localStorage.getItem("userProfileImage");
-      if (storedImg) {
-        avatar.src = storedImg;
-        avatar.classList.remove("hidden");
-      }
-
-      // Load user intro
-      const userName = localStorage.getItem("userName");
-      const loveLang = localStorage.getItem("userLoveLanguage");
-      const coreVal = localStorage.getItem("userCoreValue");
-
-      if (userName || loveLang || coreVal) {
-        document.getElementById("introCard").classList.remove("hidden");
-        document.getElementById("userNameDisplay").textContent = `👤 ${userName || "Your Name"}`;
-        document.getElementById("loveLanguageDisplay").textContent = loveLang || "-";
-        document.getElementById("coreValueDisplay").textContent = coreVal || "-";
-      }
-    });
-  </script>
+  <script src="my-soul.js"></script>
 </body>
 </html>
