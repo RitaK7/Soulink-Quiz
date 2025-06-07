@@ -88,5 +88,32 @@
       </div>
     </section>
   </main>
+  <script>
+window.addEventListener("DOMContentLoaded", () => {
+  const avatar = document.getElementById("soulAvatar");
+  const name = localStorage.getItem("userName") || "";
+  const lang = localStorage.getItem("userLoveLanguage") || "";
+  const core = localStorage.getItem("userCoreValue") || "";
+  const img = localStorage.getItem("userProfileImage");
+
+  const nameEl = document.getElementById("soulName");
+  const bioEl = document.getElementById("soulBio");
+  const dateEl = document.getElementById("lastUpdated");
+
+  if (img && avatar) {
+    avatar.src = img;
+    avatar.classList.remove("hidden");
+  }
+
+  if (name || lang || core) {
+    nameEl.textContent = `🧬 ${name || "Your Soul"}`;
+    bioEl.textContent = `Love Language: ${lang || "-"} • Core Value: ${core || "-"}`;
+    const date = new Date().toLocaleDateString("en-GB");
+    dateEl.textContent = `Last updated: ${date}`;
+    dateEl.classList.remove("hidden");
+  }
+});
+</script>
+
 </body>
 </html>
