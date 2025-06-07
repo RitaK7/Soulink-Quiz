@@ -1,20 +1,38 @@
-<!-- Z3: COMPATIBILITY BADGE -->
-<script>
-  function displayCompatibilityBadge(score) {
-    const badgeContainer = document.getElementById('compatibility-badge');
-    if (score >= 80) {
-      badgeContainer.innerHTML = `
-        <div class="flex items-center gap-3 mt-6 p-4 bg-yellow-100 rounded-lg shadow">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.104 0 2-.896 2-2s-.896-2-2-2s-2 .896-2 2s.896 2 2 2zm0 2c-2.21 0-4 1.79-4 4v2h8v-2c0-2.21-1.79-4-4-4z" />
-          </svg>
-          <span class="font-semibold text-yellow-700">✨ Soul-Match Found! Your compatibility is ${score}% ✨</span>
-        </div>
-      `;
-    }
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compatibility Summary</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient-to-br from-yellow-50 to-red-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
+    <h1 class="text-2xl font-bold">💫 Compatibility Summary</h1>
+  </header>
 
-  // Example call (replace 85 with actual score):
-  displayCompatibilityBadge(85);
-</script>
-<div id="compatibility-badge"></div>
+  <!-- Compatibility results display here -->
+
+  <!-- Z3: COMPATIBILITY BADGE -->
+  <div id="compatibility-badge" class="m-6"></div>
+
+  <script>
+    function displayCompatibilityBadge(score) {
+      const badgeContainer = document.getElementById('compatibility-badge');
+      if (score >= 80) {
+        badgeContainer.innerHTML = `
+          <div class="flex items-center gap-3 mt-6 p-4 bg-yellow-100 rounded-lg shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.104 0 2-.896 2-2s-.896-2-2-2s-2 .896-2 2s.896 2 2 2zm0 2c-2.21 0-4 1.79-4 4v2h8v-2c0-2.21-1.79-4-4-4z" />
+            </svg>
+            <span class="font-semibold text-yellow-700">✨ Soul-Match Found! Your compatibility is ${score}% ✨</span>
+          </div>
+        `;
+      }
+    }
+
+    // Example usage (replace with actual value dynamically)
+    displayCompatibilityBadge(85);
+  </script>
+</body>
+</html>

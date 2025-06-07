@@ -1,24 +1,41 @@
-<!-- Z2: MY-SOUL PAGE GILINIMAS -->
-<section class="mt-8 p-6 bg-purple-50 rounded-xl shadow">
-  <h3 class="text-2xl font-semibold mb-4">What I'm Looking For</h3>
-  <textarea class="w-full p-3 border rounded-md" placeholder="Describe your ideal connection..." id="idealConnection"></textarea>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Soul</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient-to-br from-purple-50 to-pink-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
+    <h1 class="text-2xl font-bold">🌟 My Soul Profile</h1>
+  </header>
 
-<section class="mt-6 p-6 bg-pink-50 rounded-xl shadow">
-  <h3 class="text-2xl font-semibold mb-4">What I Wish to Avoid</h3>
-  <textarea class="w-full p-3 border rounded-md" placeholder="Mention traits or habits you'd like to avoid..." id="avoidTraits"></textarea>
-</section>
+  <!-- Existing profile content could be here -->
 
-<script>
-  document.getElementById('idealConnection').addEventListener('input', (e) => {
-    localStorage.setItem('idealConnection', e.target.value);
-  });
-  document.getElementById('avoidTraits').addEventListener('input', (e) => {
-    localStorage.setItem('avoidTraits', e.target.value);
-  });
+  <!-- Z2: MY-SOUL PAGE GILINIMAS -->
+  <section class="mt-8 p-6 bg-purple-50 rounded-xl shadow m-4">
+    <h3 class="text-2xl font-semibold mb-4">What I'm Looking For</h3>
+    <textarea class="w-full p-3 border rounded-md" placeholder="Describe your ideal connection..." id="idealConnection"></textarea>
+  </section>
 
-  window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('idealConnection').value = localStorage.getItem('idealConnection') || '';
-    document.getElementById('avoidTraits').value = localStorage.getItem('avoidTraits') || '';
-  });
-</script>
+  <section class="mt-6 p-6 bg-pink-50 rounded-xl shadow m-4">
+    <h3 class="text-2xl font-semibold mb-4">What I Wish to Avoid</h3>
+    <textarea class="w-full p-3 border rounded-md" placeholder="Mention traits or habits you'd like to avoid..." id="avoidTraits"></textarea>
+  </section>
+
+  <script>
+    document.getElementById('idealConnection').addEventListener('input', (e) => {
+      localStorage.setItem('idealConnection', e.target.value);
+    });
+    document.getElementById('avoidTraits').addEventListener('input', (e) => {
+      localStorage.setItem('avoidTraits', e.target.value);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('idealConnection').value = localStorage.getItem('idealConnection') || '';
+      document.getElementById('avoidTraits').value = localStorage.getItem('avoidTraits') || '';
+    });
+  </script>
+</body>
+</html>
