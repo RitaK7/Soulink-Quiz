@@ -1,40 +1,33 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Invite a Soulmate</title>
-<script src="checkPlan.js"></script><script src="https://cdn.tailwindcss.com"></script>
-<style>
-    body { font-family: 'Poppins', sans-serif; }
-  </style>
-<script>
-    function generateInvite() {
-      const name = document.getElementById('name').value;
-      const yourName = document.getElementById('yourName').value;
-      const message = `Hello ${name}!\n\nI just discovered Soulink – a platform that matches souls, not just profiles.\nI felt it might inspire you too 💜\nTry it here: https://soulink-quiz.vercel.app/test.html\n\nLove, ${yourName}`;
-      document.getElementById('output').value = message;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invite</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient-to-br from-yellow-50 to-orange-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">🤝 Invite Your Soul Friend</h1>
+  </header>
 
-    function copyMessage() {
-      const output = document.getElementById('output');
-      output.select();
-      output.setSelectionRange(0, 99999);
-      document.execCommand('copy');
-      alert("Message copied to clipboard! ✉️");
+  <main class="p-6 max-w-xl mx-auto text-center">
+    <p class="text-lg mb-6">Share your Soulink journey with someone who matters. Invite them to discover their soulprint and match with you!</p>
+    <div class="space-y-4">
+      <a href="https://wa.me/?text=Join%20me%20on%20Soulink!%20https://soulink.global" class="block w-full py-3 bg-green-500 text-white rounded-full hover:bg-green-600 transition">Share via WhatsApp</a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https://soulink.global" class="block w-full py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">Share via Messenger</a>
+      <button onclick="copyLink()" class="block w-full py-3 bg-gray-700 text-white rounded-full hover:bg-gray-800 transition">📋 Copy Invite Link</button>
+    </div>
+    <p id="copiedMessage" class="text-green-600 mt-4 hidden">Link copied to clipboard!</p>
+  </main>
+
+  <script>
+    function copyLink() {
+      const url = "https://soulink.global";
+      navigator.clipboard.writeText(url).then(() => {
+        document.getElementById('copiedMessage').classList.remove('hidden');
+      });
     }
   </script>
-</head>
-<body class="bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 min-h-screen p-6">
-<div class="max-w-xl mx-auto">
-<h1 class="text-3xl font-bold text-purple-700 mb-6">💌 Invite Your Soulmate</h1>
-<p class="mb-4 text-gray-600">Send a gentle invitation to someone you love or trust – maybe this journey is meant to be shared 💫</p>
-<input class="w-full p-3 border rounded mb-4" id="yourName" placeholder="Your name" type="text"/>
-<input class="w-full p-3 border rounded mb-4" id="name" placeholder="Their name" type="text"/>
-<button class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700" onclick="generateInvite()">Generate Invite</button>
-<textarea class="w-full mt-4 p-3 border rounded text-sm" id="output" readonly="" rows="6"></textarea>
-<button class="mt-2 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600" onclick="copyMessage()">Copy Message</button>
-</div>
 </body>
 </html>
