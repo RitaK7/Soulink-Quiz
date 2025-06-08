@@ -2,70 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Edit Profile</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase.js"></script>
 </head>
 <body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
   <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
     <h1 class="text-2xl font-bold">📝 Edit Your Profile</h1>
   </header>
 
-  <main class="p-6 max-w-xl mx-auto space-y-6">
-    <!-- Avatar Upload -->
-    <section class="bg-white p-6 rounded-xl shadow text-center">
-      <h2 class="text-lg font-semibold mb-2">🖼️ Upload Your Avatar</h2>
-      <input type="file" id="avatarInput" accept="image/*" class="mb-4" />
-      <div>
-        <img id="avatarPreview" src="" alt="Preview" class="mx-auto rounded-full w-32 h-32 object-cover hidden" />
-      </div>
-    </section>
-
-    <!-- Bio Input -->
-    <section class="bg-white p-6 rounded-xl shadow text-center">
-      <h2 class="text-lg font-semibold mb-2">💬 About Me</h2>
-      <textarea id="bioInput" placeholder="Tell us a little about yourself..." rows="4" class="w-full p-2 border rounded"></textarea>
-    </section>
-
-    <div class="text-center">
-      <button type="button" id="saveButton" class="px-6 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition">Save Profile</button>
-    </div>
+  <main class="p-6 max-w-xl mx-auto space-y-4">
+    <input type="text" id="name" placeholder="Your Name" class="w-full p-3 border rounded-md"/>
+    <input type="email" id="email" placeholder="Email Address" class="w-full p-3 border rounded-md"/>
+    <button id="saveProfile" class="w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Save Profile</button>
+    <p id="profileMsg" class="text-green-600 mt-4 hidden">✅ Profile updated in Firebase!</p>
   </main>
 
-  <script>
-    const avatarInput = document.getElementById('avatarInput');
-    const avatarPreview = document.getElementById('avatarPreview');
-    const bioInput = document.getElementById('bioInput');
-    const saveButton = document.getElementById('saveButton');
+  <script type="module">
+    import { saveQuizData } from './firebase.js';
 
-    // Load existing avatar and bio
-    const storedAvatar = localStorage.getItem('userProfileImage');
-    const storedBio = localStorage.getItem('userBio');
-
-    if (storedAvatar) {
-      avatarPreview.src = storedAvatar;
-      avatarPreview.classList.remove('hidden');
-    }
-    if (storedBio) {
-      bioInput.value = storedBio;
-    }
-
-    avatarInput.addEventListener('change', () => {
-      const file = avatarInput.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          localStorage.setItem('userProfileImage', reader.result);
-          avatarPreview.src = reader.result;
-          avatarPreview.classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    saveButton.addEventListener('click', () => {
-      localStorage.setItem('userBio', bioInput.value);
-      alert('Profile saved!');
+    document.getElementById('saveProfile').addEventListener('click', () => {
+      const userId = 'user_' + Date.now();
+      const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value
+      };
+      saveQuizData(userId, data);
+      document.getElementById('profileMsg').classList.remove('hidden');
     });
   </script>
 </body>

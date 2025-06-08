@@ -2,39 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Soul</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase.js"></script>
 </head>
 <body class="bg-gradient-to-br from-purple-50 to-pink-100 text-gray-800 font-sans">
   <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
     <h1 class="text-2xl font-bold">🌟 My Soul Profile</h1>
   </header>
 
-  <!-- Existing profile content could be here -->
+  <main class="p-6 max-w-xl mx-auto">
+    <section class="mb-6">
+      <h2 class="text-xl font-semibold mb-2">What I'm Looking For</h2>
+      <textarea id="idealConnection" class="w-full p-3 border rounded-md" placeholder="Describe your ideal connection..."></textarea>
+    </section>
+    <section>
+      <h2 class="text-xl font-semibold mb-2">What I Wish to Avoid</h2>
+      <textarea id="avoidTraits" class="w-full p-3 border rounded-md" placeholder="Mention traits or habits you'd like to avoid..."></textarea>
+    </section>
+    <button id="saveSoul" class="mt-6 w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">💾 Save My Soul</button>
+    <p id="saveMsg" class="text-green-600 mt-4 hidden">✅ Saved to your Soulprint!</p>
+  </main>
 
-  <!-- Z2: MY-SOUL PAGE GILINIMAS -->
-  <section class="mt-8 p-6 bg-purple-50 rounded-xl shadow m-4">
-    <h3 class="text-2xl font-semibold mb-4">What I'm Looking For</h3>
-    <textarea class="w-full p-3 border rounded-md" placeholder="Describe your ideal connection..." id="idealConnection"></textarea>
-  </section>
+  <script type="module">
+    import { saveQuizData } from './firebase.js';
 
-  <section class="mt-6 p-6 bg-pink-50 rounded-xl shadow m-4">
-    <h3 class="text-2xl font-semibold mb-4">What I Wish to Avoid</h3>
-    <textarea class="w-full p-3 border rounded-md" placeholder="Mention traits or habits you'd like to avoid..." id="avoidTraits"></textarea>
-  </section>
-
-  <script>
-    document.getElementById('idealConnection').addEventListener('input', (e) => {
-      localStorage.setItem('idealConnection', e.target.value);
-    });
-    document.getElementById('avoidTraits').addEventListener('input', (e) => {
-      localStorage.setItem('avoidTraits', e.target.value);
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('idealConnection').value = localStorage.getItem('idealConnection') || '';
-      document.getElementById('avoidTraits').value = localStorage.getItem('avoidTraits') || '';
+    document.getElementById('saveSoul').addEventListener('click', () => {
+      const userId = 'user_' + Date.now();
+      const data = {
+        idealConnection: document.getElementById('idealConnection').value,
+        avoidTraits: document.getElementById('avoidTraits').value
+      };
+      saveQuizData(userId, data);
+      document.getElementById('saveMsg').classList.remove('hidden');
     });
   </script>
 </body>
