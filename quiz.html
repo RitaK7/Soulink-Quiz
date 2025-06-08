@@ -1,106 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Soulink Compatibility Quiz</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #033d4a;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: #05545f;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-    }
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    label {
-      display: block;
-      margin: 20px 0 10px;
-    }
-    select, input[type="text"], input[type="date"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin-bottom: 20px;
-    }
-    .radio-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .radio-group label {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #00c2a8;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #00a694;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulink Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="firebase.js"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>Soulink Compatibility Quiz</h2>
-    <form id="quizForm">
-      <label>1. What are you currently looking for?</label>
-      <div class="radio-group">
-        <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic relationship</label>
-        <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label>
-        <label><input type="radio" name="relationshipType" value="both" /> Both</label>
-      </div>
+<body class="bg-gradient-to-br from-purple-100 to-pink-50 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">💞 Soul Compatibility Quiz</h1>
+  </header>
 
-      <label for="loveLanguage">2. What’s your love language?</label>
-      <select id="loveLanguage" name="loveLanguage" required>
-        <option value="">Select one...</option>
-        <option value="words">Words of Affirmation</option>
-        <option value="touch">Physical Touch</option>
-        <option value="gifts">Receiving Gifts</option>
-        <option value="time">Quality Time</option>
-        <option value="acts">Acts of Service</option>
+  <main class="p-6 max-w-xl mx-auto">
+    <form id="quizForm" class="space-y-4">
+      <input type="text" id="name" placeholder="Your Name" class="w-full p-3 border rounded-md" required />
+      <input type="date" id="birthdate" class="w-full p-3 border rounded-md" required />
+      <select id="loveLanguage" class="w-full p-3 border rounded-md" required>
+        <option value="">Select Love Language</option>
+        <option>Words of Affirmation</option>
+        <option>Quality Time</option>
+        <option>Acts of Service</option>
+        <option>Physical Touch</option>
+        <option>Receiving Gifts</option>
       </select>
-
-      <button type="submit">See Results</button>
+      <button type="submit" class="w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Submit</button>
     </form>
-  </div>
+    <p id="statusMsg" class="text-green-600 mt-4 hidden">✅ Your answers were submitted!</p>
+  </main>
 
-  <script>
-    document.getElementById("quizForm").addEventListener("submit", function(e) {
+  <script type="module">
+    import { saveQuizData } from './firebase.js';
+
+    document.getElementById('quizForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
-      const loveLanguage = document.getElementById("loveLanguage").value;
-
-      if (relationshipType && loveLanguage) {
-        localStorage.setItem("relationshipType", relationshipType);
-        localStorage.setItem("loveLanguage", loveLanguage);
-        localStorage.setItem("isLoggedIn", "true");
-        window.location.href = "result.html";
-      } else {
-        alert("Please answer all questions.");
-      }
+      const userId = Date.now().toString(); // could be email or UID later
+      const data = {
+        name: document.getElementById('name').value,
+        birthdate: document.getElementById('birthdate').value,
+        loveLanguage: document.getElementById('loveLanguage').value
+      };
+      saveQuizData(userId, data);
+      document.getElementById('statusMsg').classList.remove('hidden');
     });
   </script>
 </body>
