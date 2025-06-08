@@ -2,22 +2,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-// Your web app's Firebase configuration
+// Saugūs kintamieji iš .env failo (naudojant Vite ar kitą bundlerį)
 const firebaseConfig = {
-  apiKey: "AIzaSyCb0TOXVrP1dQe16T6RNRvAg8lwu9QPnf4",
-  authDomain: "soulink-342bb.firebaseapp.com",
-  projectId: "soulink-342bb",
-  storageBucket: "soulink-342bb.firebasestorage.app",
-  messagingSenderId: "541312933178",
-  appId: "1:541312933178:web:239cbbb60e68b183f48403",
-  measurementId: "G-7DQPK8J701"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
+// Inicializuojame Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Function to save quiz data
+// Funkcija duomenų išsaugojimui
 export function saveQuizData(userId, data) {
   set(ref(db, 'soulink/quizAnswers/' + userId), {
     ...data,
