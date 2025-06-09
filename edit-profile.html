@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Edit Profile</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile - Soulink</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase.js"></script>
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
+<body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
+
+  <script type="module">
+    import { checkAuth, showUserEmail } from './auth.js';
+    checkAuth();
+    showUserEmail();
+
+    document.getElementById("saveBtn")?.addEventListener("click", () => {
+      const name = document.getElementById("userName").value;
+      const birthdate = document.getElementById("userBirthdate").value;
+      localStorage.setItem("soulinkName", name);
+      localStorage.setItem("soulinkBirthdate", birthdate);
+      alert("✅ Profile updated!");
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("userName").value = localStorage.getItem("soulinkName") || "";
+      document.getElementById("userBirthdate").value = localStorage.getItem("soulinkBirthdate") || "";
+    });
+  </script>
+
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
     <h1 class="text-2xl font-bold">📝 Edit Your Profile</h1>
+    <div id="userEmail" class="text-sm text-right pr-4 pt-2 text-gray-500"></div>
   </header>
 
   <main class="p-6 max-w-xl mx-auto space-y-4">
-    <input type="text" id="name" placeholder="Your Name" class="w-full p-3 border rounded-md"/>
-    <input type="email" id="email" placeholder="Email Address" class="w-full p-3 border rounded-md"/>
-    <button id="saveProfile" class="w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Save Profile</button>
-    <p id="profileMsg" class="text-green-600 mt-4 hidden">✅ Profile updated in Firebase!</p>
+    <label class="block">
+      <span class="text-lg font-semibold">Your Name</span>
+      <input type="text" id="userName" class="w-full p-3 border rounded-md mt-1" placeholder="Enter your name">
+    </label>
+
+    <label class="block">
+      <span class="text-lg font-semibold">Birthdate</span>
+      <input type="date" id="userBirthdate" class="w-full p-3 border rounded-md mt-1">
+    </label>
+
+    <button id="saveBtn" type="button" class="mt-4 w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">
+      💾 Save Profile
+    </button>
   </main>
 
-  <script type="module">
-    import { saveQuizData } from './firebase.js';
-
-    document.getElementById('saveProfile').addEventListener('click', () => {
-      const userId = 'user_' + Date.now();
-      const data = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value
-      };
-      saveQuizData(userId, data);
-      document.getElementById('profileMsg').classList.remove('hidden');
-    });
-  </script>
 </body>
 </html>
