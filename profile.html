@@ -1,43 +1,42 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>
-<!-- GDPR Notice -->
-<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-Edit Profile – Soulink</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Profile - Soulink</title>
   <link rel="stylesheet" href="style.css" />
-  <script>
-    function loadProfile() {
-      const selected = localStorage.getItem("relationshipType");
-      if (selected) {
-        document.querySelector(`input[value="${selected}"]`).checked = true;
-      }
-    }
-
-    function updateProfile() {
-      const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
-      if (relationshipType) {
-        localStorage.setItem("relationshipType", relationshipType);
-        alert("Profile updated!");
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", loadProfile);
-  </script>
+  <script type="module" src="auth.js"></script>
 </head>
-<body>
-  <main>
-    <h2>Edit Your Relationship Preferences</h2>
-    <form onsubmit="updateProfile(); return false;">
-      <p>What are you looking for?</p>
-      <label><input type="radio" name="relationshipType" value="romantic" /> Romantic relationship</label><br>
-      <label><input type="radio" name="relationshipType" value="friendship" /> Friendship / Kindred spirits</label><br>
-      <label><input type="radio" name="relationshipType" value="both" /> Both</label><br><br>
+<body class="bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800 font-sans">
 
-      <button type="submit">Save Changes</button>
-    </form>
+  <script type="module">
+    import { checkAuth, showUserEmail } from './auth.js';
+    checkAuth();
+    showUserEmail();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const planElement = document.getElementById("userPlan");
+      planElement.textContent = "🌱 Current Plan: Free";
+    });
+  </script>
+
+  <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
+    <h1 class="text-2xl font-bold">👤 My Profile</h1>
+    <div id="userEmail" class="text-sm text-right pr-4 pt-2 text-gray-500"></div>
+  </header>
+
+  <main class="p-6 max-w-xl mx-auto space-y-6">
+    <section>
+      <h2 class="text-lg font-semibold">📄 Your Account</h2>
+      <p id="userPlan" class="text-purple-700 font-medium">Loading...</p>
+    </section>
+
+    <section>
+      <a href="logout.html" class="inline-block mt-4 px-6 py-3 bg-red-500 text-white rounded-full text-lg hover:bg-red-600 transition">
+        🚪 Log Out
+      </a>
+    </section>
   </main>
+
 </body>
 </html>
