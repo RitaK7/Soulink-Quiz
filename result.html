@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Soulprint</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Soulprint Result</title>
   <link rel="stylesheet" href="style.css" />
-  <script defer src="result.js"></script>
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="db.js"></script>
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+<body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
   <header class="p-4 bg-white shadow text-center">
-    <h1 class="text-3xl font-bold text-purple-700">🧬 Your Soulprint Revealed</h1>
-    <p class="text-gray-600">Explore your unique soul signature</p>
+    <h1 class="text-2xl font-bold">🔮 Your Soulprint</h1>
   </header>
 
-  <main class="max-w-3xl mx-auto p-6 space-y-8">
-    <section id="soulSummary" class="bg-white rounded-xl shadow p-6 text-center">
-      <h2 class="text-xl font-semibold mb-2">🌟 Your Soul Summary</h2>
-      <div class="space-y-2 text-lg text-gray-700" id="soulDetails">
-        <!-- Filled by JS -->
-      </div>
-    </section>
-
-    <section class="bg-purple-100 rounded-xl p-6 text-center">
-      <h2 class="text-lg font-bold text-purple-800 mb-2">✨ AI Reflection</h2>
-      <p id="aiReflection" class="italic text-gray-700">
-        <!-- AI-generated reflection will appear here -->
-      </p>
-    </section>
-
-    <div class="text-center">
-      <a href="my-soul.html" class="inline-block mt-4 px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Go to Dashboard</a>
-    </div>
+  <main class="p-6 max-w-xl mx-auto space-y-4">
+    <p id="resultsDisplay">Loading your Soulprint...</p>
+    <p id="status" class="text-sm text-green-600 mt-4"></p>
   </main>
+
+  <script type="module">
+    import { saveUserResults } from './db.js';
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const auth = getAuth();
+    const display = document.getElementById("resultsDisplay");
+    const status = document.getElementById("status");
+
+    const storedResults = localStorage.getItem("soulResults");
+
+    if (storedResults) {
+      const parsed = JSON.parse(storedResults);
+      let formatted = "<ul class='list-disc pl-6'>";
+      for (const key in parsed) {
+        formatted += `<li><strong>${key}:</strong> ${parsed[key]}</li>`;
+      }
+      formatted += "</ul>";
+      display.innerHTML = formatted;
+
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          await saveUserResults(user.email, parsed);
+          status.textContent = "✅ Results saved to Firestore";
+        } else {
+          status.textContent = "❌ Login required to save results.";
+        }
+      });
+    } else {
+      display.textContent = "No results found.";
+    }
+  </script>
 </body>
 </html>
