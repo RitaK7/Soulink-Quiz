@@ -1,53 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Profile - Soulink</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase.js"></script>
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="db.js"></script>
 </head>
-<body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
-
-  <script type="module">
-    import { checkAuth, showUserEmail } from './auth.js';
-    checkAuth();
-    showUserEmail();
-
-    document.getElementById("saveBtn")?.addEventListener("click", () => {
-      const name = document.getElementById("userName").value;
-      const birthdate = document.getElementById("userBirthdate").value;
-      localStorage.setItem("soulinkName", name);
-      localStorage.setItem("soulinkBirthdate", birthdate);
-      alert("✅ Profile updated!");
-    });
-
-    window.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("userName").value = localStorage.getItem("soulinkName") || "";
-      document.getElementById("userBirthdate").value = localStorage.getItem("soulinkBirthdate") || "";
-    });
-  </script>
-
-  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
     <h1 class="text-2xl font-bold">📝 Edit Your Profile</h1>
-    <div id="userEmail" class="text-sm text-right pr-4 pt-2 text-gray-500"></div>
   </header>
 
   <main class="p-6 max-w-xl mx-auto space-y-4">
-    <label class="block">
-      <span class="text-lg font-semibold">Your Name</span>
-      <input type="text" id="userName" class="w-full p-3 border rounded-md mt-1" placeholder="Enter your name">
-    </label>
-
-    <label class="block">
-      <span class="text-lg font-semibold">Birthdate</span>
-      <input type="date" id="userBirthdate" class="w-full p-3 border rounded-md mt-1">
-    </label>
-
-    <button id="saveBtn" type="button" class="mt-4 w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">
-      💾 Save Profile
-    </button>
+    <div>
+      <label for="name" class="block font-semibold">Your Name:</label>
+      <input type="text" id="name" class="w-full border p-2 rounded" placeholder="Enter your name" />
+    </div>
+    <div>
+      <label for="birthdate" class="block font-semibold">Birthdate:</label>
+      <input type="date" id="birthdate" class="w-full border p-2 rounded" />
+    </div>
+    <button id="saveBtn" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">💾 Save</button>
+    <p id="status" class="text-sm text-green-600 mt-2"></p>
   </main>
 
+  <script type="module">
+    import { saveUserProfile } from './db.js';
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const saveBtn = document.getElementById("saveBtn");
+    const status = document.getElementById("status");
+
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        saveBtn.onclick = async () => {
+          const name = document.getElementById("name").value;
+          const birthdate = document.getElementById("birthdate").value;
+
+          await saveUserProfile(user.email, { name, birthdate });
+          status.textContent = "✅ Profile saved successfully!";
+        };
+      } else {
+        status.textContent = "❌ You must be logged in to edit your profile.";
+      }
+    });
+  </script>
 </body>
 </html>
