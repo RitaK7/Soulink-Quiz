@@ -1,33 +1,34 @@
-<!-- ✅ login.html su localStorage prisijungimo simuliacija -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soulink – Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Soulink</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="auth.js"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>Login to Soulink</h2>
-    <form id="loginForm">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required />
+<body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">🔐 Login to Soulink</h1>
+  </header>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
+  <main class="p-6 max-w-xl mx-auto space-y-6">
+    <input type="email" id="loginEmail" placeholder="Email" class="w-full p-3 border rounded-md" />
+    <input type="password" id="loginPassword" placeholder="Password" class="w-full p-3 border rounded-md" />
+    <button id="loginBtn" class="w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">
+      Log In
+    </button>
+    <p class="text-sm mt-2 text-center">
+      Don’t have an account? <a href="signup.html" class="text-purple-700 underline">Sign up</a>
+    </p>
+  </main>
 
-      <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
-  </div>
-
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("plan", "free");
-      window.location.href = "my-soul.html";
+  <script type="module">
+    import { loginUser } from './auth.js';
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      loginUser(email, password);
     });
   </script>
 </body>
