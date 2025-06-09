@@ -1,40 +1,32 @@
-<!-- ✅ signup.html su localStorage prisijungimo simuliacija -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soulink – Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up - Soulink</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="auth.js"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>Create Your Soulink Profile</h2>
-    <form id="signupForm">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required />
+<body class="bg-gradient-to-br from-green-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">🌟 Create Your Soulink Account</h1>
+  </header>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
+  <main class="p-6 max-w-xl mx-auto space-y-6">
+    <input type="email" id="email" placeholder="Email" class="w-full p-3 border rounded-md" required />
+    <input type="password" id="password" placeholder="Password" class="w-full p-3 border rounded-md" required />
+    <button id="signupBtn" class="w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">
+      Create Account
+    </button>
+    <p id="signupMsg" class="text-green-600 mt-4 hidden">✅ Account created! Redirecting...</p>
+  </main>
 
-      <label>What type of connection are you looking for?</label>
-      <div class="radio-group">
-        <label><input type="radio" name="relationshipType" value="romantic" required /> Romantic</label>
-        <label><input type="radio" name="relationshipType" value="friendship" /> Friendship</label>
-        <label><input type="radio" name="relationshipType" value="both" /> Both</label>
-      </div>
-
-      <button type="submit">Sign Up</button>
-    </form>
-    <p>Already have an account? <a href="login.html">Login here</a>.</p>
-  </div>
-
-  <script>
-    document.getElementById("signupForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("plan", "free");
-      window.location.href = "quiz.html";
+  <script type="module">
+    import { createUser } from './auth.js';
+    document.getElementById('signupBtn').addEventListener('click', () => {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      createUser(email, password);
     });
   </script>
 </body>
