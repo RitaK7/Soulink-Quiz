@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<script type="module">
-  import { checkAuth } from './auth.js';
-  checkAuth();
-</script>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -12,35 +8,22 @@
   <script type="module" src="firebase.js"></script>
 </head>
 <body class="bg-gradient-to-br from-purple-50 to-pink-100 text-gray-800 font-sans">
+
+  <script type="module">
+    import { checkAuth, showUserEmail } from './auth.js';
+    checkAuth();
+    showUserEmail();
+  </script>
+
+  <div id="userEmail" class="text-sm text-right pr-4 pt-2 text-gray-500"></div>
+
   <header class="p-4 bg-white shadow sticky top-0 z-10 text-center">
-    <h1 class="text-2xl font-bold">🌟 My Soul Profile</h1>
+    <h1 class="text-2xl font-bold">🌟 My Soul</h1>
   </header>
 
   <main class="p-6 max-w-xl mx-auto">
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold mb-2">What I'm Looking For</h2>
-      <textarea id="idealConnection" class="w-full p-3 border rounded-md" placeholder="Describe your ideal connection..."></textarea>
-    </section>
-    <section>
-      <h2 class="text-xl font-semibold mb-2">What I Wish to Avoid</h2>
-      <textarea id="avoidTraits" class="w-full p-3 border rounded-md" placeholder="Mention traits or habits you'd like to avoid..."></textarea>
-    </section>
-    <button id="saveSoul" class="mt-6 w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">💾 Save My Soul</button>
-    <p id="saveMsg" class="text-green-600 mt-4 hidden">✅ Saved to your Soulprint!</p>
+    <p>Welcome to your soul space...</p>
   </main>
 
-  <script type="module">
-    import { saveQuizData } from './firebase.js';
-
-    document.getElementById('saveSoul').addEventListener('click', () => {
-      const userId = 'user_' + Date.now();
-      const data = {
-        idealConnection: document.getElementById('idealConnection').value,
-        avoidTraits: document.getElementById('avoidTraits').value
-      };
-      saveQuizData(userId, data);
-      document.getElementById('saveMsg').classList.remove('hidden');
-    });
-  </script>
 </body>
 </html>

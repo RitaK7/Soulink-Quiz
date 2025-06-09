@@ -18,8 +18,7 @@ const auth = getAuth(app);
 export function createUser(email, password) {
   createUserWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      console.log("User created:", userCredential.user);
-      document.getElementById('signupMsg').classList.remove('hidden');
+      document.getElementById('signupMsg')?.classList.remove('hidden');
       setTimeout(() => window.location.href = "my-soul.html", 1500);
     })
     .catch(error => alert("Error: " + error.message));
@@ -28,7 +27,6 @@ export function createUser(email, password) {
 export function loginUser(email, password) {
   signInWithEmailAndPassword(auth, email, password)
     .then(userCredential => {
-      console.log("Logged in:", userCredential.user);
       window.location.href = "my-soul.html";
     })
     .catch(error => alert("Login failed: " + error.message));
@@ -45,6 +43,17 @@ export function checkAuth() {
   onAuthStateChanged(auth, user => {
     if (!user) {
       window.location.href = "login.html";
+    }
+  });
+}
+
+export function showUserEmail() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const emailBox = document.getElementById("userEmail");
+      if (emailBox) {
+        emailBox.textContent = `🔐 Logged in as: ${user.email}`;
+      }
     }
   });
 }
