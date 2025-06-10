@@ -23,17 +23,18 @@
 
   <script type="module">
     import { db } from './firebase-config.js';
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const display = document.getElementById("resultsDisplay");
     const status = document.getElementById("status");
+    const uploadBtn = document.getElementById("uploadBtn");
 
     const storedResults = localStorage.getItem("soulResults");
+    const data = storedResults ? JSON.parse(storedResults) : null;
 
-    if (storedResults) {
-      const data = JSON.parse(storedResults);
+    if (data) {
       const { name, birthdate, loveLanguage, relationshipType, values, interests, description } = data;
-
       display.innerHTML = `
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Birthdate:</strong> ${birthdate}</p>
@@ -47,23 +48,29 @@
       display.textContent = "⚠️ No data found in localStorage.";
     }
 
-    document.getElementById("uploadBtn").addEventListener("click", async () => {
-      if (!storedResults) {
-        alert("⚠️ No SoulPrint data found.");
-        return;
-      }
+    const auth = getAuth();
 
-      const parsed = JSON.parse(storedResults);
-      const userId = parsed.name?.replace(/\s+/g, "_").toLowerCase() || "anonymous_user";
-
-      try {
-        await setDoc(doc(db, "users", userId), parsed);
-        alert("✅ Data successfully uploaded to Firestore!");
-        status.textContent = "Firestore updated ✅";
-      } catch (error) {
-        console.error("❌ Upload error:", error);
-        alert("❌ Error uploading to Firestore. See console.");
-        status.textContent = "Firestore failed ❌";
+    onAuthStateChanged(auth, (user) => {
+      if (user && data) {
+        uploadBtn.addEventListener("click", async () => {
+          try {
+            const userId = user.uid;
+            await setDoc(doc(db, "users", userId), {
+              ...data,
+              email: user.email,
+              updatedAt: new Date().toISOString()
+            });
+            alert("✅ Data successfully uploaded to Firestore!");
+            status.textContent = "Uploaded with login ✅";
+          } catch (error) {
+            console.error("❌ Upload error:", error);
+            alert("❌ Error uploading. See console.");
+            status.textContent = "Firestore failed ❌";
+          }
+        });
+      } else {
+        uploadBtn.disabled = true;
+        status.textContent = "🔒 Please log in to upload your result.";
       }
     });
   </script>
