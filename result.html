@@ -20,6 +20,8 @@
 
   <script type="module">
     import { saveUserResults } from './db.js';
+    import { db } from './firebase-config.js';
+
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     const auth = getAuth();
@@ -44,6 +46,36 @@
         } else {
           status.textContent = "❌ Login required to save results.";
         }
+<!-- Įkelk Firebase duomenis iš localStorage į Firestore -->
+<script type="module">
+  import { db } from './firebase-config.js';
+  import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const userData = {
+        name: localStorage.getItem("name") || "",
+        birthdate: localStorage.getItem("birthdate") || "",
+        loveLanguage: localStorage.getItem("loveLanguage") || "",
+        values: localStorage.getItem("values") || "",
+        interests: localStorage.getItem("interests") || "",
+        relationshipType: localStorage.getItem("relationshipType") || "",
+        email: localStorage.getItem("email") || ""
+      };
+
+      if (userData.name) {
+        const userId = userData.name.replace(/\s+/g, "_").toLowerCase();
+        await setDoc(doc(db, "users", userId), userData);
+        console.log("✅ Duomenys sėkmingai įkelti į Firestore!");
+      } else {
+        console.warn("⚠️ Nerasta naudotojo vardo – duomenys neįkelti.");
+      }
+    } catch (error) {
+      console.error("❌ Klaida įkeliant duomenis:", error);
+    }
+  });
+</script>
+
       });
     } else {
       display.textContent = "No results found.";
