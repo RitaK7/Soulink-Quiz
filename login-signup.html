@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Soulink Login / Signup</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center">
+    <h1 class="text-2xl font-bold">🔐 Login or Signup</h1>
+  </header>
+
+  <main class="p-6 max-w-md mx-auto space-y-6">
+    <input id="email" type="email" placeholder="Email" class="w-full p-3 border rounded" />
+    <input id="password" type="password" placeholder="Password" class="w-full p-3 border rounded" />
+
+    <div class="flex gap-4">
+      <button id="loginBtn" class="flex-1 py-2 bg-green-600 text-white rounded hover:bg-green-700">Login</button>
+      <button id="signupBtn" class="flex-1 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Signup</button>
+    </div>
+
+    <p id="authStatus" class="text-sm text-center text-gray-600"></p>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { firebaseConfig } from './firebase-config.js';
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const authStatus = document.getElementById("authStatus");
+
+    document.getElementById("signupBtn").addEventListener("click", async () => {
+      try {
+        const userCred = await createUserWithEmailAndPassword(auth, email.value, password.value);
+        authStatus.textContent = "✅ Signup successful. Welcome!";
+        await saveUserToFirestore(userCred.user);
+      } catch (error) {
+        authStatus.textContent = "❌ " + error.message;
+      }
+    });
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      try {
+        const userCred = await signInWithEmailAndPassword(auth, email.value, password.value);
+        authStatus.textContent = "✅ Login successful. Welcome back!";
+      } catch (error) {
+        authStatus.textContent = "❌ " + error.message;
+      }
+    });
+
+    async function saveUserToFirestore(user) {
+      const localData = JSON.parse(localStorage.getItem("soulResults")) || {};
+      const data = {
+        email: user.email,
+        name: localData.name || "",
+        birthdate: localData.birthdate || "",
+        loveLanguage: localData.loveLanguage || "",
+        relationshipType: localData.relationshipType || ""
+      };
+
+      const docRef = doc(db, "users", user.uid);
+      await setDoc(docRef, data);
+      console.log("✅ User data saved to Firestore");
+    }
+  </script>
+</body>
+</html>
