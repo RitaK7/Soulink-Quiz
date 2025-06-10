@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Friendship Compatibility Result</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-green-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center">
+    <h1 class="text-2xl font-bold">🤝 Friendship Compatibility</h1>
+  </header>
+
+  <main class="p-6 max-w-xl mx-auto space-y-4">
+    <p id="resultsDisplay">Loading friendship match...</p>
+    <p id="status" class="text-sm text-green-600 mt-4"></p>
+  </main>
+
+  <script type="module">
+    const display = document.getElementById("resultsDisplay");
+    const status = document.getElementById("status");
+
+    const storedResults = localStorage.getItem("soulResults");
+
+    if (storedResults) {
+      const parsed = JSON.parse(storedResults);
+      const { name, birthdate, loveLanguage, relationshipType } = parsed;
+
+      // Paprasta "suderinamumo" logika
+      let compatibilityMessage = "";
+      if (relationshipType === "Friendship" || relationshipType === "Both") {
+        compatibilityMessage = "🎉 Based on your choices, you are likely to form meaningful and lasting friendships.";
+      } else {
+        compatibilityMessage = "👀 You indicated romantic interest, but we're showing friendship compatibility here.";
+      }
+
+      display.innerHTML = `
+        <ul class='list-disc pl-6 space-y-1'>
+          <li><strong>🧑 Name:</strong> ${name}</li>
+          <li><strong>🎂 Birthdate:</strong> ${birthdate}</li>
+          <li><strong>💖 Love Language:</strong> ${loveLanguage}</li>
+          <li><strong>🤝 Looking For:</strong> ${relationshipType}</li>
+        </ul>
+        <p class="mt-4">${compatibilityMessage}</p>
+      `;
+      status.textContent = "✅ Data loaded from localStorage";
+    } else {
+      display.textContent = "❌ No quiz data found. Please complete the quiz first.";
+    }
+  </script>
+</body>
+</html>
