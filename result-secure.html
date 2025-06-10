@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Soulprint Result</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center">
+    <h1 class="text-2xl font-bold">🔮 Your Soulprint</h1>
+  </header>
+
+  <main class="p-6 max-w-xl mx-auto space-y-4">
+    <p id="resultsDisplay">Loading your Soulprint...</p>
+    <p id="status" class="text-sm text-green-600 mt-4"></p>
+    <button id="uploadBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded hidden">
+      🚀 Upload to Firestore
+    </button>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCb0TOXVrP1dQe16T6RNRvAg8lwu9QPnf4",
+      authDomain: "soulink-342bb.firebaseapp.com",
+      projectId: "soulink-342bb",
+      storageBucket: "soulink-342bb.appspot.com",
+      messagingSenderId: "541312933178",
+      appId: "1:541312933178:web:239cbbb60e68b183f48403"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    const display = document.getElementById("resultsDisplay");
+    const status = document.getElementById("status");
+    const uploadBtn = document.getElementById("uploadBtn");
+
+    const storedResults = localStorage.getItem("soulResults");
+
+    if (storedResults) {
+      const parsed = JSON.parse(storedResults);
+      let formatted = "<ul class='list-disc pl-6 space-y-1'>";
+      for (const key in parsed) {
+        const label = key === "name" ? "🧑 Name" :
+                      key === "birthdate" ? "🎂 Birthdate" :
+                      key === "loveLanguage" ? "💖 Love Language" :
+                      key === "relationshipType" ? "🤝 Looking For" :
+                      key;
+        formatted += `<li><strong>${label}:</strong> ${parsed[key]}</li>`;
+      }
+      formatted += "</ul>";
+      display.innerHTML = formatted;
+    } else {
+      display.textContent = "❌ No results found. Please take the quiz first.";
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        uploadBtn.classList.remove("hidden");
+        status.textContent = `✅ Logged in as ${user.email}`;
+        uploadBtn.addEventListener("click", async () => {
+          try {
+            const userDoc = doc(db, "users", user.email);
+            await setDoc(userDoc, JSON.parse(storedResults));
+            status.textContent += " | ✅ Uploaded to Firestore!";
+          } catch (error) {
+            console.error("Upload error:", error);
+            status.textContent += " | ❌ Upload failed.";
+          }
+        });
+      } else {
+        status.textContent = "❌ Not logged in. Please log in to save your Soulprint.";
+      }
+    });
+  </script>
+</body>
+</html>
