@@ -70,8 +70,8 @@
         alert("✅ Duomenys sėkmingai įkelti į Firestore!");
         status.innerText += " | Firestore updated ✅";
       } catch (error) {
-        console.error("❌ Klaida įrašant į Firestore:", error);
-        alert("❌ Klaida įkeliant duomenis. Žr. konsolę.");
+        alert("❌ Error uploading data. See console for details.");
+
         status.innerText += " | Firestore failed ❌";
       }
     });
