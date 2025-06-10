@@ -1,59 +1,84 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>
-<!-- GDPR Notice -->
-<meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-Soulink – Friendship Matches</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="include.js" defer></script>
-  <style>
-    .match-card {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 1rem;
-      margin: 1rem 0;
-      background: #f9f9f9;
-    }
-    .match-card h3 {
-      margin-top: 0;
-    }
-  </style>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const type = localStorage.getItem("relationshipType");
-      const container = document.getElementById("friendship-matches");
-
-      if (type === "friendship" || type === "both") {
-        // Simulated user list (replace with real data later)
-        const users = [
-          { name: "Luna", match: 92, language: "Quality Time", hobbies: "Reading, Nature Walks" },
-          { name: "Kai", match: 88, language: "Words of Affirmation", hobbies: "Art, Photography" },
-          { name: "Nora", match: 84, language: "Acts of Service", hobbies: "Volunteering, Meditation" }
-        ];
-
-        container.innerHTML = "<h2>Your Friendship Matches 🤝</h2>";
-        users.forEach(user => {
-          container.innerHTML += `
-            <div class="match-card">
-              <h3>${user.name}</h3>
-              <p><strong>Friendship Match:</strong> ${user.match}%</p>
-              <p><strong>Love Language:</strong> ${user.language}</p>
-              <p><strong>Shared Interests:</strong> ${user.hobbies}</p>
-            </div>
-          `;
-        });
-      } else {
-        container.innerHTML = "<p>You chose only romantic connections. Switch to 'both' or 'friendship' in your profile to see friend suggestions.</p>";
-      }
-    });
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Friendship Matches - Soulink</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
-<body>
-  <main id="friendship-matches">
-    <p>Loading friendship matches...</p>
+<body class="bg-gradient-to-br from-green-50 to-blue-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">🧑‍🤝‍🧑 Friendship Compatibility</h1>
+    <p class="text-sm text-gray-500">Based on your soulprint & interests</p>
+  </header>
+
+  <main class="p-6 max-w-2xl mx-auto space-y-4" id="friendMatches">
+    <p class="text-center">🔄 Loading your friendship matches...</p>
   </main>
+
+  <script type="module">
+    const container = document.getElementById("friendMatches");
+    container.innerHTML = "";
+
+    const user = JSON.parse(localStorage.getItem("soulResults"));
+
+    if (!user) {
+      container.innerHTML = "<p class='text-center text-red-600'>❌ No data found. Please take the quiz first.</p>";
+    } else {
+      // Simuliuojame kelis kitus naudotojus (demo duomenys)
+      const otherUsers = [
+        {
+          name: "Alex",
+          birthdate: "1991-03-10",
+          loveLanguage: "Words of Affirmation",
+          relationshipType: "Friendship",
+          values: "Adventure, Honesty",
+          interests: "Books, Hiking"
+        },
+        {
+          name: "Maya",
+          birthdate: "1989-07-22",
+          loveLanguage: "Quality Time",
+          relationshipType: "Both",
+          values: "Creativity, Loyalty",
+          interests: "Music, Art"
+        },
+        {
+          name: "Leo",
+          birthdate: "1995-11-03",
+          loveLanguage: "Acts of Service",
+          relationshipType: "Romantic",
+          values: "Growth, Humor",
+          interests: "Tech, Travel"
+        }
+      ];
+
+      function calculateFriendScore(userA, userB) {
+        let score = 0;
+        if (userA.loveLanguage === userB.loveLanguage) score += 30;
+        if (userB.relationshipType === "Friendship" || userB.relationshipType === "Both") score += 30;
+        score += Math.floor(Math.random() * 41); // atsitiktinis papildomas suderinamumas 0–40
+        return score;
+      }
+
+      otherUsers.forEach(friend => {
+        const score = calculateFriendScore(user, friend);
+
+        const block = document.createElement("div");
+        block.className = "bg-white p-4 rounded shadow space-y-2";
+
+        block.innerHTML = `
+          <h2 class="text-xl font-bold">💬 ${friend.name}</h2>
+          <p>🎂 Birthdate: ${friend.birthdate}</p>
+          <p>💖 Love Language: ${friend.loveLanguage}</p>
+          <p>🎯 Relationship Type: ${friend.relationshipType}</p>
+          <p>🤝 Friendship Score: <strong>${score}%</strong></p>
+          <button class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-1 rounded">View Profile</button>
+        `;
+
+        container.appendChild(block);
+      });
+    }
+  </script>
 </body>
 </html>
