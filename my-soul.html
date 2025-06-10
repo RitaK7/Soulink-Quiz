@@ -3,61 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Soul - Soulink</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>My Soul</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center flex justify-between items-center">
-    <h1 class="text-xl font-bold">🧬 My Soul</h1>
-    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-1 rounded">Logout</button>
+<body class="bg-gradient-to-br from-pink-100 to-yellow-50 text-gray-800 font-sans">
+
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">🌟 Welcome to Your Soul Space</h1>
   </header>
 
-  <main class="max-w-xl mx-auto p-6 space-y-4">
-    <h2 class="text-2xl font-semibold" id="welcomeText">Welcome 👋</h2>
-    <p class="text-md" id="emailDisplay"></p>
-    <p class="text-md" id="birthdateDisplay"></p>
-    <p class="text-gray-600">🌟 Your Soulprint is safe with us. More features coming soon!</p>
+  <main class="p-6 max-w-xl mx-auto space-y-4">
+    <p id="welcomeMessage" class="text-lg"></p>
+    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Log Out</button>
   </main>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { observeUser, logout } from './auth.js';
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCb0TOXVrP1dQe16T6RNRvAg8lwu9QPnf4",
-      authDomain: "soulink-342bb.firebaseapp.com",
-      projectId: "soulink-342bb",
-      storageBucket: "soulink-342bb.appspot.com",
-      messagingSenderId: "541312933178",
-      appId: "1:541312933178:web:239cbbb60e68b183f48403"
-    };
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    const welcomeText = document.getElementById("welcomeText");
-    const emailDisplay = document.getElementById("emailDisplay");
-    const birthdateDisplay = document.getElementById("birthdateDisplay");
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    onAuthStateChanged(auth, (user) => {
+    observeUser((user) => {
       if (user) {
-        const name = user.displayName || localStorage.getItem("name") || "Soul";
-        const email = user.email;
-        const birthdate = localStorage.getItem("birthdate") || "Not provided";
-
-        welcomeText.textContent = `Welcome, ${name} 👋`;
-        emailDisplay.textContent = `📧 Email: ${email}`;
-        birthdateDisplay.textContent = `🎂 Birthdate: ${birthdate}`;
+        welcomeMessage.textContent = `🌸 Hello, ${user.email}! This is your personal Soul Space.`;
       } else {
-        window.location.href = "login.html";
+        window.location.href = 'login-signup.html';
       }
     });
 
-    logoutBtn.addEventListener("click", async () => {
-      await signOut(auth);
-      window.location.href = "login.html";
+    logoutBtn.addEventListener('click', () => {
+      logout().then(() => {
+        window.location.href = 'login-signup.html';
+      });
     });
   </script>
+
 </body>
 </html>
