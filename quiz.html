@@ -23,6 +23,24 @@
         <option>Physical Touch</option>
         <option>Receiving Gifts</option>
       </select>
+
+      <!-- Pridėtas relationshipType klausimas -->
+      <fieldset class="space-y-2">
+        <legend class="font-semibold">What are you currently looking for?</legend>
+        <label class="block">
+          <input type="radio" name="relationshipType" value="Romantic" required />
+          Romantic Relationship
+        </label>
+        <label class="block">
+          <input type="radio" name="relationshipType" value="Friendship" />
+          Friendship
+        </label>
+        <label class="block">
+          <input type="radio" name="relationshipType" value="Both" />
+          Both
+        </label>
+      </fieldset>
+
       <button type="submit" class="w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Submit</button>
     </form>
     <p id="statusMsg" class="text-green-600 mt-4 hidden">✅ Your answers were submitted!</p>
@@ -35,11 +53,13 @@
       const name = document.getElementById('name').value;
       const birthdate = document.getElementById('birthdate').value;
       const loveLanguage = document.getElementById('loveLanguage').value;
+      const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
 
       const data = {
         name,
         birthdate,
-        loveLanguage
+        loveLanguage,
+        relationshipType
       };
 
       // ✅ Saugo į localStorage kad veiktų result.html
@@ -47,6 +67,7 @@
       localStorage.setItem("name", name);
       localStorage.setItem("birthdate", birthdate);
       localStorage.setItem("loveLanguage", loveLanguage);
+      localStorage.setItem("relationshipType", relationshipType);
 
       // ✅ Rodo žinutę
       document.getElementById('statusMsg').classList.remove('hidden');
