@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Souls</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-yellow-50 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center">
+    <h1 class="text-2xl font-bold">🌍 All Soul Profiles</h1>
+  </header>
+
+  <main class="p-6 max-w-5xl mx-auto">
+    <div id="userList" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
+  </main>
+
+  <script type="module">
+    import { db } from './firebase-config.js';
+    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const userList = document.getElementById("userList");
+
+    const renderUserCard = (user) => {
+      return `
+        <div class="bg-white rounded-xl shadow p-4 border border-purple-100 hover:shadow-md transition">
+          <h2 class="text-lg font-bold mb-2">${user.name || 'Anonymous'}</h2>
+          <p><strong>Birthdate:</strong> ${user.birthdate || '-'}</p>
+          <p><strong>Love Language:</strong> ${user.loveLanguage || '-'}</p>
+          <p><strong>Looking for:</strong> ${user.relationshipType || '-'}</p>
+          <p><strong>Values:</strong> ${user.values?.join(", ") || '-'}</p>
+          <p><strong>Interests:</strong> ${user.interests?.join(", ") || '-'}</p>
+          <p class="mt-2 text-sm italic">"${user.description || 'No description'}"</p>
+        </div>
+      `;
+    };
+
+    const loadUsers = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, "users"));
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          userList.innerHTML += renderUserCard(data);
+        });
+      } catch (error) {
+        userList.innerHTML = `<p class="text-red-600">❌ Error loading users</p>`;
+        console.error(error);
+      }
+    };
+
+    loadUsers();
+  </script>
+</body>
+</html>
