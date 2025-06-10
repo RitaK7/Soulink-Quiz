@@ -2,58 +2,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Soulink Match Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Matches | Soulink</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
 </head>
-<body class="bg-gradient-to-br from-purple-50 to-pink-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center">
-    <h1 class="text-2xl font-bold">🔍 Your Best Matches</h1>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">💞 Your Soul Matches</h1>
   </header>
 
-  <main class="p-6 max-w-2xl mx-auto">
-    <p class="mb-4">Below are your top potential friends or partners based on Soulprint compatibility:</p>
-    <div id="matchResults" class="space-y-4"></div>
+  <main class="p-6 max-w-4xl mx-auto space-y-6">
+    <h2 class="text-xl font-semibold text-center">Based on your Soulprint</h2>
+
+    <div id="matchesList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Partner cards will be inserted here dynamically -->
+    </div>
   </main>
 
   <script type="module">
-    // Paprasti testiniai duomenys – vėliau bus iš Firestore
-    const currentUser = JSON.parse(localStorage.getItem("soulResults")) || {};
+    import { db } from './firebase-config.js';
+    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const partners = [
-      { name: "Alex", birthdate: "1990-06-15", loveLanguage: "Quality Time", relationshipType: "Both" },
-      { name: "Jamie", birthdate: "1985-11-20", loveLanguage: "Physical Touch", relationshipType: "Friendship" },
-      { name: "Taylor", birthdate: "1995-01-05", loveLanguage: "Words of Affirmation", relationshipType: "Romantic" }
-    ];
+    const matchesList = document.getElementById("matchesList");
 
-    function calculateCompatibility(user, partner) {
-      let score = 0;
-      if (user.loveLanguage === partner.loveLanguage) score += 40;
-      if (user.relationshipType === partner.relationshipType) score += 30;
-      if (user.birthdate && partner.birthdate) score += 30;
-      return Math.min(100, score);
-    }
+    // Gauti visus vartotojus iš "users" kolekcijos
+    const querySnapshot = await getDocs(collection(db, "users"));
+    const currentUser = JSON.parse(localStorage.getItem("soulResults"));
 
-    const container = document.getElementById("matchResults");
+    querySnapshot.forEach((docSnap) => {
+      const user = docSnap.data();
+      if (!currentUser || user.name === currentUser.name) return;
 
-    if (!currentUser.name) {
-      container.innerHTML = "<p class='text-red-600'>❌ Please complete the quiz first.</p>";
-    } else {
-      const results = partners.map(partner => {
-        const score = calculateCompatibility(currentUser, partner);
-        return `
-          <div class="p-4 border rounded-md shadow bg-white">
-            <p><strong>🧑 Name:</strong> ${partner.name}</p>
-            <p><strong>🎂 Birthdate:</strong> ${partner.birthdate}</p>
-            <p><strong>💖 Love Language:</strong> ${partner.loveLanguage}</p>
-            <p><strong>🤝 Looking For:</strong> ${partner.relationshipType}</p>
-            <p class="mt-2 text-purple-700 font-semibold">✨ Compatibility Score: ${score}%</p>
-          </div>
-        `;
-      }).join("");
+      // Skaičiuojame suderinamumą (čia tik paprasta versija pagal loveLanguage)
+      const matchScore = user.loveLanguage === currentUser.loveLanguage ? 87 : Math.floor(Math.random() * 40 + 50);
 
-      container.innerHTML = results;
-    }
+      const card = document.createElement("div");
+      card.className = "bg-white rounded-2xl shadow p-4 space-y-2 border border-gray-200";
+      card.innerHTML = `
+        <h3 class="text-xl font-semibold">🌟 ${user.name}</h3>
+        <p class="text-sm text-gray-600">Zodiac: ${user.zodiac || "Unknown"}</p>
+        <p class="text-sm text-gray-600">Love Language: ${user.loveLanguage}</p>
+        <p class="text-sm text-gray-600">Compatibility: <span class="font-bold text-green-600">${matchScore}%</span></p>
+        <button class="mt-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded w-full">View Soulprint</button>
+      `;
+      matchesList.appendChild(card);
+    });
   </script>
 </body>
 </html>
