@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Soulprint Result</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
 </head>
 <body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
   <header class="p-4 bg-white shadow text-center">
@@ -12,32 +13,59 @@
   </header>
 
   <main class="p-6 max-w-xl mx-auto space-y-4">
-    <p id="resultsDisplay">Loading your Soulprint...</p>
-    <p id="status" class="text-sm text-green-600 mt-4"></p>
+    <div id="resultsDisplay" class="text-lg"></div>
+    <p id="status" class="text-sm text-green-600 mt-2"></p>
+
+    <button id="uploadBtn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded mt-4">
+      🚀 Upload to Firestore
+    </button>
   </main>
 
   <script type="module">
+    import { db } from './firebase-config.js';
+    import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
     const display = document.getElementById("resultsDisplay");
     const status = document.getElementById("status");
 
     const storedResults = localStorage.getItem("soulResults");
 
     if (storedResults) {
-      const parsed = JSON.parse(storedResults);
-      let formatted = "<ul class='list-disc pl-6 space-y-1'>";
-      for (const key in parsed) {
-        const label = key === "name" ? "🧑 Name" :
-                      key === "birthdate" ? "🎂 Birthdate" :
-                      key === "loveLanguage" ? "💖 Love Language" :
-                      key === "relationshipType" ? "🤝 Looking For" :
-                      key;
-        formatted += `<li><strong>${label}:</strong> ${parsed[key]}</li>`;
-      }
-      formatted += "</ul>";
-      display.innerHTML = formatted;
+      const data = JSON.parse(storedResults);
+      const { name, birthdate, loveLanguage, relationshipType, values, interests, description } = data;
+
+      display.innerHTML = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Birthdate:</strong> ${birthdate}</p>
+        <p><strong>Love Language:</strong> ${loveLanguage}</p>
+        <p><strong>Looking for:</strong> ${relationshipType}</p>
+        <p><strong>Core Values:</strong> ${values?.join(", ") || "Not set"}</p>
+        <p><strong>Interests:</strong> ${interests?.join(", ") || "Not set"}</p>
+        <p class="mt-4"><strong>✨ Soul Description:</strong> ${description}</p>
+      `;
     } else {
-      display.textContent = "❌ No results found. Please take the quiz first.";
+      display.textContent = "⚠️ No data found in localStorage.";
     }
+
+    document.getElementById("uploadBtn").addEventListener("click", async () => {
+      if (!storedResults) {
+        alert("⚠️ No SoulPrint data found.");
+        return;
+      }
+
+      const parsed = JSON.parse(storedResults);
+      const userId = parsed.name?.replace(/\s+/g, "_").toLowerCase() || "anonymous_user";
+
+      try {
+        await setDoc(doc(db, "users", userId), parsed);
+        alert("✅ Data successfully uploaded to Firestore!");
+        status.textContent = "Firestore updated ✅";
+      } catch (error) {
+        console.error("❌ Upload error:", error);
+        alert("❌ Error uploading to Firestore. See console.");
+        status.textContent = "Firestore failed ❌";
+      }
+    });
   </script>
 </body>
 </html>
