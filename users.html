@@ -1,55 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Souls</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Users - Soulink</title>
+  <link rel="stylesheet" href="style.css">
   <script type="module" src="firebase-config.js"></script>
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-yellow-50 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center">
-    <h1 class="text-2xl font-bold">🌍 All Soul Profiles</h1>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">🌍 All Souls in Soulink</h1>
+    <div class="mt-2">
+      <select id="relationshipFilter" class="p-2 border rounded">
+        <option value="All">All Types</option>
+        <option value="Romantic">Romantic</option>
+        <option value="Friendship">Friendship</option>
+        <option value="Both">Both</option>
+      </select>
+    </div>
   </header>
 
-  <main class="p-6 max-w-5xl mx-auto">
-    <div id="userList" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"></div>
+  <main class="p-4 max-w-4xl mx-auto">
+    <div id="usersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+      <!-- User cards go here -->
+    </div>
   </main>
 
   <script type="module">
     import { db } from './firebase-config.js';
-    import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
-    const userList = document.getElementById("userList");
+    const usersGrid = document.getElementById("usersGrid");
+    const filterSelect = document.getElementById("relationshipFilter");
 
-    const renderUserCard = (user) => {
-      return `
-        <div class="bg-white rounded-xl shadow p-4 border border-purple-100 hover:shadow-md transition">
-          <h2 class="text-lg font-bold mb-2">${user.name || 'Anonymous'}</h2>
-          <p><strong>Birthdate:</strong> ${user.birthdate || '-'}</p>
-          <p><strong>Love Language:</strong> ${user.loveLanguage || '-'}</p>
-          <p><strong>Looking for:</strong> ${user.relationshipType || '-'}</p>
-          <p><strong>Values:</strong> ${user.values?.join(", ") || '-'}</p>
-          <p><strong>Interests:</strong> ${user.interests?.join(", ") || '-'}</p>
-          <p class="mt-2 text-sm italic">"${user.description || 'No description'}"</p>
-        </div>
-      `;
-    };
+    async function fetchAndRenderUsers(filter = "All") {
+      usersGrid.innerHTML = "<p>Loading...</p>";
+      const querySnapshot = await getDocs(collection(db, "users"));
+      usersGrid.innerHTML = "";
 
-    const loadUsers = async () => {
-      try {
-        const snapshot = await getDocs(collection(db, "users"));
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          userList.innerHTML += renderUserCard(data);
-        });
-      } catch (error) {
-        userList.innerHTML = `<p class="text-red-600">❌ Error loading users</p>`;
-        console.error(error);
-      }
-    };
+      querySnapshot.forEach((doc) => {
+        const user = doc.data();
+        if (filter !== "All" && user.relationshipType !== filter) return;
 
-    loadUsers();
+        const card = document.createElement("div");
+        card.className = "bg-white p-4 rounded shadow hover:shadow-lg transition";
+        card.innerHTML = `
+          <h2 class="text-xl font-bold">${user.name || "Unnamed"}</h2>
+          <p><strong>Birthdate:</strong> ${user.birthdate || "-"}</p>
+          <p><strong>Love Language:</strong> ${user.loveLanguage || "-"}</p>
+          <p><strong>Values:</strong> ${user.values || "-"}</p>
+          <p><strong>Interests:</strong> ${user.interests || "-"}</p>
+          <p><strong>Looking for:</strong> ${user.relationshipType || "-"}</p>
+          <p class="mt-2 text-sm italic">${user.description || "No description."}</p>
+        `;
+        usersGrid.appendChild(card);
+      });
+    }
+
+    // Initial load
+    fetchAndRenderUsers();
+
+    // Filter change
+    filterSelect.addEventListener("change", () => {
+      fetchAndRenderUsers(filterSelect.value);
+    });
   </script>
 </body>
 </html>
