@@ -20,12 +20,22 @@
   </main>
 
   <script type="module">
-    import { db } from './firebase-config.js';
-    import { saveUserResults } from './db.js';
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const auth = getAuth();
+    const firebaseConfig = {
+      apiKey: "AIzaSyCb0TOXVrP1dQe16T6RNRvAg8lwu9QPnf4",
+      authDomain: "soulink-342bb.firebaseapp.com",
+      projectId: "soulink-342bb",
+      storageBucket: "soulink-342bb.appspot.com",
+      messagingSenderId: "541312933178",
+      appId: "1:541312933178:web:239cbbb60e68b183f48403",
+      measurementId: "G-7DQPK8J701"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const display = document.getElementById("resultsDisplay");
     const status = document.getElementById("status");
     const uploadBtn = document.getElementById("uploadBtn");
@@ -40,20 +50,10 @@
       }
       formatted += "</ul>";
       display.innerHTML = formatted;
-
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          await saveUserResults(user.email, parsed);
-          status.textContent = "✅ Results saved to Firestore";
-        } else {
-          status.textContent = "❌ Login required to save results.";
-        }
-      });
     } else {
       display.textContent = "No results found.";
     }
 
-    // 🔘 Upload mygtuko funkcija
     uploadBtn.addEventListener("click", async () => {
       const storedResults = localStorage.getItem("soulResults");
 
