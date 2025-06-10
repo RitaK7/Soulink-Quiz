@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Soulprint Result</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="db.js"></script>
 </head>
 <body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
   <header class="p-4 bg-white shadow text-center">
@@ -17,20 +15,20 @@
     <p id="resultsDisplay">Loading your Soulprint...</p>
     <p id="status" class="text-sm text-green-600 mt-4"></p>
     <button id="uploadBtn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded mt-4">
-  🚀 Upload to Firestore
-</button>
-
+      🚀 Upload to Firestore
+    </button>
   </main>
 
   <script type="module">
-    import { saveUserResults } from './db.js';
     import { db } from './firebase-config.js';
-
+    import { saveUserResults } from './db.js';
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const auth = getAuth();
     const display = document.getElementById("resultsDisplay");
     const status = document.getElementById("status");
+    const uploadBtn = document.getElementById("uploadBtn");
 
     const storedResults = localStorage.getItem("soulResults");
 
@@ -50,40 +48,33 @@
         } else {
           status.textContent = "❌ Login required to save results.";
         }
-<!-- Įkelk Firebase duomenis iš localStorage į Firestore -->
-<script type="module">
-  import { db } from './firebase-config.js';
-  import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-  window.addEventListener("DOMContentLoaded", async () => {
-    try {
-      const userData = {
-        name: localStorage.getItem("name") || "",
-        birthdate: localStorage.getItem("birthdate") || "",
-        loveLanguage: localStorage.getItem("loveLanguage") || "",
-        values: localStorage.getItem("values") || "",
-        interests: localStorage.getItem("interests") || "",
-        relationshipType: localStorage.getItem("relationshipType") || "",
-        email: localStorage.getItem("email") || ""
-      };
-
-      if (userData.name) {
-        const userId = userData.name.replace(/\s+/g, "_").toLowerCase();
-        await setDoc(doc(db, "users", userId), userData);
-        console.log("✅ Duomenys sėkmingai įkelti į Firestore!");
-      } else {
-        console.warn("⚠️ Nerasta naudotojo vardo – duomenys neįkelti.");
-      }
-    } catch (error) {
-      console.error("❌ Klaida įkeliant duomenis:", error);
-    }
-  });
-</script>
-
       });
     } else {
       display.textContent = "No results found.";
     }
+
+    // 🔘 Upload mygtuko funkcija
+    uploadBtn.addEventListener("click", async () => {
+      const storedResults = localStorage.getItem("soulResults");
+
+      if (!storedResults) {
+        alert("⚠️ No SoulPrint data found in localStorage.");
+        return;
+      }
+
+      const parsed = JSON.parse(storedResults);
+      const userId = parsed.name?.replace(/\s+/g, "_").toLowerCase() || "anonymous_user";
+
+      try {
+        await setDoc(doc(db, "users", userId), parsed);
+        alert("✅ Duomenys sėkmingai įkelti į Firestore!");
+        status.innerText += " | Firestore updated ✅";
+      } catch (error) {
+        console.error("❌ Klaida įrašant į Firestore:", error);
+        alert("❌ Klaida įkeliant duomenis. Žr. konsolę.");
+        status.innerText += " | Firestore failed ❌";
+      }
+    });
   </script>
 </body>
 </html>
