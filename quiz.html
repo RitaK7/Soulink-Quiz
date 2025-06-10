@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soulink Quiz</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="firebase.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="bg-gradient-to-br from-purple-100 to-pink-50 text-gray-800 font-sans">
   <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
@@ -30,18 +29,30 @@
   </main>
 
   <script type="module">
-    import { saveQuizData } from './firebase.js';
-
     document.getElementById('quizForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      const userId = Date.now().toString(); // could be email or UID later
+
+      const name = document.getElementById('name').value;
+      const birthdate = document.getElementById('birthdate').value;
+      const loveLanguage = document.getElementById('loveLanguage').value;
+
       const data = {
-        name: document.getElementById('name').value,
-        birthdate: document.getElementById('birthdate').value,
-        loveLanguage: document.getElementById('loveLanguage').value
+        name,
+        birthdate,
+        loveLanguage
       };
-      saveQuizData(userId, data);
+
+      // ✅ Saugo į localStorage kad veiktų result.html
+      localStorage.setItem("soulResults", JSON.stringify(data));
+      localStorage.setItem("name", name);
+      localStorage.setItem("birthdate", birthdate);
+      localStorage.setItem("loveLanguage", loveLanguage);
+
+      // ✅ Rodo žinutę
       document.getElementById('statusMsg').classList.remove('hidden');
+
+      // (pasirinktinai) nukreipia į result.html
+      // window.location.href = "result.html";
     });
   </script>
 </body>
