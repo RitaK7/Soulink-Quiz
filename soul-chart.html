@@ -1,33 +1,61 @@
-<!-- soul-chart.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Soul Chart</title>
+  <title>Soul Chart</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-gradient-to-br from-purple-100 to-yellow-50 text-gray-800 font-sans">
+<body class="bg-gradient-to-br from-purple-50 to-yellow-100 text-gray-800 font-sans">
   <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
-    <h1 class="text-2xl font-bold">🔮 Soul Chart (Premium Only)</h1>
+    <h1 class="text-2xl font-bold">🧭 Your Soul Chart</h1>
+    <p class="text-sm text-gray-600">A visual map of your inner qualities</p>
   </header>
 
-  <main class="p-6 max-w-3xl mx-auto space-y-4">
-    <p>This is your exclusive soul chart. 🌌</p>
-    <!-- Soul chart content goes here -->
+  <main class="p-6 max-w-3xl mx-auto">
+    <canvas id="soulChart" class="bg-white rounded-xl shadow p-4"></canvas>
   </main>
 
-  <script type="module">
-    import { observeUser, isPremium } from './auth.js';
+  <script>
+    const data = JSON.parse(localStorage.getItem("soulResults")) || {};
 
-    observeUser(async (user) => {
-      if (!user || !(await isPremium(user))) {
-        window.location.href = "upgrade.html";
+    const ctx = document.getElementById("soulChart").getContext("2d");
+    const chart = new Chart(ctx, {
+      type: "radar",
+      data: {
+        labels: ["Empathy", "Creativity", "Loyalty", "Openness", "Intuition", "Passion"],
+        datasets: [{
+          label: `${data.name || "Your Soul"}`,
+          data: [
+            data.values?.includes("Kindness") ? 90 : 60,
+            data.interests?.includes("Art") ? 85 : 55,
+            data.values?.includes("Honesty") ? 80 : 50,
+            data.interests?.includes("Nature") ? 75 : 45,
+            data.loveLanguage === "Quality Time" ? 85 : 50,
+            data.relationshipType === "Romantic" ? 80 : 60
+          ],
+          fill: true,
+          tension: 0.2,
+          backgroundColor: "rgba(168, 85, 247, 0.2)",
+          borderColor: "rgba(168, 85, 247, 1)",
+          pointBackgroundColor: "rgba(168, 85, 247, 1)"
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            suggestedMin: 0,
+            suggestedMax: 100,
+            ticks: {
+              stepSize: 20,
+              backdropColor: "transparent"
+            }
+          }
+        }
       }
     });
-
-    // Your soul chart logic can continue here
   </script>
 </body>
 </html>
