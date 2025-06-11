@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Soulink – Beta Flow</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .progress-bar {
+      height: 6px;
+      background-color: #d1d5db;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    .progress-bar > div {
+      height: 100%;
+      background-color: #7c3aed;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800 font-sans">
   <header class="p-6 text-center bg-white shadow">
@@ -13,34 +27,38 @@
   </header>
 
   <main class="max-w-xl mx-auto p-6 space-y-4">
+    <div class="progress-bar mb-6">
+      <div id="progressIndicator"></div>
+    </div>
+
     <div class="space-y-4">
       <div>
         <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Step 1 of 7</p>
-        <a href="signup.html" class="block bg-green-500 hover:bg-green-600 text-white text-center py-2 px-4 rounded">🔐 Sign Up</a>
+        <a href="signup.html" class="step-link block bg-green-500 hover:bg-green-600 text-white text-center py-2 px-4 rounded">🔐 Sign Up</a>
       </div>
       <div>
         <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Step 2 of 7</p>
-        <a href="login.html" class="block bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-4 rounded">🔑 Log In</a>
+        <a href="login.html" class="step-link block bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-4 rounded">🔑 Log In</a>
       </div>
       <div>
         <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Step 3 of 7</p>
-        <a href="quiz.html" class="block bg-pink-500 hover:bg-pink-600 text-white text-center py-2 px-4 rounded">📝 Fill Quiz</a>
+        <a href="quiz.html" class="step-link block bg-pink-500 hover:bg-pink-600 text-white text-center py-2 px-4 rounded">📝 Fill Quiz</a>
       </div>
       <div>
         <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Step 4 of 7</p>
-        <a href="result.html" class="block bg-yellow-500 hover:bg-yellow-600 text-white text-center py-2 px-4 rounded">🔍 See Result</a>
+        <a href="result.html" class="step-link block bg-yellow-500 hover:bg-yellow-600 text-white text-center py-2 px-4 rounded">🔍 See Result</a>
       </div>
       <div>
         <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Step 5 of 7</p>
-        <a href="my-soul.html" class="block bg-purple-500 hover:bg-purple-600 text-white text-center py-2 px-4 rounded">🌟 My Soul Profile</a>
+        <a href="my-soul.html" class="step-link block bg-purple-500 hover:bg-purple-600 text-white text-center py-2 px-4 rounded">🌟 My Soul Profile</a>
       </div>
       <div>
         <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Step 6 of 7</p>
-        <a href="soulink-match.html" class="block bg-indigo-500 hover:bg-indigo-600 text-white text-center py-2 px-4 rounded">💞 Soul Matches</a>
+        <a href="soulink-match.html" class="step-link block bg-indigo-500 hover:bg-indigo-600 text-white text-center py-2 px-4 rounded">💞 Soul Matches</a>
       </div>
       <div>
         <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Step 7 of 7</p>
-        <a href="soul-chart.html" class="block bg-red-500 hover:bg-red-600 text-white text-center py-2 px-4 rounded">🌀 Soul Chart</a>
+        <a href="soul-chart.html" class="step-link block bg-red-500 hover:bg-red-600 text-white text-center py-2 px-4 rounded">🌀 Soul Chart</a>
       </div>
     </div>
 
@@ -49,5 +67,19 @@
       <a href="users.html" class="text-sm text-purple-600 underline">🌍 View All Souls (Optional)</a>
     </div>
   </main>
+
+  <script>
+    const links = document.querySelectorAll(".step-link");
+    const progress = document.getElementById("progressIndicator");
+    let step = 0;
+
+    links.forEach((link, index) => {
+      link.addEventListener("click", () => {
+        step = index + 1;
+        const percent = (step / links.length) * 100;
+        progress.style.width = `${percent}%`;
+      });
+    });
+  </script>
 </body>
 </html>
