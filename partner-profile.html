@@ -19,7 +19,10 @@
       <p id="partnerLoveLanguage"></p>
       <p id="partnerRelationshipType"></p>
       <p id="partnerDescription" class="italic text-gray-700"></p>
-      <a href="soulink-match.html" class="text-purple-600 underline text-sm block mt-4">← Back to matches</a>
+
+      <button onclick="window.location.href='soulink-match.html'" class="mt-4 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded">
+        ← Back to matches
+      </button>
     </div>
   </main>
 
@@ -36,7 +39,12 @@
     const typeEl = document.getElementById("partnerRelationshipType");
     const descEl = document.getElementById("partnerDescription");
 
-    if (partnerId) {
+    if (!partnerId) {
+      nameEl.textContent = "❌ No partner ID provided.";
+      setTimeout(() => {
+        window.location.href = "soulink-match.html";
+      }, 2000);
+    } else {
       const docRef = doc(db, "users", partnerId);
       getDoc(docRef).then((docSnap) => {
         if (docSnap.exists()) {
@@ -45,13 +53,18 @@
           birthEl.textContent = "🎂 Birthdate: " + (data.birthdate || "N/A");
           loveEl.textContent = "💌 Love Language: " + (data.loveLanguage || "N/A");
           typeEl.textContent = "💫 Looking for: " + (data.relationshipType || "N/A");
-          descEl.textContent = data.description || "";
+          descEl.textContent = data.description || "This soul hasn’t shared a description yet.";
         } else {
-          nameEl.textContent = "❌ User not found.";
+          nameEl.textContent = "🫣 We couldn’t find this soul.";
+          birthEl.textContent = "";
+          loveEl.textContent = "";
+          typeEl.textContent = "";
+          descEl.textContent = "";
         }
+      }).catch((error) => {
+        nameEl.textContent = "⚠️ Error fetching profile.";
+        console.error("Firestore error:", error);
       });
-    } else {
-      nameEl.textContent = "❌ No partner ID provided.";
     }
   </script>
 </body>
