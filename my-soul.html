@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,23 +8,20 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="bg-gradient-to-br from-pink-100 to-yellow-50 text-gray-800 font-sans">
-
   <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
     <h1 class="text-2xl font-bold">🌟 Welcome to Your Soul Space</h1>
   </header>
 
-  <main class="p-6 max-w-xl mx-auto space-y-4">
+  <main class="p-6 max-w-xl mx-auto space-y-6">
     <p id="welcomeMessage" class="text-lg"></p>
+    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Log Out</button>
 
-    <a href="soul-chart.html" class="block text-center mt-4 text-purple-700 font-semibold underline">
-      🌀 View Your Soul Chart
-    </a>
-
-    <a href="soul-coach.html" class="block text-center mt-2 text-purple-700 font-semibold underline">
-      🧠 Visit Your Soul Coach
-    </a>
-
-    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mt-4">Log Out</button>
+    <div class="mt-6 text-center">
+      <p class="text-sm text-gray-700">💬 Help us improve Soulink by sharing your feedback!</p>
+      <a href="https://forms.gle/W2nBH6Gt6453YB269" target="_blank" class="inline-block mt-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
+        📝 Fill Out Beta Feedback Form
+      </a>
+    </div>
   </main>
 
   <script type="module">
@@ -46,6 +44,5 @@
       });
     });
   </script>
-
 </body>
 </html>
