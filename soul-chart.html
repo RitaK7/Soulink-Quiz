@@ -1,3 +1,4 @@
+<!-- soul-chart.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,14 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Soul Chart</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>Your Soul Chart</h2>
-    <p><strong>Core Values</strong></p>
-    <p>Your soul is exploring what matters most.</p>
-    <p><strong>Interests</strong></p>
-    <p>Your passions reflect your soul’s diversity 🌈</p>
-  </div>
+<body class="bg-gradient-to-br from-purple-100 to-yellow-50 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">🔮 Soul Chart (Premium Only)</h1>
+  </header>
+
+  <main class="p-6 max-w-3xl mx-auto space-y-4">
+    <p>This is your exclusive soul chart. 🌌</p>
+    <!-- Soul chart content goes here -->
+  </main>
+
+  <script type="module">
+    import { observeUser, isPremium } from './auth.js';
+
+    observeUser(async (user) => {
+      if (!user || !(await isPremium(user))) {
+        window.location.href = "upgrade.html";
+      }
+    });
+
+    // Your soul chart logic can continue here
+  </script>
 </body>
 </html>
