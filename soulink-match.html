@@ -10,43 +10,69 @@
 <body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
   <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
     <h1 class="text-2xl font-bold">💞 Your Soul Matches</h1>
+    <p class="text-sm text-gray-600">Based on your Soulprint</p>
   </header>
 
-  <main class="p-6 max-w-4xl mx-auto space-y-6">
-    <h2 class="text-xl font-semibold text-center">Based on your Soulprint</h2>
-
-    <div id="matchesList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- Partner cards will be inserted here dynamically -->
+  <main class="p-6 max-w-5xl mx-auto space-y-6">
+    <div id="matchesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Partner cards will appear here -->
     </div>
+    <p id="noMatchesMsg" class="text-center text-gray-500 mt-8 hidden">No matches found yet. 🌱</p>
   </main>
 
   <script type="module">
     import { db } from './firebase-config.js';
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const matchesList = document.getElementById("matchesList");
+    const noMatchesMsg = document.getElementById("noMatchesMsg");
+    const auth = getAuth();
 
-    // Gauti visus vartotojus iš "users" kolekcijos
-    const querySnapshot = await getDocs(collection(db, "users"));
-    const currentUser = JSON.parse(localStorage.getItem("soulResults"));
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
 
-    querySnapshot.forEach((docSnap) => {
-      const user = docSnap.data();
-      if (!currentUser || user.name === currentUser.name) return;
+      const currentUser = JSON.parse(localStorage.getItem("soulResults"));
+      if (!currentUser) {
+        matchesList.innerHTML = "<p class='text-red-600'>❌ Missing Soulprint data.</p>";
+        return;
+      }
 
-      // Skaičiuojame suderinamumą (čia tik paprasta versija pagal loveLanguage)
-      const matchScore = user.loveLanguage === currentUser.loveLanguage ? 87 : Math.floor(Math.random() * 40 + 50);
+      const querySnapshot = await getDocs(collection(db, "users"));
+      let matchCount = 0;
 
-      const card = document.createElement("div");
-      card.className = "bg-white rounded-2xl shadow p-4 space-y-2 border border-gray-200";
-      card.innerHTML = `
-        <h3 class="text-xl font-semibold">🌟 ${user.name}</h3>
-        <p class="text-sm text-gray-600">Zodiac: ${user.zodiac || "Unknown"}</p>
-        <p class="text-sm text-gray-600">Love Language: ${user.loveLanguage}</p>
-        <p class="text-sm text-gray-600">Compatibility: <span class="font-bold text-green-600">${matchScore}%</span></p>
-        <button class="mt-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded w-full">View Soulprint</button>
-      `;
-      matchesList.appendChild(card);
+      querySnapshot.forEach((docSnap) => {
+        const userData = docSnap.data();
+
+        // Praleidžiam save
+        if (userData.name === currentUser.name) return;
+
+        const matchScore = userData.loveLanguage === currentUser.loveLanguage
+          ? 88
+          : Math.floor(Math.random() * 40 + 50);
+
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-2xl shadow p-4 space-y-2 border border-gray-200";
+
+        card.innerHTML = `
+          <h3 class="text-xl font-semibold">🌟 ${userData.name}</h3>
+          <p class="text-sm text-gray-600">Zodiac: ${userData.zodiac || "Unknown"}</p>
+          <p class="text-sm text-gray-600">Love Language: ${userData.loveLanguage}</p>
+          <p class="text-sm text-gray-600">Compatibility: <span class="font-bold text-green-600">${matchScore}%</span></p>
+          <p class="text-sm italic text-gray-700 mt-2">"${userData.description || 'This soul has no description yet.'}"</p>
+          <button class="mt-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded w-full">View Soulprint</button>
+        `;
+
+        matchesList.appendChild(card);
+        matchCount++;
+      });
+
+      if (matchCount === 0) {
+        noMatchesMsg.classList.remove("hidden");
+      }
     });
   </script>
 </body>
