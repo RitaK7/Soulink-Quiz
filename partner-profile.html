@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner Profile</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">💖 Partner Profile</h1>
+  </header>
+
+  <main class="p-6 max-w-2xl mx-auto space-y-4">
+    <div id="profileCard" class="bg-white rounded-xl shadow p-6 space-y-2 text-center">
+      <h2 id="partnerName" class="text-2xl font-bold">Loading...</h2>
+      <p id="partnerBirthdate"></p>
+      <p id="partnerLoveLanguage"></p>
+      <p id="partnerRelationshipType"></p>
+      <p id="partnerDescription" class="italic text-gray-700"></p>
+      <a href="soulink-match.html" class="text-purple-600 underline text-sm block mt-4">← Back to matches</a>
+    </div>
+  </main>
+
+  <script type="module">
+    import { db } from './firebase-config.js';
+    import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const partnerId = urlParams.get("id");
+
+    const nameEl = document.getElementById("partnerName");
+    const birthEl = document.getElementById("partnerBirthdate");
+    const loveEl = document.getElementById("partnerLoveLanguage");
+    const typeEl = document.getElementById("partnerRelationshipType");
+    const descEl = document.getElementById("partnerDescription");
+
+    if (partnerId) {
+      const docRef = doc(db, "users", partnerId);
+      getDoc(docRef).then((docSnap) => {
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          nameEl.textContent = data.name || "Unknown";
+          birthEl.textContent = "🎂 Birthdate: " + (data.birthdate || "N/A");
+          loveEl.textContent = "💌 Love Language: " + (data.loveLanguage || "N/A");
+          typeEl.textContent = "💫 Looking for: " + (data.relationshipType || "N/A");
+          descEl.textContent = data.description || "";
+        } else {
+          nameEl.textContent = "❌ User not found.";
+        }
+      });
+    } else {
+      nameEl.textContent = "❌ No partner ID provided.";
+    }
+  </script>
+</body>
+</html>
