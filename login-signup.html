@@ -1,76 +1,58 @@
+<!-- Atnaujinta login.html su A ir B pasirinkimais -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Soulink Login / Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Soulink</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center">
-    <h1 class="text-2xl font-bold">🔐 Login or Signup</h1>
+<body class="bg-gradient-to-br from-blue-100 to-indigo-100 text-gray-800 font-sans">
+  <header class="p-6 text-center">
+    <h1 class="text-2xl font-bold">🔐 Welcome Back to Soulink</h1>
   </header>
 
-  <main class="p-6 max-w-md mx-auto space-y-6">
-    <input id="email" type="email" placeholder="Email" class="w-full p-3 border rounded" />
-    <input id="password" type="password" placeholder="Password" class="w-full p-3 border rounded" />
+  <main class="max-w-md mx-auto p-6 bg-white shadow rounded">
+    <input type="email" id="email" placeholder="Your email" class="w-full p-3 border rounded mb-4" />
+    <input type="password" id="password" placeholder="Password" class="w-full p-3 border rounded mb-4" />
+    <button id="loginBtn" class="w-full py-3 bg-purple-600 text-white rounded hover:bg-purple-700">Log In</button>
 
-    <div class="flex gap-4">
-      <button id="loginBtn" class="flex-1 py-2 bg-green-600 text-white rounded hover:bg-green-700">Login</button>
-      <button id="signupBtn" class="flex-1 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Signup</button>
-    </div>
-
-    <p id="authStatus" class="text-sm text-center text-gray-600"></p>
+    <p class="mt-4 text-sm text-center">
+      Don't have an account? <a href="signup.html" class="text-blue-600 underline">Sign Up</a>
+    </p>
   </main>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    import { firebaseConfig } from './firebase-config.js';
+    import { getAuth, signInWithEmailAndPassword, fetchSignInMethodsForEmail } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+    import { app } from './firebase-config.js';
 
-    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const db = getFirestore(app);
 
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const authStatus = document.getElementById("authStatus");
+    const loginBtn = document.getElementById("loginBtn");
 
-    document.getElementById("signupBtn").addEventListener("click", async () => {
+    loginBtn.addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
       try {
-        const userCred = await createUserWithEmailAndPassword(auth, email.value, password.value);
-        authStatus.textContent = "✅ Signup successful. Welcome!";
-        await saveUserToFirestore(userCred.user);
-      } catch (error) {
-        authStatus.textContent = "❌ " + error.message;
+        const methods = await fetchSignInMethodsForEmail(auth, email);
+        if (methods.length === 0) {
+          alert("❌ Account not found. Please sign up first.");
+          return;
+        }
+
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("✅ Login successful!");
+
+        // redirect to last saved page or dashboard
+        const redirectTo = localStorage.getItem("afterLoginRedirect") || "my-soul.html";
+        window.location.href = redirectTo;
+      } catch (err) {
+        console.error("Login failed:", err);
+        alert("❌ Login failed: " + err.message);
       }
     });
-
-    document.getElementById("loginBtn").addEventListener("click", async () => {
-      try {
-        const userCred = await signInWithEmailAndPassword(auth, email.value, password.value);
-        authStatus.textContent = "✅ Login successful. Welcome back!";
-      } catch (error) {
-        authStatus.textContent = "❌ " + error.message;
-      }
-    });
-
-    async function saveUserToFirestore(user) {
-      const localData = JSON.parse(localStorage.getItem("soulResults")) || {};
-      const data = {
-        email: user.email,
-        name: localData.name || "",
-        birthdate: localData.birthdate || "",
-        loveLanguage: localData.loveLanguage || "",
-        relationshipType: localData.relationshipType || ""
-      };
-
-      const docRef = doc(db, "users", user.uid);
-      await setDoc(docRef, data);
-      console.log("✅ User data saved to Firestore");
-    }
   </script>
 </body>
 </html>
