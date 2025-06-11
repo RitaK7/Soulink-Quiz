@@ -109,7 +109,10 @@
       localStorage.setItem("description", data.description);
 
       document.getElementById('statusMsg').classList.remove('hidden');
-      // window.location.href = "result.html";
+
+      setTimeout(() => {
+        window.location.href = "result.html";
+      }, 1000);
     });
   </script>
 </body>
