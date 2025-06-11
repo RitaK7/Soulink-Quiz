@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All Users - Soulink</title>
+  <title>All Users – Soulink</title>
   <link rel="stylesheet" href="style.css">
   <script type="module" src="firebase-config.js"></script>
 </head>
@@ -11,6 +11,7 @@
   <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
     <h1 class="text-2xl font-bold">🌍 All Souls in Soulink</h1>
     <div class="mt-2">
+      <label for="relationshipFilter" class="block mb-1 font-medium text-sm">Filter by relationship type:</label>
       <select id="relationshipFilter" class="p-2 border rounded">
         <option value="All">All Types</option>
         <option value="Romantic">Romantic</option>
@@ -20,10 +21,11 @@
     </div>
   </header>
 
-  <main class="p-4 max-w-4xl mx-auto">
-    <div id="usersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-      <!-- User cards go here -->
+  <main class="p-6 max-w-5xl mx-auto">
+    <div id="usersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+      <!-- User cards will be rendered here -->
     </div>
+    <p id="emptyMsg" class="text-center text-gray-600 mt-6 hidden">🌱 No users found for this filter.</p>
   </main>
 
   <script type="module">
@@ -32,35 +34,52 @@
 
     const usersGrid = document.getElementById("usersGrid");
     const filterSelect = document.getElementById("relationshipFilter");
+    const emptyMsg = document.getElementById("emptyMsg");
 
     async function fetchAndRenderUsers(filter = "All") {
-      usersGrid.innerHTML = "<p>Loading...</p>";
-      const querySnapshot = await getDocs(collection(db, "users"));
-      usersGrid.innerHTML = "";
+      usersGrid.innerHTML = "<p class='col-span-full text-center'>⏳ Loading users...</p>";
+      emptyMsg.classList.add("hidden");
 
-      querySnapshot.forEach((doc) => {
-        const user = doc.data();
-        if (filter !== "All" && user.relationshipType !== filter) return;
+      try {
+        const querySnapshot = await getDocs(collection(db, "users"));
+        usersGrid.innerHTML = "";
 
-        const card = document.createElement("div");
-        card.className = "bg-white p-4 rounded shadow hover:shadow-lg transition";
-        card.innerHTML = `
-          <h2 class="text-xl font-bold">${user.name || "Unnamed"}</h2>
-          <p><strong>Birthdate:</strong> ${user.birthdate || "-"}</p>
-          <p><strong>Love Language:</strong> ${user.loveLanguage || "-"}</p>
-          <p><strong>Values:</strong> ${user.values || "-"}</p>
-          <p><strong>Interests:</strong> ${user.interests || "-"}</p>
-          <p><strong>Looking for:</strong> ${user.relationshipType || "-"}</p>
-          <p class="mt-2 text-sm italic">${user.description || "No description."}</p>
-        `;
-        usersGrid.appendChild(card);
-      });
+        let count = 0;
+
+        querySnapshot.forEach((doc) => {
+          const user = doc.data();
+          if (filter !== "All" && user.relationshipType !== filter) return;
+
+          const card = document.createElement("div");
+          card.className = "bg-white p-4 rounded-xl shadow hover:shadow-lg transition space-y-1";
+
+          card.innerHTML = `
+            <h2 class="text-xl font-bold">🌟 ${user.name || "Unnamed"}</h2>
+            <p><strong>🎂 Birthdate:</strong> ${user.birthdate || "-"}</p>
+            <p><strong>💌 Love Language:</strong> ${user.loveLanguage || "-"}</p>
+            <p><strong>🧭 Values:</strong> ${Array.isArray(user.values) ? user.values.join(", ") : "-"}</p>
+            <p><strong>🎨 Interests:</strong> ${Array.isArray(user.interests) ? user.interests.join(", ") : "-"}</p>
+            <p><strong>💫 Looking for:</strong> ${user.relationshipType || "-"}</p>
+            <p class="mt-2 text-sm italic text-gray-700">"${user.description || "No description available."}"</p>
+          `;
+
+          usersGrid.appendChild(card);
+          count++;
+        });
+
+        if (count === 0) {
+          emptyMsg.classList.remove("hidden");
+        }
+      } catch (error) {
+        console.error("⚠️ Failed to fetch users:", error);
+        usersGrid.innerHTML = "<p class='text-center text-red-600 col-span-full'>❌ Error loading users.</p>";
+      }
     }
 
     // Initial load
     fetchAndRenderUsers();
 
-    // Filter change
+    // Filter change handler
     filterSelect.addEventListener("change", () => {
       fetchAndRenderUsers(filterSelect.value);
     });
