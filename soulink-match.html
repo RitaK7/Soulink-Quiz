@@ -47,8 +47,7 @@
       querySnapshot.forEach((docSnap) => {
         const userData = docSnap.data();
 
-        // Praleidžiam save
-        if (userData.name === currentUser.name) return;
+        if (userData.name === currentUser.name || userData.relationshipType !== currentUser.relationshipType) return;
 
         const matchScore = userData.loveLanguage === currentUser.loveLanguage
           ? 88
