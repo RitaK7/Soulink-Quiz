@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Soul</title>
   <link rel="stylesheet" href="style.css" />
   <script type="module" src="firebase-config.js"></script>
@@ -45,16 +45,16 @@
         return;
       }
 
-      const userId = user.email;
+      const userId = user.uid;
       const docRef = doc(db, "users", userId);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        userName.textContent = data.name || "";
-        userBirthdate.textContent = data.birthdate || "";
-        userLoveLanguage.textContent = data.loveLanguage || "";
-        userRelationshipType.textContent = data.relationshipType || "";
+        userName.textContent = data.name || "-";
+        userBirthdate.textContent = data.birthdate || "-";
+        userLoveLanguage.textContent = data.loveLanguage || "-";
+        userRelationshipType.textContent = data.relationshipType || "-";
         userDescription.textContent = data.description || "Click 'Generate AI Description'";
 
         if (!data.description) generateBtn.classList.remove("hidden");
@@ -92,6 +92,8 @@
             generateBtn.textContent = "🔮 Generate AI Description";
           }
         });
+      } else {
+        userName.textContent = "❌ No user profile found.";
       }
     });
 
