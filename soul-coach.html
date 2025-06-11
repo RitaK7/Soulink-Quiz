@@ -3,13 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Soul Coach</title>
+  <title>Soul Coach</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module" src="auth.js"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>🌟 Your Soul Coach Says</h2>
-    <p>This is your personalized advice panel.</p>
-  </div>
+<body class="bg-gradient-to-br from-purple-50 to-pink-100 text-gray-800 font-sans">
+  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
+    <h1 class="text-2xl font-bold">🧠 Soul Coach</h1>
+    <p class="text-sm text-gray-600">Personal insights powered by AI</p>
+  </header>
+
+  <main class="p-6 max-w-2xl mx-auto space-y-4">
+    <p class="text-lg">Here you will receive custom suggestions based on your soulprint data.</p>
+    <div id="coachOutput" class="bg-white p-4 rounded-xl shadow"></div>
+  </main>
+
+  <script type="module">
+    import { observeUser, isPremium } from './auth.js';
+
+    observeUser(async (user) => {
+      if (!user || !(await isPremium(user))) {
+        window.location.href = "upgrade.html";
+      }
+    });
+
+    const coachOutput = document.getElementById("coachOutput");
+    const data = JSON.parse(localStorage.getItem("soulResults"));
+
+    if (data) {
+      coachOutput.innerHTML = `
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Love Language:</strong> ${data.loveLanguage}</p>
+        <p><strong>Looking for:</strong> ${data.relationshipType}</p>
+        <p class="mt-4 italic">🌿 Based on your soulprint, practice daily gratitude and surround yourself with kindness to align with your soul's vibration.</p>
+      `;
+    } else {
+      coachOutput.innerHTML = "⚠️ No soulprint data found.";
+    }
+  </script>
 </body>
 </html>
