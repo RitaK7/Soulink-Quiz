@@ -7,18 +7,31 @@
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
-    #pdf-content * {
-      font-family: Arial, sans-serif;
-      color: #333;
+    #pdf-only {
+      display: none;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #pdf-only, #pdf-only * {
+        visibility: visible;
+      }
+      #pdf-only {
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
     }
     #pdf-content {
-      padding: 20px;
-      border: 1px solid #ccc;
       background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
-<body class="bg-gradient-to-br from-white to-pink-50 text-gray-800 font-sans">
+<body class="bg-gradient-to-br from-white via-rose-50 to-pink-100 text-gray-800 font-sans">
   <main class="p-6 max-w-2xl mx-auto space-y-6">
     <div id="pdf-content" class="bg-white shadow rounded-lg p-6">
       <h1 class="text-2xl font-bold text-center">🌟 Your Soulprint Summary</h1>
