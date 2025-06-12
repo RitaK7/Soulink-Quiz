@@ -2,77 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Soulprint Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soulprint Result</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-<body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center">
-    <h1 class="text-2xl font-bold">🔮 Your Soulprint</h1>
-  </header>
-
-  <main class="p-6 max-w-xl mx-auto space-y-4">
-    <div id="resultsDisplay" class="text-lg"></div>
-    <p id="status" class="text-sm text-green-600 mt-2"></p>
-
-    <button id="uploadBtn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded mt-4">
-      🚀 Upload to Firestore
-    </button>
+<body class="bg-gradient-to-br from-white to-pink-50 text-gray-800 font-sans">
+  <main class="p-6 max-w-2xl mx-auto space-y-6">
+    <div id="soulprint" class="bg-white shadow rounded-lg p-6">
+      <h1 class="text-2xl font-bold text-center">🌟 Your Soulprint Summary</h1>
+      <p><strong>Name:</strong> <span id="name">...</span></p>
+      <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
+      <p><strong>Love Language:</strong> <span id="loveLanguage">...</span></p>
+      <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
+      <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
+      <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
+      <p><strong>AI Soul Description:</strong></p>
+      <p id="description" class="italic text-purple-700">...</p>
+      <p class="mt-4 text-center text-sm text-gray-500">With love from Soulink 💖</p>
+    </div>
+    <div class="text-center">
+      <button id="downloadBtn" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition">
+        🎁 Download My Soulprint as PDF
+      </button>
+    </div>
   </main>
 
-  <script type="module">
-    import { db } from './firebase-config.js';
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  <script>
+    // Fake data for testing — replace with real Firestore data loading
+    const soulData = {
+      name: localStorage.getItem("name") || "Unknown",
+      birthdate: localStorage.getItem("birthdate") || "1972-11-22",
+      loveLanguage: localStorage.getItem("loveLanguage") || "Acts of Service",
+      zodiac: localStorage.getItem("zodiac") || "Sagittarius",
+      chineseZodiac: localStorage.getItem("chineseZodiac") || "Rat",
+      lifePath: localStorage.getItem("lifePath") || "7",
+      description: localStorage.getItem("description") || "As a Sagittarius born in the Year of the Rat with a Life Path Number 7..."
+    };
 
-    const display = document.getElementById("resultsDisplay");
-    const status = document.getElementById("status");
-    const uploadBtn = document.getElementById("uploadBtn");
+    // Populate the page
+    document.getElementById("name").textContent = soulData.name;
+    document.getElementById("birthdate").textContent = soulData.birthdate;
+    document.getElementById("loveLanguage").textContent = soulData.loveLanguage;
+    document.getElementById("zodiac").textContent = soulData.zodiac;
+    document.getElementById("chineseZodiac").textContent = soulData.chineseZodiac;
+    document.getElementById("lifePath").textContent = soulData.lifePath;
+    document.getElementById("description").textContent = soulData.description;
 
-    const storedResults = localStorage.getItem("soulResults");
-    const data = storedResults ? JSON.parse(storedResults) : null;
-
-    if (data) {
-      const { name, birthdate, loveLanguage, relationshipType, values, interests, description } = data;
-      display.innerHTML = `
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Birthdate:</strong> ${birthdate}</p>
-        <p><strong>Love Language:</strong> ${loveLanguage}</p>
-        <p><strong>Looking for:</strong> ${relationshipType}</p>
-        <p><strong>Core Values:</strong> ${values?.join(", ") || "Not set"}</p>
-        <p><strong>Interests:</strong> ${interests?.join(", ") || "Not set"}</p>
-        <p class="mt-4"><strong>✨ Soul Description:</strong> ${description}</p>
-      `;
-    } else {
-      display.textContent = "⚠️ No data found in localStorage.";
-    }
-
-    const auth = getAuth();
-
-    onAuthStateChanged(auth, (user) => {
-      if (user && data) {
-        uploadBtn.addEventListener("click", async () => {
-          try {
-            const userId = user.uid;
-            await setDoc(doc(db, "users", userId), {
-              ...data,
-              email: user.email,
-              updatedAt: new Date().toISOString()
-            });
-            alert("✅ Data successfully uploaded to Firestore!");
-            status.textContent = "Uploaded with login ✅";
-            window.location.href = "my-soul.html";
-          } catch (error) {
-            console.error("❌ Upload error:", error);
-            alert("❌ Error uploading. See console.");
-            status.textContent = "Firestore failed ❌";
-          }
-        });
-      } else {
-        uploadBtn.disabled = true;
-        status.textContent = "🔒 Please log in to upload your result.";
-      }
+    // PDF download
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const element = document.getElementById("soulprint");
+      html2pdf().from(element).set({
+        margin: 1,
+        filename: `${soulData.name.replaceAll(' ', '_')}_Soulprint.pdf`,
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      }).save();
     });
   </script>
 </body>
