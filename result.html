@@ -29,6 +29,11 @@
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
+    #avatarPreview {
+      max-height: 150px;
+      object-fit: cover;
+      border-radius: 9999px;
+    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-white via-rose-50 to-pink-100 text-gray-800 font-sans">
@@ -57,16 +62,12 @@
   <script>
     const soulData = {
       name: localStorage.getItem("name") || "Unknown",
-      birthdate: localStorage.getItem("birthdate") || "1972-11-22",
-      loveLanguage: localStorage.getItem("loveLanguage") || "Acts of Service",
-      zodiac: localStorage.getItem("zodiac") || "Sagittarius",
-      chineseZodiac: localStorage.getItem("chineseZodiac") || "Rat",
-      lifePath: localStorage.getItem("lifePath") || "7",
-      description: localStorage.getItem("longDescription") || `Rita is a radiant Sagittarius soul, born under the skies of adventure and truth. With the intuitive heart of the Rat and the wisdom of a Life Path 7, she walks the earth seeking meaning beyond the surface.
-
-Her love language, Acts of Service, speaks of silent strength – love expressed not in words, but in presence, effort, and care. She nurtures harmony through giving, and uplifts others through sincerity.
-
-A natural guide to those lost in the fog, Rita holds space for authenticity and kindness. She is art, she is healing, she is light.`
+      birthdate: localStorage.getItem("birthdate") || "Unknown",
+      loveLanguage: localStorage.getItem("loveLanguage") || "Unknown",
+      zodiac: localStorage.getItem("zodiac") || "Unknown",
+      chineseZodiac: localStorage.getItem("chineseZodiac") || "Unknown",
+      lifePath: localStorage.getItem("lifePath") || "Unknown",
+      description: localStorage.getItem("longDescription") || "Your soul is a radiant light, full of untold stories and sacred potential."
     };
 
     document.getElementById("name").textContent = soulData.name;
