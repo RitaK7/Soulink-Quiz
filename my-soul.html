@@ -70,7 +70,7 @@
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer YOUR_OPENAI_API_KEY`
+                "Authorization": `Bearer YOUR_OPENAI_API_KEY` // ⛔ Saugiai laikyk šį raktą .env ar per serverio funkciją
               },
               body: JSON.stringify({
                 model: "gpt-3.5-turbo",
@@ -84,6 +84,8 @@
             await updateDoc(docRef, { description: aiText });
             userDescription.textContent = aiText;
             statusMsg.textContent = "✅ Description updated!";
+            generateBtn.classList.add("hidden");
+
           } catch (err) {
             statusMsg.textContent = "❌ Error generating description.";
             console.error(err);
