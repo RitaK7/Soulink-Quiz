@@ -6,10 +6,21 @@
   <title>Soulprint Result</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    #pdf-content * {
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+    #pdf-content {
+      padding: 20px;
+      border: 1px solid #ccc;
+      background-color: white;
+    }
+  </style>
 </head>
 <body class="bg-gradient-to-br from-white to-pink-50 text-gray-800 font-sans">
   <main class="p-6 max-w-2xl mx-auto space-y-6">
-    <div id="soulprint" class="bg-white shadow rounded-lg p-6">
+    <div id="pdf-content" class="bg-white shadow rounded-lg p-6">
       <h1 class="text-2xl font-bold text-center">🌟 Your Soulprint Summary</h1>
       <p><strong>Name:</strong> <span id="name">...</span></p>
       <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
@@ -22,14 +33,12 @@
       <p class="mt-4 text-center text-sm text-gray-500">With love from Soulink 💖</p>
     </div>
     <div class="text-center">
-      <button id="downloadBtn" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition">
-        🎁 Download My Soulprint as PDF
-      </button>
+      <p id="infoMsg" class="text-sm text-gray-500 mb-2">You can download your soulprint once your data is fully loaded 💫</p>
+      <button id="downloadBtn" disabled class="bg-purple-300 text-white py-2 px-4 rounded transition">🎁 Download My Soulprint as PDF</button>
     </div>
   </main>
 
   <script>
-    // Fake data for testing — replace with real Firestore data loading
     const soulData = {
       name: localStorage.getItem("name") || "Unknown",
       birthdate: localStorage.getItem("birthdate") || "1972-11-22",
@@ -49,11 +58,18 @@
     document.getElementById("lifePath").textContent = soulData.lifePath;
     document.getElementById("description").textContent = soulData.description;
 
+    // Enable button once everything is loaded
+    setTimeout(() => {
+      document.getElementById("downloadBtn").disabled = false;
+      document.getElementById("downloadBtn").classList.remove("bg-purple-300");
+      document.getElementById("downloadBtn").classList.add("bg-purple-600", "hover:bg-purple-700");
+    }, 500);
+
     // PDF download
     document.getElementById("downloadBtn").addEventListener("click", () => {
-      const element = document.getElementById("soulprint");
+      const element = document.getElementById("pdf-content");
       html2pdf().from(element).set({
-        margin: 1,
+        margin: 0.5,
         filename: `${soulData.name.replaceAll(' ', '_')}_Soulprint.pdf`,
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
