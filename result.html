@@ -42,7 +42,7 @@
       <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
       <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
       <p><strong>AI Soul Description:</strong></p>
-      <p id="description" class="italic text-purple-700">...</p>
+      <p id="description" class="italic text-purple-700 whitespace-pre-line">...</p>
       <p class="mt-4 text-center text-sm text-gray-500">With love from Soulink 💖</p>
     </div>
     <div class="text-center">
@@ -59,7 +59,11 @@
       zodiac: localStorage.getItem("zodiac") || "Sagittarius",
       chineseZodiac: localStorage.getItem("chineseZodiac") || "Rat",
       lifePath: localStorage.getItem("lifePath") || "7",
-      description: localStorage.getItem("description") || "As a Sagittarius born in the Year of the Rat with a Life Path Number 7..."
+      description: localStorage.getItem("longDescription") || `Rita is a radiant Sagittarius soul, born under the skies of adventure and truth. With the intuitive heart of the Rat and the wisdom of a Life Path 7, she walks the earth seeking meaning beyond the surface.
+
+Her love language, Acts of Service, speaks of silent strength – love expressed not in words, but in presence, effort, and care. She nurtures harmony through giving, and uplifts others through sincerity.
+
+A natural guide to those lost in the fog, Rita holds space for authenticity and kindness. She is art, she is healing, she is light.`
     };
 
     // Populate the page
