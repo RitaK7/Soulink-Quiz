@@ -5,57 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soul Chart</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-gradient-to-br from-purple-50 to-yellow-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
-    <h1 class="text-2xl font-bold">🧭 Your Soul Chart</h1>
-    <p class="text-sm text-gray-600">A visual map of your inner qualities</p>
-  </header>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
+  <main class="p-6 max-w-3xl mx-auto space-y-6">
+    <h1 class="text-3xl font-bold text-center text-purple-700">🧭 Your Soul Chart</h1>
 
-  <main class="p-6 max-w-3xl mx-auto">
-    <canvas id="soulChart" class="bg-white rounded-xl shadow p-4"></canvas>
+    <div id="chartContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold">💫 Zodiac Sign</h2>
+        <p id="zodiac">Loading...</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold">🐉 Chinese Zodiac</h2>
+        <p id="chineseZodiac">Loading...</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold">🔢 Life Path Number</h2>
+        <p id="lifePath">Loading...</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-lg shadow">
+        <h2 class="text-xl font-semibold">💌 Love Language</h2>
+        <p id="loveLanguage">Loading...</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-lg shadow col-span-1 sm:col-span-2">
+        <h2 class="text-xl font-semibold">✨ Soul Insight Summary</h2>
+        <p id="soulSummary" class="whitespace-pre-line italic text-purple-700">Loading...</p>
+      </div>
+    </div>
   </main>
 
   <script>
-    const data = JSON.parse(localStorage.getItem("soulResults")) || {};
-
-    const ctx = document.getElementById("soulChart").getContext("2d");
-    const chart = new Chart(ctx, {
-      type: "radar",
-      data: {
-        labels: ["Empathy", "Creativity", "Loyalty", "Openness", "Intuition", "Passion"],
-        datasets: [{
-          label: `${data.name || "Your Soul"}`,
-          data: [
-            data.values?.includes("Kindness") ? 90 : 60,
-            data.interests?.includes("Art") ? 85 : 55,
-            data.values?.includes("Honesty") ? 80 : 50,
-            data.interests?.includes("Nature") ? 75 : 45,
-            data.loveLanguage === "Quality Time" ? 85 : 50,
-            data.relationshipType === "Romantic" ? 80 : 60
-          ],
-          fill: true,
-          tension: 0.2,
-          backgroundColor: "rgba(168, 85, 247, 0.2)",
-          borderColor: "rgba(168, 85, 247, 1)",
-          pointBackgroundColor: "rgba(168, 85, 247, 1)"
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            suggestedMin: 0,
-            suggestedMax: 100,
-            ticks: {
-              stepSize: 20,
-              backdropColor: "transparent"
-            }
-          }
-        }
-      }
-    });
+    document.getElementById("zodiac").textContent = localStorage.getItem("zodiac") || "Sagittarius";
+    document.getElementById("chineseZodiac").textContent = localStorage.getItem("chineseZodiac") || "Rat";
+    document.getElementById("lifePath").textContent = localStorage.getItem("lifePath") || "7";
+    document.getElementById("loveLanguage").textContent = localStorage.getItem("loveLanguage") || "Acts of Service";
+    document.getElementById("soulSummary").textContent = localStorage.getItem("longDescription") || "Your soul is a radiant force of intuition, love and light...";
   </script>
 </body>
 </html>
