@@ -19,8 +19,14 @@
       <p><strong>Love Language:</strong> <span id="userLoveLanguage">Loading...</span></p>
       <p><strong>Relationship Type:</strong> <span id="userRelationshipType">Loading...</span></p>
       <p><strong>AI Soul Description:</strong> <span id="userDescription">Loading...</span></p>
-      <button id="generateDesc" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition hidden">🔮 Generate Soul Insight</button>
+      <button id="generateDesc" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition hidden">🔮 Generate AI Description</button>
       <p id="statusMsg" class="text-sm text-green-600"></p>
+      <div class="pt-4 space-x-2">
+        <a href="edit-profile.html" class="text-blue-600 underline">✏️ Edit Profile</a>
+        <a href="soulink-match.html" class="text-pink-600 underline">💞 See Matches</a>
+        <a href="soul-chart.html" class="text-purple-600 underline">📊 Soul Chart</a>
+        <a href="soul-coach.html" class="text-teal-600 underline">🧠 Soul Coach</a>
+      </div>
     </div>
     <button id="logoutBtn" class="text-sm text-red-500 underline">Logout</button>
   </main>
@@ -29,35 +35,6 @@
     import { db } from './firebase-config.js';
     import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
     import { doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-
-    function getSunSign(month, day) {
-      const zodiac = [
-        ['Capricorn', 1, 19], ['Aquarius', 2, 18], ['Pisces', 3, 20],
-        ['Aries', 4, 19], ['Taurus', 5, 20], ['Gemini', 6, 20],
-        ['Cancer', 7, 22], ['Leo', 8, 22], ['Virgo', 9, 22],
-        ['Libra', 10, 22], ['Scorpio', 11, 21], ['Sagittarius', 12, 21],
-        ['Capricorn', 12, 31]
-      ];
-      for (let i = 0; i < zodiac.length; i++) {
-        const [sign, m, d] = zodiac[i];
-        if ((month === m && day <= d) || (month === m - 1 && day > zodiac[i - 1]?.[2])) return sign;
-      }
-      return 'Unknown';
-    }
-
-    function getChineseZodiac(year) {
-      const animals = ["Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"];
-      return animals[(year - 1900) % 12];
-    }
-
-    function getLifePathNumber(dateStr) {
-      const digits = dateStr.replace(/-/g, '').split('').map(Number);
-      let total = digits.reduce((a, b) => a + b, 0);
-      while (total > 9 && ![11, 22, 33].includes(total)) {
-        total = total.toString().split('').map(Number).reduce((a, b) => a + b);
-      }
-      return total;
-    }
 
     const auth = getAuth();
     const userName = document.getElementById("userName");
@@ -84,7 +61,7 @@
         userBirthdate.textContent = data.birthdate || "-";
         userLoveLanguage.textContent = data.loveLanguage || "-";
         userRelationshipType.textContent = data.relationshipType || "-";
-        userDescription.textContent = data.description || "Click 'Generate Soul Insight'";
+        userDescription.textContent = data.description || "Click 'Generate AI Description'";
 
         if (!data.description) generateBtn.classList.remove("hidden");
 
@@ -93,9 +70,9 @@
           generateBtn.textContent = "⏳ Generating...";
 
           const birth = new Date(data.birthdate);
-          const sunSign = getSunSign(birth.getMonth() + 1, birth.getDate());
-          const chinese = getChineseZodiac(birth.getFullYear());
-          const lifePath = getLifePathNumber(data.birthdate);
+          const sunSign = "Sagittarius"; // placeholder
+          const chinese = "Rat"; // placeholder
+          const lifePath = "7"; // placeholder
 
           const soulText = `As a ${sunSign} born in the Year of the ${chinese} with a Life Path Number ${lifePath}, you are naturally aligned with ${data.loveLanguage.toLowerCase()} as your love language. Your soul carries a unique vibration – optimistic, intuitive, and deeply insightful.`;
 
