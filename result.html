@@ -34,6 +34,9 @@
 <body class="bg-gradient-to-br from-white via-rose-50 to-pink-100 text-gray-800 font-sans">
   <main class="p-6 max-w-2xl mx-auto space-y-6">
     <div id="pdf-content" class="bg-white shadow rounded-lg p-6">
+      <div class="flex justify-center mb-4">
+        <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="w-24 h-24 rounded-full shadow" />
+      </div>
       <h1 class="text-2xl font-bold text-center">🌟 Your Soulprint Summary</h1>
       <p><strong>Name:</strong> <span id="name">...</span></p>
       <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
@@ -66,7 +69,6 @@ Her love language, Acts of Service, speaks of silent strength – love expressed
 A natural guide to those lost in the fog, Rita holds space for authenticity and kindness. She is art, she is healing, she is light.`
     };
 
-    // Populate the page
     document.getElementById("name").textContent = soulData.name;
     document.getElementById("birthdate").textContent = soulData.birthdate;
     document.getElementById("loveLanguage").textContent = soulData.loveLanguage;
@@ -75,14 +77,16 @@ A natural guide to those lost in the fog, Rita holds space for authenticity and 
     document.getElementById("lifePath").textContent = soulData.lifePath;
     document.getElementById("description").textContent = soulData.description;
 
-    // Enable button once everything is loaded
+    const avatar = document.getElementById("avatarPreview");
+    const storedImg = localStorage.getItem("userProfileImage");
+    if (storedImg) avatar.src = storedImg;
+
     setTimeout(() => {
       document.getElementById("downloadBtn").disabled = false;
       document.getElementById("downloadBtn").classList.remove("bg-purple-300");
       document.getElementById("downloadBtn").classList.add("bg-purple-600", "hover:bg-purple-700");
     }, 500);
 
-    // PDF download
     document.getElementById("downloadBtn").addEventListener("click", () => {
       const element = document.getElementById("pdf-content");
       html2pdf().from(element).set({
@@ -93,7 +97,5 @@ A natural guide to those lost in the fog, Rita holds space for authenticity and 
       }).save();
     });
   </script>
-<script type="module" src="generate-pdf.js"></script>
-
 </body>
 </html>
