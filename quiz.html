@@ -2,117 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Soulink Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soul Compatibility Quiz</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gradient-to-br from-purple-100 to-pink-50 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
-    <h1 class="text-2xl font-bold">💞 Soul Compatibility Quiz</h1>
-  </header>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-800 font-sans">
+  <main class="p-6 max-w-xl mx-auto space-y-6">
+    <h1 class="text-3xl font-bold text-center text-pink-600">💖 Soul Compatibility Quiz</h1>
 
-  <main class="p-6 max-w-xl mx-auto">
     <form id="quizForm" class="space-y-4">
-      <input type="text" id="name" placeholder="Your Name" class="w-full p-3 border rounded-md" required />
-      <input type="date" id="birthdate" class="w-full p-3 border rounded-md" required />
-      <select id="loveLanguage" class="w-full p-3 border rounded-md" required>
+      <input type="text" id="name" placeholder="Your Name" class="w-full border rounded p-2" required />
+
+      <input type="text" id="birthdate" placeholder="YYYY-MM-DD" pattern="\\d{4}-\\d{2}-\\d{2}" class="w-full border rounded p-2" required />
+
+      <select id="loveLanguage" class="w-full border rounded p-2" required>
         <option value="">Select Love Language</option>
-        <option>Words of Affirmation</option>
-        <option>Quality Time</option>
-        <option>Acts of Service</option>
-        <option>Physical Touch</option>
-        <option>Receiving Gifts</option>
+        <option value="Words of Affirmation">Words of Affirmation</option>
+        <option value="Acts of Service">Acts of Service</option>
+        <option value="Receiving Gifts">Receiving Gifts</option>
+        <option value="Quality Time">Quality Time</option>
+        <option value="Physical Touch">Physical Touch</option>
       </select>
 
-      <fieldset class="space-y-2">
-        <legend class="font-semibold">What are you currently looking for?</legend>
-        <label class="block">
-          <input type="radio" name="relationshipType" value="Romantic" required />
-          Romantic Relationship
-        </label>
-        <label class="block">
-          <input type="radio" name="relationshipType" value="Friendship" />
-          Friendship
-        </label>
-        <label class="block">
-          <input type="radio" name="relationshipType" value="Both" />
-          Both
-        </label>
-      </fieldset>
+      <div class="space-y-2">
+        <p class="font-medium">What are you currently looking for?</p>
+        <label><input type="radio" name="relationshipType" value="Romantic" required /> Romantic Relationship</label><br />
+        <label><input type="radio" name="relationshipType" value="Friendship" /> Friendship</label><br />
+        <label><input type="radio" name="relationshipType" value="Both" /> Both</label>
+      </div>
 
-      <button type="submit" class="w-full py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">Submit</button>
+      <button type="submit" class="bg-teal-500 text-white py-2 px-4 rounded hover:bg-teal-600 transition">Submit</button>
+      <p id="resultMsg" class="text-green-600 font-medium"></p>
     </form>
-    <p id="statusMsg" class="text-green-600 mt-4 hidden">✅ Your answers were submitted!</p>
   </main>
 
-  <script type="module">
-    function generateUserDescription(data) {
-      const name = data.name || "This soul";
-      const birthdate = data.birthdate;
-      const loveLanguage = data.loveLanguage || "connection";
-      const relationshipType = data.relationshipType || "";
-      const values = data.values ? data.values.join(", ") : "";
-      const interests = data.interests ? data.interests.join(", ") : "";
-
-      let agePart = "";
-      if (birthdate) {
-        const birth = new Date(birthdate);
-        const today = new Date();
-        let age = today.getFullYear() - birth.getFullYear();
-        const m = today.getMonth() - birth.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
-          age--;
-        }
-        agePart = `a ${age}-year-old `;
-      }
-
-      let desc = `${name} is ${agePart}soul who values ${loveLanguage.toLowerCase()} as their main love language.`;
-      if (values) desc += ` Core values include: ${values}.`;
-      if (interests) desc += ` They enjoy ${interests}.`;
-
-      if (relationshipType === "Romantic") {
-        desc += " Currently seeking a deep romantic connection that aligns on a soulful level.";
-      } else if (relationshipType === "Friendship") {
-        desc += " Currently seeking meaningful friendships with kindred spirits.";
-      } else if (relationshipType === "Both") {
-        desc += " Open to both soulful romance and warm, authentic friendships.";
-      }
-
-      desc += " Soulink is here to help them find harmony in connections.";
-      return desc;
-    }
-
-    document.getElementById('quizForm').addEventListener('submit', (e) => {
+  <script>
+    document.getElementById("quizForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const name = document.getElementById('name').value;
-      const birthdate = document.getElementById('birthdate').value;
-      const loveLanguage = document.getElementById('loveLanguage').value;
-      const relationshipType = document.querySelector('input[name="relationshipType"]:checked')?.value;
+      const name = document.getElementById("name").value;
+      const birthdate = document.getElementById("birthdate").value;
+      const loveLanguage = document.getElementById("loveLanguage").value;
+      const relationshipType = document.querySelector("input[name='relationshipType']:checked").value;
 
-      const data = {
-        name,
-        birthdate,
-        loveLanguage,
-        relationshipType,
-        values: ["Honesty", "Kindness"],
-        interests: ["Art", "Nature"]
-      };
-
-      data.description = generateUserDescription(data);
-
-      localStorage.setItem("soulResults", JSON.stringify(data));
       localStorage.setItem("name", name);
       localStorage.setItem("birthdate", birthdate);
       localStorage.setItem("loveLanguage", loveLanguage);
       localStorage.setItem("relationshipType", relationshipType);
-      localStorage.setItem("description", data.description);
 
-      document.getElementById('statusMsg').classList.remove('hidden');
-
-      setTimeout(() => {
-        window.location.href = "result.html";
-      }, 1000);
+      document.getElementById("resultMsg").textContent = "✅ Your answers were submitted!";
+      setTimeout(() => window.location.href = "result.html", 1000);
     });
   </script>
 </body>
