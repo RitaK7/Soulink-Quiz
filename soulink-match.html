@@ -1,84 +1,101 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soulink Matches</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Soulprint</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #003c43;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    main {
+      background-color: #004c54;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+    h1 {
+      color: white;
+    }
+    a, .btn {
+      color: #a0e9ff;
+      text-decoration: none;
+    }
+    a:hover, .btn:hover {
+      color: #72e1ff;
+      text-decoration: underline;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #9333ea;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #7e22ce;
+    }
+    #avatar {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800 font-sans">
-  <main class="p-6 max-w-5xl mx-auto">
-    <h1 class="text-3xl font-bold text-center text-purple-700 mb-6">🔗 Your Soul Matches</h1>
-    <div id="matchesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Matches will be injected here -->
+<body>
+  <main>
+    <div style="text-align:center;">
+      <img id="avatar" src="" alt="Avatar" />
+    </div>
+    <h1>🌟 🔗 Your Soul Matches</h1>
+    <p><strong>Name:</strong> <span id="name">...</span></p>
+    <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
+    <p><strong>Love Language:</strong> <span id="loveLanguage">...</span></p>
+    <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
+    <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
+    <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
+    <p><strong>AI Soul Description:</strong> <span id="description">...</span></p>
+
+    <div style="margin-top: 2rem;">
+      <a href="soulink-match.html" class="btn">👩🏽‍🚀 See My Soul Matches</a>
+      <a href="my-soul.html" class="btn">🪄 Go to My Soul Profile</a>
     </div>
   </main>
 
-  <script type="module">
-    import { db } from './firebase-config.js';
-    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-    import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+  <script>
+    const data = {
+      name: localStorage.getItem("name") || "Unknown",
+      birthdate: localStorage.getItem("birthdate") || "-",
+      loveLanguage: localStorage.getItem("loveLanguage") || "-",
+      zodiac: localStorage.getItem("zodiac") || "-",
+      chineseZodiac: localStorage.getItem("chineseZodiac") || "-",
+      lifePath: localStorage.getItem("lifePath") || "-",
+      description: localStorage.getItem("longDescription") || "No description.",
+      avatar: localStorage.getItem("userProfileImage") || ""
+    };
 
-    const auth = getAuth();
-    const matchesList = document.getElementById("matchesList");
-
-    function createCard(user, score) {
-      const card = document.createElement("div");
-      card.className = "bg-white rounded-lg shadow p-4 space-y-2 text-center";
-
-      const avatar = document.createElement("img");
-      avatar.className = "w-20 h-20 rounded-full mx-auto shadow";
-      avatar.src = user.avatar || "default-avatar.png";
-      avatar.alt = "Avatar";
-
-      const name = document.createElement("p");
-      name.className = "text-lg font-bold";
-      name.textContent = user.name || "No name";
-
-      const matchScore = document.createElement("p");
-      matchScore.innerHTML = `💞 <strong>${score}%</strong> Match`;
-
-      card.appendChild(avatar);
-      card.appendChild(name);
-      card.appendChild(matchScore);
-
-      return card;
-    }
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      const querySnapshot = await getDocs(collection(db, "users"));
-      const currentUserId = user.uid;
-      let currentUserData;
-
-      const users = [];
-
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        if (doc.id === currentUserId) {
-          currentUserData = data;
-        } else {
-          users.push({ id: doc.id, ...data });
-        }
-      });
-
-      if (!currentUserData) return;
-
-      users.forEach(match => {
-        // Simple match score example (placeholder logic)
-        let score = 0;
-        if (match.loveLanguage === currentUserData.loveLanguage) score += 50;
-        if (match.coreValue === currentUserData.coreValue) score += 50;
-
-        const avatar = match.avatar || localStorage.getItem(`avatar_${match.id}`);
-        const card = createCard({ name: match.name, avatar: avatar }, score);
-        matchesList.appendChild(card);
-      });
-    });
+    document.getElementById("name").textContent = data.name;
+    document.getElementById("birthdate").textContent = data.birthdate;
+    document.getElementById("loveLanguage").textContent = data.loveLanguage;
+    document.getElementById("zodiac").textContent = data.zodiac;
+    document.getElementById("chineseZodiac").textContent = data.chineseZodiac;
+    document.getElementById("lifePath").textContent = data.lifePath;
+    document.getElementById("description").textContent = data.description;
+    document.getElementById("avatar").src = data.avatar;
   </script>
 </body>
 </html>

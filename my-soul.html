@@ -1,122 +1,101 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Soul</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Soulprint</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="firebase-config.js"></script>
-  <script type="module" src="generate-pdf.js"></script>
+  <style>
+    body {
+      background-color: #003c43;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    main {
+      background-color: #004c54;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+    h1 {
+      color: white;
+    }
+    a, .btn {
+      color: #a0e9ff;
+      text-decoration: none;
+    }
+    a:hover, .btn:hover {
+      color: #72e1ff;
+      text-decoration: underline;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #9333ea;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #7e22ce;
+    }
+    #avatar {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center">
-    <h1 class="text-2xl font-bold">🌟 My Soul Profile</h1>
-  </header>
-
-  <main class="p-6 max-w-xl mx-auto space-y-4">
-    <div class="flex justify-center">
-      <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="w-24 h-24 rounded-full shadow mb-4" />
+<body>
+  <main>
+    <div style="text-align:center;">
+      <img id="avatar" src="" alt="Avatar" />
     </div>
+    <h1>🌟 🌟 My Soul Profile</h1>
+    <p><strong>Name:</strong> <span id="name">...</span></p>
+    <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
+    <p><strong>Love Language:</strong> <span id="loveLanguage">...</span></p>
+    <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
+    <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
+    <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
+    <p><strong>AI Soul Description:</strong> <span id="description">...</span></p>
 
-    <div id="userProfile" class="bg-white rounded-lg shadow p-4 space-y-2">
-      <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
-      <p><strong>Birthdate:</strong> <span id="userBirthdate">Loading...</span></p>
-      <p><strong>Love Language:</strong> <span id="userLoveLanguage">Loading...</span></p>
-      <p><strong>Relationship Type:</strong> <span id="userRelationshipType">Loading...</span></p>
-      <p><strong>AI Soul Description:</strong> <span id="userDescription">Loading...</span></p>
-      <button id="generateDesc" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition hidden">🔮 Generate AI Description</button>
-      <p id="statusMsg" class="text-sm text-green-600"></p>
+    <div style="margin-top: 2rem;">
+      <a href="soulink-match.html" class="btn">👩🏽‍🚀 See My Soul Matches</a>
+      <a href="my-soul.html" class="btn">🪄 Go to My Soul Profile</a>
     </div>
-
-    <div class="text-center">
-      <button onclick="downloadSoulPDF()" class="mt-4 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
-        🎁 Download Your Soul PDF
-      </button>
-    </div>
-
-    <button id="logoutBtn" class="text-sm text-red-500 underline">Logout</button>
   </main>
 
-  <script type="module">
-    import { db } from './firebase-config.js';
-    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-    import { doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+  <script>
+    const data = {
+      name: localStorage.getItem("name") || "Unknown",
+      birthdate: localStorage.getItem("birthdate") || "-",
+      loveLanguage: localStorage.getItem("loveLanguage") || "-",
+      zodiac: localStorage.getItem("zodiac") || "-",
+      chineseZodiac: localStorage.getItem("chineseZodiac") || "-",
+      lifePath: localStorage.getItem("lifePath") || "-",
+      description: localStorage.getItem("longDescription") || "No description.",
+      avatar: localStorage.getItem("userProfileImage") || ""
+    };
 
-    const auth = getAuth();
-    const userName = document.getElementById("userName");
-    const userBirthdate = document.getElementById("userBirthdate");
-    const userLoveLanguage = document.getElementById("userLoveLanguage");
-    const userRelationshipType = document.getElementById("userRelationshipType");
-    const userDescription = document.getElementById("userDescription");
-    const statusMsg = document.getElementById("statusMsg");
-    const generateBtn = document.getElementById("generateDesc");
-    const avatar = document.getElementById("avatarPreview");
-
-    const storedImg = localStorage.getItem("userProfileImage");
-    if (storedImg) avatar.src = storedImg;
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      const userId = user.uid;
-      const docRef = doc(db, "users", userId);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        userName.textContent = data.name || "-";
-        userBirthdate.textContent = data.birthdate || "-";
-        userLoveLanguage.textContent = data.loveLanguage || "-";
-        userRelationshipType.textContent = data.relationshipType || "-";
-        userDescription.textContent = data.description || "Click 'Generate AI Description'";
-
-        if (!data.description) generateBtn.classList.remove("hidden");
-
-        generateBtn.addEventListener("click", async () => {
-          generateBtn.disabled = true;
-          generateBtn.textContent = "⏳ Generating...";
-
-          const prompt = `Create a warm, positive, soulful profile description for someone named ${data.name}, born on ${data.birthdate}, whose love language is ${data.loveLanguage}, and who is looking for ${data.relationshipType}.`;
-
-          try {
-            const response = await fetch("https://api.openai.com/v1/chat/completions", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer YOUR_OPENAI_API_KEY`
-              },
-              body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [{ role: "user", content: prompt }]
-              })
-            });
-
-            const result = await response.json();
-            const aiText = result.choices?.[0]?.message?.content?.trim() || "No response.";
-
-            await updateDoc(docRef, { description: aiText });
-            userDescription.textContent = aiText;
-            statusMsg.textContent = "✅ Description updated!";
-          } catch (err) {
-            statusMsg.textContent = "❌ Error generating description.";
-            console.error(err);
-          } finally {
-            generateBtn.disabled = false;
-            generateBtn.textContent = "🔮 Generate AI Description";
-          }
-        });
-      } else {
-        userName.textContent = "❌ No user profile found.";
-      }
-    });
-
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      await signOut(auth);
-      window.location.href = "login.html";
-    });
+    document.getElementById("name").textContent = data.name;
+    document.getElementById("birthdate").textContent = data.birthdate;
+    document.getElementById("loveLanguage").textContent = data.loveLanguage;
+    document.getElementById("zodiac").textContent = data.zodiac;
+    document.getElementById("chineseZodiac").textContent = data.chineseZodiac;
+    document.getElementById("lifePath").textContent = data.lifePath;
+    document.getElementById("description").textContent = data.description;
+    document.getElementById("avatar").src = data.avatar;
   </script>
 </body>
 </html>

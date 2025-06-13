@@ -1,44 +1,101 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soulink | Where Souls Connect</title>
+  <title>Your Soulprint</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #003c43;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    main {
+      background-color: #004c54;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+    h1 {
+      color: white;
+    }
+    a, .btn {
+      color: #a0e9ff;
+      text-decoration: none;
+    }
+    a:hover, .btn:hover {
+      color: #72e1ff;
+      text-decoration: underline;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #9333ea;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #7e22ce;
+    }
+    #avatar {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
-  <header class="p-6 bg-white shadow sticky top-0 z-10">
-    <h1 class="text-3xl font-bold text-center">🌟 Welcome to Soulink</h1>
-    <p class="text-center text-sm text-gray-600 mt-2">Where souls find their true match</p>
-  </header>
+<body>
+  <main>
+    <div style="text-align:center;">
+      <img id="avatar" src="" alt="Avatar" />
+    </div>
+    <h1>🌟 🌞 Welcome to Soulink</h1>
+    <p><strong>Name:</strong> <span id="name">...</span></p>
+    <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
+    <p><strong>Love Language:</strong> <span id="loveLanguage">...</span></p>
+    <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
+    <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
+    <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
+    <p><strong>AI Soul Description:</strong> <span id="description">...</span></p>
 
-  <main class="max-w-3xl mx-auto p-6 space-y-8">
-    <section class="text-center">
-      <h2 class="text-2xl font-bold mb-2">💖 What is Soulink?</h2>
-      <p>Soulink is not just another dating app. It’s a global movement to help humans reconnect through values, energy, and authentic compatibility. Powered by AI and aligned with love languages, numerology, and your unique soulprint.</p>
-    </section>
-
-    <section class="bg-white rounded-2xl shadow p-6">
-      <h2 class="text-xl font-semibold mb-2">🎯 Our Mission</h2>
-      <p>To create a safe, soulful, and powerful space where meaningful relationships – romantic or friendly – blossom with purpose and harmony. Soulink is inclusive to all orientations and age groups.</p>
-    </section>
-
-    <section class="text-center">
-      <h2 class="text-xl font-bold mb-4">🧭 Get Started</h2>
-      <a href="quiz.html" class="inline-block px-6 py-3 bg-purple-600 text-white rounded-full shadow hover:bg-purple-700 transition">💫 Take the Soul Compatibility Quiz</a>
-    </section>
-
-    <section class="mt-12">
-      <h2 class="text-xl font-semibold text-center">💬 What people say</h2>
-      <div class="mt-4 space-y-4">
-        <blockquote class="bg-white p-4 rounded shadow italic text-sm">“Finally, a platform that actually gets who I am. Soulink helped me meet someone who sees me truly.” – *Sophia, 37*</blockquote>
-        <blockquote class="bg-white p-4 rounded shadow italic text-sm">“Even as a skeptic, I felt guided and safe here. Soulink feels magical.” – *Alex, 29*</blockquote>
-      </div>
-    </section>
+    <div style="margin-top: 2rem;">
+      <a href="soulink-match.html" class="btn">👩🏽‍🚀 Take the Soul Compatibility Quiz</a>
+      <a href="my-soul.html" class="btn">🪄 Go to My Soul Profile</a>
+    </div>
   </main>
 
-  <footer class="text-center text-sm text-gray-500 p-4">
-    &copy; 2025 Soulink.global | All rights reserved
-  </footer>
+  <script>
+    const data = {
+      name: localStorage.getItem("name") || "Unknown",
+      birthdate: localStorage.getItem("birthdate") || "-",
+      loveLanguage: localStorage.getItem("loveLanguage") || "-",
+      zodiac: localStorage.getItem("zodiac") || "-",
+      chineseZodiac: localStorage.getItem("chineseZodiac") || "-",
+      lifePath: localStorage.getItem("lifePath") || "-",
+      description: localStorage.getItem("longDescription") || "No description.",
+      avatar: localStorage.getItem("userProfileImage") || ""
+    };
+
+    document.getElementById("name").textContent = data.name;
+    document.getElementById("birthdate").textContent = data.birthdate;
+    document.getElementById("loveLanguage").textContent = data.loveLanguage;
+    document.getElementById("zodiac").textContent = data.zodiac;
+    document.getElementById("chineseZodiac").textContent = data.chineseZodiac;
+    document.getElementById("lifePath").textContent = data.lifePath;
+    document.getElementById("description").textContent = data.description;
+    document.getElementById("avatar").src = data.avatar;
+  </script>
 </body>
 </html>

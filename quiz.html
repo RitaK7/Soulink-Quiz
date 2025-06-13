@@ -1,45 +1,101 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soul Compatibility Quiz</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Soulprint</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #003c43;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    main {
+      background-color: #004c54;
+      padding: 2rem;
+      border-radius: 1rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+    h1 {
+      color: white;
+    }
+    a, .btn {
+      color: #a0e9ff;
+      text-decoration: none;
+    }
+    a:hover, .btn:hover {
+      color: #72e1ff;
+      text-decoration: underline;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #9333ea;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #7e22ce;
+    }
+    #avatar {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
-<body class="bg">
+<body>
   <main>
-    <h1>💖 Soul Compatibility Quiz</h1>
-    <form id="quizForm">
-      <label>Name: <input type="text" id="name" required></label><br>
-      <label>Birthdate: <input type="date" id="birthdate" required></label><br>
-      <label>Love Language:
-        <select id="loveLanguage" required>
-          <option>Words of Affirmation</option>
-          <option>Acts of Service</option>
-          <option>Receiving Gifts</option>
-          <option>Quality Time</option>
-          <option>Physical Touch</option>
-        </select>
-      </label><br>
-      <label><input type="radio" name="relationshipType" value="Romantic" required> Romantic</label>
-      <label><input type="radio" name="relationshipType" value="Friendship"> Friendship</label>
-      <label><input type="radio" name="relationshipType" value="Both"> Both</label><br>
-      <button type="submit">Submit</button>
-    </form>
+    <div style="text-align:center;">
+      <img id="avatar" src="" alt="Avatar" />
+    </div>
+    <h1>🌟 💖 Soul Compatibility Quiz</h1>
+    <p><strong>Name:</strong> <span id="name">...</span></p>
+    <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
+    <p><strong>Love Language:</strong> <span id="loveLanguage">...</span></p>
+    <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
+    <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
+    <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
+    <p><strong>AI Soul Description:</strong> <span id="description">...</span></p>
+
+    <div style="margin-top: 2rem;">
+      <a href="soulink-match.html" class="btn">👩🏽‍🚀 Submit</a>
+      <a href="my-soul.html" class="btn">🪄 Go to My Soul Profile</a>
+    </div>
   </main>
+
   <script>
-    document.getElementById("quizForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      localStorage.setItem("name", document.getElementById("name").value);
-      localStorage.setItem("birthdate", document.getElementById("birthdate").value);
-      localStorage.setItem("loveLanguage", document.getElementById("loveLanguage").value);
-      localStorage.setItem("relationshipType", document.querySelector("input[name='relationshipType']:checked").value);
-      localStorage.setItem("zodiac", "Sagittarius");
-      localStorage.setItem("chineseZodiac", "Rat");
-      localStorage.setItem("lifePath", "7");
-      localStorage.setItem("longDescription", "You are a radiant soul who seeks harmony and beauty in everything you do.");
-      window.location.href = "result.html";
-    });
+    const data = {
+      name: localStorage.getItem("name") || "Unknown",
+      birthdate: localStorage.getItem("birthdate") || "-",
+      loveLanguage: localStorage.getItem("loveLanguage") || "-",
+      zodiac: localStorage.getItem("zodiac") || "-",
+      chineseZodiac: localStorage.getItem("chineseZodiac") || "-",
+      lifePath: localStorage.getItem("lifePath") || "-",
+      description: localStorage.getItem("longDescription") || "No description.",
+      avatar: localStorage.getItem("userProfileImage") || ""
+    };
+
+    document.getElementById("name").textContent = data.name;
+    document.getElementById("birthdate").textContent = data.birthdate;
+    document.getElementById("loveLanguage").textContent = data.loveLanguage;
+    document.getElementById("zodiac").textContent = data.zodiac;
+    document.getElementById("chineseZodiac").textContent = data.chineseZodiac;
+    document.getElementById("lifePath").textContent = data.lifePath;
+    document.getElementById("description").textContent = data.description;
+    document.getElementById("avatar").src = data.avatar;
   </script>
 </body>
 </html>
