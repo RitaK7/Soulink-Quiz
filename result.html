@@ -5,8 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Soulprint</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #e0f2f1, #fce4ec);
+      font-family: 'Segoe UI', sans-serif;
+      padding: 2rem;
+    }
+    main {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+    .avatar {
+      max-height: 120px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: #9333ea;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .btn:hover {
+      background: #7e22ce;
+    }
+  </style>
 </head>
-<body class="bg">
+<body>
   <main>
     <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="avatar"/>
     <h1>🌟 Your Soulprint Summary</h1>
@@ -18,9 +51,8 @@
     <p><strong>Life Path Number:</strong> <span id="lifePath"></span></p>
     <p><strong>AI Soul Description:</strong> <span id="description"></span></p>
 
-    <div class="mt-6 text-center">
-      <a href="soulink-match.html" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 inline-block mt-4">🔮 See My Soul Matches</a>
-    </div>
+    <a href="soulink-match.html" class="btn">🔮 See My Soul Matches</a>
+    <a href="my-soul.html" class="btn">🧬 Go to My Soul Profile</a>
   </main>
 
   <script>
