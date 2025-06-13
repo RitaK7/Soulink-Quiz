@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,87 +8,94 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      background: linear-gradient(to bottom right, #e0f2f1, #fce4ec);
+      background-color: #003c43;
+      color: white;
       font-family: 'Segoe UI', sans-serif;
-      padding: 2rem;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
     }
     main {
-      background: white;
+      background-color: #004c54;
       padding: 2rem;
       border-radius: 1rem;
-      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      margin: 2rem auto;
       max-width: 800px;
-      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
     }
-    .avatar {
-      max-height: 120px;
-      border-radius: 50%;
-      margin-bottom: 1rem;
+    h1 {
+      color: white;
+    }
+    a, .btn {
+      color: #a0e9ff;
+      text-decoration: none;
+    }
+    a:hover, .btn:hover {
+      color: #72e1ff;
+      text-decoration: underline;
     }
     .btn {
       display: inline-block;
-      margin-top: 1.5rem;
-      background: #9333ea;
-      color: white;
+      margin-top: 1rem;
       padding: 0.5rem 1rem;
+      background-color: #9333ea;
+      color: white;
+      border: none;
       border-radius: 0.5rem;
-      text-decoration: none;
-      font-weight: 500;
+      cursor: pointer;
     }
     .btn:hover {
-      background: #7e22ce;
+      background-color: #7e22ce;
     }
-    .file-upload {
-      margin-top: 1rem;
-      text-align: center;
+    #avatar {
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
   <main>
-    <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="avatar"/>
-    <div class="file-upload">
-      <input type="file" id="avatarInput" accept="image/*">
+    <div style="text-align:center;">
+      <img id="avatar" src="" alt="Avatar" />
     </div>
-
     <h1>🌟 Your Soulprint Summary</h1>
-    <p><strong>Name:</strong> <span id="name"></span></p>
-    <p><strong>Birthdate:</strong> <span id="birthdate"></span></p>
-    <p><strong>Love Language:</strong> <span id="loveLanguage"></span></p>
-    <p><strong>Zodiac Sign:</strong> <span id="zodiac"></span></p>
-    <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac"></span></p>
-    <p><strong>Life Path Number:</strong> <span id="lifePath"></span></p>
-    <p><strong>AI Soul Description:</strong> <span id="description"></span></p>
+    <p><strong>Name:</strong> <span id="name">...</span></p>
+    <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
+    <p><strong>Love Language:</strong> <span id="loveLanguage">...</span></p>
+    <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
+    <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
+    <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
+    <p><strong>AI Soul Description:</strong> <span id="description">...</span></p>
 
-    <a href="soulink-match.html" class="btn">🔮 See My Soul Matches</a>
-    <a href="my-soul.html" class="btn">🧬 Go to My Soul Profile</a>
+    <div style="margin-top: 2rem;">
+      <a href="soulink-match.html" class="btn">👩🏽‍🚀 See My Soul Matches</a>
+      <a href="my-soul.html" class="btn">🪄 Go to My Soul Profile</a>
+    </div>
   </main>
 
   <script>
-    const avatar = document.getElementById("avatarPreview");
-    const storedImg = localStorage.getItem("userProfileImage");
-    if (storedImg) avatar.src = storedImg;
+    const data = {
+      name: localStorage.getItem("name") || "Unknown",
+      birthdate: localStorage.getItem("birthdate") || "-",
+      loveLanguage: localStorage.getItem("loveLanguage") || "-",
+      zodiac: localStorage.getItem("zodiac") || "-",
+      chineseZodiac: localStorage.getItem("chineseZodiac") || "-",
+      lifePath: localStorage.getItem("lifePath") || "-",
+      description: localStorage.getItem("longDescription") || "No description.",
+      avatar: localStorage.getItem("userProfileImage") || ""
+    };
 
-    document.getElementById("name").textContent = localStorage.getItem("name");
-    document.getElementById("birthdate").textContent = localStorage.getItem("birthdate");
-    document.getElementById("loveLanguage").textContent = localStorage.getItem("loveLanguage");
-    document.getElementById("zodiac").textContent = localStorage.getItem("zodiac");
-    document.getElementById("chineseZodiac").textContent = localStorage.getItem("chineseZodiac");
-    document.getElementById("lifePath").textContent = localStorage.getItem("lifePath");
-    document.getElementById("description").textContent = localStorage.getItem("longDescription");
-
-    // Image upload & preview
-    document.getElementById("avatarInput").addEventListener("change", function (e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-          avatar.src = event.target.result;
-          localStorage.setItem("userProfileImage", event.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+    document.getElementById("name").textContent = data.name;
+    document.getElementById("birthdate").textContent = data.birthdate;
+    document.getElementById("loveLanguage").textContent = data.loveLanguage;
+    document.getElementById("zodiac").textContent = data.zodiac;
+    document.getElementById("chineseZodiac").textContent = data.chineseZodiac;
+    document.getElementById("lifePath").textContent = data.lifePath;
+    document.getElementById("description").textContent = data.description;
+    document.getElementById("avatar").src = data.avatar;
   </script>
 </body>
 </html>
