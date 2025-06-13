@@ -37,11 +37,19 @@
     .btn:hover {
       background: #7e22ce;
     }
+    .file-upload {
+      margin-top: 1rem;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <main>
     <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="avatar"/>
+    <div class="file-upload">
+      <input type="file" id="avatarInput" accept="image/*">
+    </div>
+
     <h1>🌟 Your Soulprint Summary</h1>
     <p><strong>Name:</strong> <span id="name"></span></p>
     <p><strong>Birthdate:</strong> <span id="birthdate"></span></p>
@@ -57,8 +65,8 @@
 
   <script>
     const avatar = document.getElementById("avatarPreview");
-    const img = localStorage.getItem("userProfileImage");
-    if (img) avatar.src = img;
+    const storedImg = localStorage.getItem("userProfileImage");
+    if (storedImg) avatar.src = storedImg;
 
     document.getElementById("name").textContent = localStorage.getItem("name");
     document.getElementById("birthdate").textContent = localStorage.getItem("birthdate");
@@ -67,6 +75,19 @@
     document.getElementById("chineseZodiac").textContent = localStorage.getItem("chineseZodiac");
     document.getElementById("lifePath").textContent = localStorage.getItem("lifePath");
     document.getElementById("description").textContent = localStorage.getItem("longDescription");
+
+    // Image upload & preview
+    document.getElementById("avatarInput").addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          avatar.src = event.target.result;
+          localStorage.setItem("userProfileImage", event.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
   </script>
 </body>
 </html>
