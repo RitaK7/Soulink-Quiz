@@ -4,63 +4,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Soulprint</title>
+  <title>Your Soulprint Result</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      background-color: #003c43;
+      background: linear-gradient(to bottom right, #003c43, #135d66, #77b0aa);
       color: white;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      line-height: 1.6;
     }
     main {
-      background-color: #004c54;
-      padding: 2rem;
-      border-radius: 1rem;
+      max-width: 700px;
       margin: 2rem auto;
-      max-width: 800px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
     h1 {
-      color: white;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
     }
-    a, .btn {
-      color: #a0e9ff;
-      text-decoration: none;
+    p {
+      margin: 0.5rem 0;
     }
-    a:hover, .btn:hover {
-      color: #72e1ff;
-      text-decoration: underline;
+    .btn-group {
+      margin-top: 2rem;
+      text-align: center;
     }
     .btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
       background-color: #9333ea;
       color: white;
+      padding: 0.6rem 1.2rem;
+      margin: 0.5rem;
       border: none;
       border-radius: 0.5rem;
       cursor: pointer;
+      text-decoration: none;
     }
     .btn:hover {
       background-color: #7e22ce;
     }
-    #avatar {
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      margin-bottom: 1rem;
+    #description {
+      white-space: pre-line;
+      font-style: italic;
+      color: #ffe5f7;
     }
   </style>
 </head>
 <body>
   <main>
-    <div style="text-align:center;">
-      <img id="avatar" src="" alt="Avatar" />
-    </div>
     <h1>🌟 Your Soulprint Summary</h1>
     <p><strong>Name:</strong> <span id="name">...</span></p>
     <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
@@ -68,34 +63,32 @@
     <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
     <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
     <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
-    <p><strong>AI Soul Description:</strong> <span id="description">...</span></p>
-
-    <div style="margin-top: 2rem;">
-      <a href="soulink-match.html" class="btn">👩🏽‍🚀 See My Soul Matches</a>
-      <a href="my-soul.html" class="btn">🪄 Go to My Soul Profile</a>
+    <p><strong>AI Soul Description:</strong></p>
+    <p id="description">...</p>
+    <div class="btn-group">
+      <a href="home.html" class="btn">⬅️ Back to Home</a>
+      <a href="my-soul.html" class="btn">➡️ Continue to My Soul</a>
     </div>
   </main>
 
   <script>
-    const data = {
+    const soulData = {
       name: localStorage.getItem("name") || "Unknown",
       birthdate: localStorage.getItem("birthdate") || "-",
       loveLanguage: localStorage.getItem("loveLanguage") || "-",
       zodiac: localStorage.getItem("zodiac") || "-",
       chineseZodiac: localStorage.getItem("chineseZodiac") || "-",
       lifePath: localStorage.getItem("lifePath") || "-",
-      description: localStorage.getItem("longDescription") || "No description.",
-      avatar: localStorage.getItem("userProfileImage") || ""
+      description: localStorage.getItem("longDescription") || "No soul description."
     };
 
-    document.getElementById("name").textContent = data.name;
-    document.getElementById("birthdate").textContent = data.birthdate;
-    document.getElementById("loveLanguage").textContent = data.loveLanguage;
-    document.getElementById("zodiac").textContent = data.zodiac;
-    document.getElementById("chineseZodiac").textContent = data.chineseZodiac;
-    document.getElementById("lifePath").textContent = data.lifePath;
-    document.getElementById("description").textContent = data.description;
-    document.getElementById("avatar").src = data.avatar;
+    document.getElementById("name").textContent = soulData.name;
+    document.getElementById("birthdate").textContent = soulData.birthdate;
+    document.getElementById("loveLanguage").textContent = soulData.loveLanguage;
+    document.getElementById("zodiac").textContent = soulData.zodiac;
+    document.getElementById("chineseZodiac").textContent = soulData.chineseZodiac;
+    document.getElementById("lifePath").textContent = soulData.lifePath;
+    document.getElementById("description").textContent = soulData.description;
   </script>
 </body>
 </html>
