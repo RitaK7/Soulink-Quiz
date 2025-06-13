@@ -3,32 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="gdpr-compliance" content="Soulink is committed to GDPR compliance. User data is handled securely and never shared without consent.">
-  <title>Soulink – Welcome</title>
+  <title>Welcome to Soulink</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #003c43;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .welcome-container {
+      max-width: 600px;
+      padding: 2rem;
+      border: 2px solid #ffffff30;
+      border-radius: 20px;
+      background-color: #ffffff10;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px #00ffc3;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #00ffc3;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    .start-button {
+      margin-top: 2rem;
+      padding: 12px 24px;
+      font-size: 1rem;
+      color: #003c43;
+      background-color: #00ffc3;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .start-button:hover {
+      background-color: #00cfa5;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to Soulink</h1>
-    <p>Find your true match through AI-powered soul connection.</p>
-    <nav>
-      <ul style="list-style: none; padding: 0;">
-        <li style="display: inline; margin-right: 10px;"><a href="quiz.html">Start Quiz</a></li>
-        <li style="display: inline; margin-right: 10px;"><a href="login.html">Login</a></li>
-        <li style="display: inline;"><a href="signup.html">Sign Up</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section>
-      <h2>Discover deeper compatibility</h2>
-      <p>Soulink helps you find partners based on love language, values, hobbies and soul energy.</p>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Soulink. All rights reserved.</p>
-  </footer>
+  <div class="welcome-container">
+    <h1>Welcome to Soulink 🌍💫</h1>
+    <p>
+      You’ve just stepped into a new world of meaningful connections.<br/>
+      Soulink is more than a platform – it’s a bridge between souls.<br/><br/>
+      Whether you're here for love, friendship, or soul growth,<br/>
+      your journey starts with one click.
+    </p>
+    <button class="start-button" onclick="location.href='home.html'">
+      Enter My Soul Journey ✨
+    </button>
+  </div>
 </body>
 </html>
