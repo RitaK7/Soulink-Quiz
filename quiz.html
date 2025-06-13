@@ -6,65 +6,38 @@
   <title>Soul Compatibility Quiz</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-pink-100 text-gray-800 font-sans">
-  <main class="p-6 max-w-xl mx-auto space-y-6">
-    <h1 class="text-2xl font-bold text-center">💖 Soul Compatibility Quiz</h1>
-    <form id="quizForm" class="space-y-4">
-      <div>
-        <label for="name" class="block font-semibold">Name:</label>
-        <input type="text" id="name" class="w-full px-3 py-2 border rounded" required>
-      </div>
-      <div>
-        <label for="birthdate" class="block font-semibold">Birthdate:</label>
-        <input type="date" id="birthdate" class="w-full px-3 py-2 border rounded" required>
-      </div>
-      <div>
-        <label for="loveLanguage" class="block font-semibold">Love Language:</label>
-        <select id="loveLanguage" class="w-full px-3 py-2 border rounded" required>
-          <option value="">Select Love Language</option>
+<body class="bg">
+  <main>
+    <h1>💖 Soul Compatibility Quiz</h1>
+    <form id="quizForm">
+      <label>Name: <input type="text" id="name" required></label><br>
+      <label>Birthdate: <input type="date" id="birthdate" required></label><br>
+      <label>Love Language:
+        <select id="loveLanguage" required>
           <option>Words of Affirmation</option>
           <option>Acts of Service</option>
           <option>Receiving Gifts</option>
           <option>Quality Time</option>
           <option>Physical Touch</option>
         </select>
-      </div>
-      <div>
-        <label class="block font-semibold">What are you currently looking for?</label>
-        <div class="space-y-1 pl-2">
-          <label class="block"><input type="radio" name="relationshipType" value="Romantic" required> Romantic Relationship</label>
-          <label class="block"><input type="radio" name="relationshipType" value="Friendship"> Friendship</label>
-          <label class="block"><input type="radio" name="relationshipType" value="Both"> Both</label>
-        </div>
-      </div>
-      <div class="text-center">
-        <button type="submit" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700">Submit</button>
-      </div>
+      </label><br>
+      <label><input type="radio" name="relationshipType" value="Romantic" required> Romantic</label>
+      <label><input type="radio" name="relationshipType" value="Friendship"> Friendship</label>
+      <label><input type="radio" name="relationshipType" value="Both"> Both</label><br>
+      <button type="submit">Submit</button>
     </form>
   </main>
-
   <script>
-    document.getElementById("quizForm").addEventListener("submit", function (e) {
+    document.getElementById("quizForm").addEventListener("submit", function(e) {
       e.preventDefault();
-
-      const name = document.getElementById("name").value;
-      const birthdate = document.getElementById("birthdate").value;
-      const loveLanguage = document.getElementById("loveLanguage").value;
-      const relationshipType = document.querySelector("input[name='relationshipType']:checked").value;
-
-      // Save to localStorage
-      localStorage.setItem("name", name);
-      localStorage.setItem("birthdate", birthdate);
-      localStorage.setItem("loveLanguage", loveLanguage);
-      localStorage.setItem("relationshipType", relationshipType);
-
-      // For test: add dummy analysis values
+      localStorage.setItem("name", document.getElementById("name").value);
+      localStorage.setItem("birthdate", document.getElementById("birthdate").value);
+      localStorage.setItem("loveLanguage", document.getElementById("loveLanguage").value);
+      localStorage.setItem("relationshipType", document.querySelector("input[name='relationshipType']:checked").value);
       localStorage.setItem("zodiac", "Sagittarius");
       localStorage.setItem("chineseZodiac", "Rat");
       localStorage.setItem("lifePath", "7");
-      localStorage.setItem("longDescription", `This soul is vibrant and expressive. Their core energy radiates kindness, loyalty, and a deep passion for meaningful connections.`);
-
-      // Redirect to results
+      localStorage.setItem("longDescription", "You are a radiant soul who seeks harmony and beauty in everything you do.");
       window.location.href = "result.html";
     });
   </script>

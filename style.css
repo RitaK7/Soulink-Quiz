@@ -1,56 +1,18 @@
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #043f43;
-  color: white;
+body.bg {
+  background: linear-gradient(to bottom right, #fff0f5, #e0f7fa);
+  font-family: sans-serif;
+  padding: 2rem;
+  color: #333;
 }
-
-a {
-  color: #9fe2ff;
-  text-decoration: none;
+main {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 12px rgba(0,0,0,0.1);
 }
-a:hover {
-  text-decoration: underline;
-}
-
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-button {
-  background-color: #00c2a8;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-button:hover {
-  background-color: #009e8c;
-}
-
-.notice {
-  color: orange;
-  margin-bottom: 24px;
-  font-weight: bold;
-}
-
-@media (max-width: 600px) {
-  .container {
-    padding: 12px;
-  }
-}
-
-
-/* Remove bullet points from all unordered lists */
-ul {
-  list-style-type: none;
-  padding-left: 0;
+.avatar {
+  max-height: 120px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
 }
