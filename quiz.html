@@ -1,35 +1,36 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Soul Compatibility Quiz</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soul Compatibility Quiz</title>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body class="bg-soulink text-white font-sans">
-  <main class="p-6 max-w-xl mx-auto space-y-4 bg-soulink-light rounded-lg shadow">
-    <h1 class="text-3xl font-bold">💖 Soul Compatibility Quiz</h1>
-    <form id="quizForm" class="space-y-4">
-      <label>Name: <input type="text" id="name" required /></label><br/>
-      <label>Birthdate: <input type="date" id="birthdate" required /></label><br/>
-      <label>Love Language:
+<main class="p-6 max-w-xl mx-auto space-y-4 bg-soulink-light rounded-lg shadow">
+<h1 class="text-3xl font-bold">💖 Soul Compatibility Quiz</h1>
+<form class="space-y-4" id="quizForm">
+<label>Name: <input id="name" required="" type="text"/></label><br/>
+<label>Birthdate: <input id="birthdate" required="" type="date"/></label><br/>
+<label>Love Language:
         <select id="loveLanguage">
-          <option>Words of Affirmation</option>
-          <option>Acts of Service</option>
-          <option>Receiving Gifts</option>
-          <option>Quality Time</option>
-          <option>Physical Touch</option>
-        </select>
-      </label><br/>
-      <p>What are you currently looking for?</p>
-      <label><input type="radio" name="relationship" value="Romantic" /> Romantic</label>
-      <label><input type="radio" name="relationship" value="Friendship" /> Friendship</label>
-      <label><input type="radio" name="relationship" value="Both" checked /> Both</label><br/>
-      <button type="submit" class="btn">Submit</button>
-    </form>
-  </main>
-  <script>
+<option>Words of Affirmation</option>
+<option>Acts of Service</option>
+<option>Receiving Gifts</option>
+<option>Quality Time</option>
+<option>Physical Touch</option>
+</select>
+</label><br/>
+<p>What are you currently looking for?</p>
+<label><input name="relationship" type="radio" value="Romantic"/> Romantic</label>
+<label><input name="relationship" type="radio" value="Friendship"/> Friendship</label>
+<label><input checked="" name="relationship" type="radio" value="Both"/> Both</label><br/>
+<button class="btn" type="submit">Submit</button>
+</form>
+</main>
+<script>
     document.getElementById("quizForm").addEventListener("submit", function(e) {
       e.preventDefault();
       localStorage.setItem("name", document.getElementById("name").value);
