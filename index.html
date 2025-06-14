@@ -1,101 +1,71 @@
-
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Soulprint</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Welcome to Soulink</title>
+<link href="style.css" rel="stylesheet"/>
+<style>
     body {
       background-color: #003c43;
       color: white;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      line-height: 1.6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
     }
-    main {
-      background-color: #004c54;
+    .welcome-container {
+      max-width: 600px;
       padding: 2rem;
-      border-radius: 1rem;
-      margin: 2rem auto;
-      max-width: 800px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      border: 2px solid #ffffff30;
+      border-radius: 20px;
+      background-color: #ffffff10;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px #00ffc3;
     }
     h1 {
-      color: white;
-    }
-    a, .btn {
-      color: #a0e9ff;
-      text-decoration: none;
-    }
-    a:hover, .btn:hover {
-      color: #72e1ff;
-      text-decoration: underline;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #9333ea;
-      color: white;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background-color: #7e22ce;
-    }
-    #avatar {
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
+      font-size: 2.5rem;
       margin-bottom: 1rem;
+      color: #00ffc3;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+    .start-button {
+      margin-top: 2rem;
+      padding: 12px 24px;
+      font-size: 1rem;
+      color: #003c43;
+      background-color: #00ffc3;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .start-button:hover {
+      background-color: #00cfa5;
     }
   </style>
 </head>
 <body>
-  <main>
-    <div style="text-align:center;">
-      <img id="avatar" src="" alt="Avatar" />
-    </div>
-    <h1>🌟 🌞 Welcome to Soulink</h1>
-    <p><strong>Name:</strong> <span id="name">...</span></p>
-    <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
-    <p><strong>Love Language:</strong> <span id="loveLanguage">...</span></p>
-    <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
-    <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
-    <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
-    <p><strong>AI Soul Description:</strong> <span id="description">...</span></p>
-
-    <div style="margin-top: 2rem;">
-      <a href="soulink-match.html" class="btn">👩🏽‍🚀 Take the Soul Compatibility Quiz</a>
-      <a href="my-soul.html" class="btn">🪄 Go to My Soul Profile</a>
-    </div>
-  </main>
-
-  <script>
-    const data = {
-      name: localStorage.getItem("name") || "Unknown",
-      birthdate: localStorage.getItem("birthdate") || "-",
-      loveLanguage: localStorage.getItem("loveLanguage") || "-",
-      zodiac: localStorage.getItem("zodiac") || "-",
-      chineseZodiac: localStorage.getItem("chineseZodiac") || "-",
-      lifePath: localStorage.getItem("lifePath") || "-",
-      description: localStorage.getItem("longDescription") || "No description.",
-      avatar: localStorage.getItem("userProfileImage") || ""
-    };
-
-    document.getElementById("name").textContent = data.name;
-    document.getElementById("birthdate").textContent = data.birthdate;
-    document.getElementById("loveLanguage").textContent = data.loveLanguage;
-    document.getElementById("zodiac").textContent = data.zodiac;
-    document.getElementById("chineseZodiac").textContent = data.chineseZodiac;
-    document.getElementById("lifePath").textContent = data.lifePath;
-    document.getElementById("description").textContent = data.description;
-    document.getElementById("avatar").src = data.avatar;
-  </script>
+<div class="welcome-container">
+<h1>Welcome to Soulink 🌍💫</h1>
+<p>
+      You’ve just stepped into a new world of meaningful connections.<br/>
+      Soulink is more than a platform – it’s a bridge between souls.<br/><br/>
+      Whether you're here for love, friendship, or soul growth,<br/>
+      your journey starts with one click.
+    </p>
+<button class="start-button" onclick="location.href='home.html'">
+      Enter My Soul Journey ✨
+    </button>
+</div>
 </body>
 </html>
