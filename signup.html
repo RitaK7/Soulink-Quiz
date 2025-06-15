@@ -1,73 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up - Soulink</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sign Up | Soulink</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-purple-100 text-gray-800 font-sans">
-  <main class="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md space-y-4">
-    <h1 class="text-2xl font-bold text-center">🌟 Create Your Soulink Account</h1>
-    <form id="signupForm" class="space-y-4">
-      <input type="text" id="name" placeholder="Your Name" required class="w-full p-2 border rounded"/>
-      <input type="date" id="birthdate" required class="w-full p-2 border rounded"/>
-      <input type="email" id="email" placeholder="Email" required class="w-full p-2 border rounded"/>
-      <input type="password" id="password" placeholder="Password" required class="w-full p-2 border rounded"/>
-      <button type="submit" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 rounded">Sign Up</button>
+<body>
+  <div id="site-header"></div>
+  <main class="container">
+    <h1>Sign Up</h1>
+    <form id="signup-form">
+      <label>Email: <input type="email" id="su-email" required></label>
+      <label>Password: <input type="password" id="su-pass" required></label>
+      <button type="submit" class="cta-button">Create Account</button>
     </form>
-    <p class="text-center text-sm">Already have an account? <a href="login.html" class="text-blue-600 underline">Log In</a></p>
+    <p>Already have an account? <a href="login.html">Login</a></p>
   </main>
+  <!-- same header include & Firebase scripts as above -->
+  <script>
+    // (inicializacija + header įkėlimas) ...
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCb0TOXVrP1dQe16T6RNRvAg8lwu9QPnf4",
-      authDomain: "soulink-342bb.firebaseapp.com",
-      projectId: "soulink-342bb",
-      storageBucket: "soulink-342bb.appspot.com",
-      messagingSenderId: "541312933178",
-      appId: "1:541312933178:web:239cbbb60e68b183f48403"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    document.getElementById("signupForm").addEventListener("submit", async (e) => {
+    // tik po header:
+    document.getElementById('signup-form').addEventListener('submit', e=>{
       e.preventDefault();
-      const name = document.getElementById("name").value;
-      const birthdate = document.getElementById("birthdate").value;
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        await updateProfile(userCredential.user, { displayName: name });
-        localStorage.setItem("name", name);
-        localStorage.setItem("birthdate", birthdate);
-        window.location.href = "my-soul.html";
-      } catch (error) {
-        alert("❌ Sign up failed: " + error.message);
-      }
+      const email = document.getElementById('su-email').value;
+      const pass  = document.getElementById('su-pass').value;
+      firebase.auth().createUserWithEmailAndPassword(email, pass)
+        .then(()=> window.location.href='home.html')
+        .catch(err=> alert(err.message));
     });
   </script>
-
-<script>
-// Firebase compat auth (or adapt to your setup)
-firebase.auth().onAuthStateChanged(user => {
-  document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
-  document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
-});
-document.getElementById('sign-in').addEventListener('click', () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider).catch(console.error);
-});
-document.getElementById('sign-out').addEventListener('click', () => {
-  firebase.auth().signOut();
-});
-</script>
-
 </body>
 </html>
