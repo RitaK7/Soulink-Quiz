@@ -1,103 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Login | Soulink</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Login – Soulink</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="site-header"></div>
+  <!-- header -->
   <div id="site-header"></div>
 
   <main class="container">
     <h1>Login</h1>
-    <form id="login-form" class="auth-form">
-      <label>
-        Email:
-        <input type="email" id="li-email" required />
-      </label>
-      <label>
-        Password:
-        <input type="password" id="li-pass" required />
-      </label>
-      <button type="submit" class="cta-button">Log In</button>
+    <form id="login-form">
+      <label>Email:</label>
+      <input type="email" id="email" required />
+      <label>Password:</label>
+      <input type="password" id="password" required />
+      <button type="submit" class="btn-primary">Log In</button>
     </form>
-    <p class="small">
-      Don't have an account?
-      <a href="signup.html">Sign up here</a>.
-    </p>
+    <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
   </main>
 
-  <!-- HEADER include + Firebase Auth -->
+  <!-- Firebase + header include + login logic -->
   <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
   <script>
-    // Firebase init (tavo konfigūra)
-    const firebaseConfig = {
-      apiKey: "TAVO_API_KEY",
-      authDomain: "TAVO_APP.firebaseapp.com",
-      projectId: "TAVO_APP",
-      storageBucket: "TAVO_APP.appspot.com",
-      messagingSenderId: "…",
-      appId: "…"
-    };
+    // **1.** Init Firebase (įrašyk savo config čia)
+    const firebaseConfig = { /* ... tavo konfigūracija ... */ };
     firebase.initializeApp(firebaseConfig);
 
-    // Įkeliame header
+    // **2.** Įkraunam header.html
     fetch('header.html')
       .then(r => r.text())
-      .then(html => {
-        document.getElementById('site-header').innerHTML = html;
-      });
+      .then(html => document.getElementById('site-header').innerHTML = html);
 
-    // Login forma
+    // **3.** Login formos logika
     document.getElementById('login-form').addEventListener('submit', e => {
       e.preventDefault();
-      const email = document.getElementById('li-email').value;
-      const pass  = document.getElementById('li-pass').value;
+      const email    = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
       firebase.auth()
-        .signInWithEmailAndPassword(email, pass)
-        .then(() => window.location.href = 'home.html')
-        .catch(err => alert(err.message));
+        .signInWithEmailAndPassword(email, password)
+        .then(userCred => {
+          // Prisijungta sėkmingai – nukreipiam
+          window.location.href = 'home.html';
+        })
+        .catch(err => alert(`Login failed: ${err.message}`));
     });
-  </script>
-
-  <!-- HEADER include + Firebase Auth -->
-  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_APP.firebaseapp.com",
-      projectId: "YOUR_APP",
-      storageBucket: "YOUR_APP.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-    firebase.initializeApp(firebaseConfig);
-    fetch('header.html')
-      .then(r => r.text())
-      .then(html => {
-        document.getElementById('site-header').innerHTML = html;
-        const btnSignUp = document.getElementById('sign-up');
-        const btnLogin  = document.getElementById('login');
-        const btnSignOut = document.getElementById('sign-out');
-        firebase.auth().onAuthStateChanged(user => {
-          if (user) {
-            btnSignUp.style.display = 'none';
-            btnLogin .style.display = 'none';
-            btnSignOut.style.display = 'inline-block';
-          } else {
-            btnSignUp.style.display = 'inline-block';
-            btnLogin .style.display = 'inline-block';
-            btnSignOut.style.display = 'none';
-          }
-        });
-        btnSignUp.addEventListener('click', ()=> window.location.href='signup.html');
-        btnLogin .addEventListener('click', ()=> window.location.href='login.html');
-        btnSignOut.addEventListener('click', ()=> firebase.auth().signOut());
-      });
   </script>
 </body>
 </html>
