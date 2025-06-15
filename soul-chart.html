@@ -2,65 +2,124 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soul Chart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🧭 Your Soul Chart</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="generate-pdf.js"></script>
 </head>
-<body class="bg-gradient-to-br from-pink-50 to-purple-100 text-gray-800 font-sans">
-  <main class="p-6 max-w-3xl mx-auto space-y-6">
-    <h1 class="text-3xl font-bold text-center text-purple-700">🧭 Your Soul Chart</h1>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="result.html">Results</a></li>
+      <li><a href="my-soul.html">My Soul</a></li>
+      <li><a href="edit-profile.html">Edit Profile</a></li>
+      <li><a href="soul-chart.html">Soul Chart</a></li>
+      <li><a href="soul-coach.html">Soul Coach</a></li>
+      <li><a href="soulink-match.html">Match</a></li>
+      <li><a href="friends.html">Friends</a></li>
+    </ul>
+  </nav>
 
-    <div class="flex justify-center">
-      <img id="avatarPreview" src="default-avatar.png" alt="Avatar" class="w-24 h-24 rounded-full shadow mb-4" />
+  <!-- HERO -->
+  <header class="hero small-hero">
+    <div class="hero-content">
+      <h1>🧭 Your Soul Chart</h1>
+      <p class="subtitle">Visualize your soul insights</p>
     </div>
+  </header>
 
-    <div id="chartContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <div class="bg-white p-4 rounded-lg shadow">
-        <h2 class="text-xl font-semibold">💫 Zodiac Sign</h2>
-        <p id="zodiac">Loading...</p>
-      </div>
+  <main class="container">
+    <!-- Avatar Placeholder -->
+    <section class="intro text-center">
+      <img id="profile-avatar" src="avatar.png" alt="Avatar" style="max-width:120px;border-radius:50%;margin-bottom:20px;" />
+    </section>
 
-      <div class="bg-white p-4 rounded-lg shadow">
-        <h2 class="text-xl font-semibold">🐉 Chinese Zodiac</h2>
-        <p id="chineseZodiac">Loading...</p>
-      </div>
+    <!-- Core Insights -->
+    <section class="intro">
+      <h2>🔱 Zodiac Sign</h2>
+      <p id="chart-astro"></p>
+    </section>
 
-      <div class="bg-white p-4 rounded-lg shadow">
-        <h2 class="text-xl font-semibold">🔢 Life Path Number</h2>
-        <p id="lifePath">Loading...</p>
-      </div>
+    <section class="intro">
+      <h2>🐲 Chinese Zodiac</h2>
+      <p id="chart-castro"></p>
+    </section>
 
-      <div class="bg-white p-4 rounded-lg shadow">
-        <h2 class="text-xl font-semibold">💌 Love Language</h2>
-        <p id="loveLanguage">Loading...</p>
-      </div>
+    <section class="intro">
+      <h2>🔢 Life Path Number</h2>
+      <p id="chart-numerology"></p>
+    </section>
 
-      <div class="bg-white p-4 rounded-lg shadow col-span-1 sm:col-span-2">
-        <h2 class="text-xl font-semibold">✨ Soul Insight Summary</h2>
-        <p id="soulSummary" class="whitespace-pre-line italic text-purple-700">Loading...</p>
-      </div>
-    </div>
+    <section class="intro">
+      <h2>💖 Love Language</h2>
+      <p id="chart-loveLang"></p>
+    </section>
 
-    <div class="text-center">
-      <button onclick="downloadSoulPDF()" class="mt-4 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
-        🎁 Download Your Soul PDF
-      </button>
+    <section class="intro">
+      <h2>✨ Soul Insight Summary</h2>
+      <p id="chart-summary">Your soul is a radiant force of intuition, love and light...</p>
+    </section>
+
+    <div class="text-center" style="margin: 30px 0;">
+      <button id="download-pdf" class="cta-button">🎁 Download Your Soul PDF</button>
     </div>
   </main>
 
-  <script>
-    document.getElementById("zodiac").textContent = localStorage.getItem("zodiac") || "Sagittarius";
-    document.getElementById("chineseZodiac").textContent = localStorage.getItem("chineseZodiac") || "Rat";
-    document.getElementById("lifePath").textContent = localStorage.getItem("lifePath") || "7";
-    document.getElementById("loveLanguage").textContent = localStorage.getItem("loveLanguage") || "Acts of Service";
-    document.getElementById("soulSummary").textContent = localStorage.getItem("longDescription") || "Your soul is a radiant force of intuition, love and light...";
+  <footer class="site-footer">
+    © 2025 Soulink.global | All rights reserved
+  </footer>
 
-    const avatar = document.getElementById("avatarPreview");
-    const storedImg = localStorage.getItem("userProfileImage");
-    if (storedImg) {
-      avatar.src = storedImg;
-    }
+  <!-- jsPDF from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    // Užpildome duomenis iš LocalStorage
+    const data = JSON.parse(localStorage.getItem('soulQuiz') || '{}');
+    document.getElementById('chart-astro').textContent = data.resastro || data.birthdate;
+    document.getElementById('chart-castro').textContent = data.rescastro || '';
+    document.getElementById('chart-numerology').textContent = data.resnumerology || '';
+    document.getElementById('chart-loveLang').textContent = data.loveLanguage || '';
+    // Gali pakeisti pagal tavo summarį, arba parsisiųsti summary iš result puslapio
+    const summaryText = document.getElementById('chart-summary').textContent;
+
+    document.getElementById('download-pdf').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      let y = 15;
+
+      doc.setFontSize(22);
+      doc.text("Your Soul Chart", 105, y, null, null, "center");
+      y += 10;
+
+      doc.setFontSize(14);
+      doc.text(`Name: ${data.name || ''}`, 20, y); y += 8;
+      doc.text(`Birth Date: ${data.birthdate || ''}`, 20, y); y += 10;
+
+      doc.setFontSize(16);
+      doc.text("🔱 Zodiac Sign:", 20, y); doc.setFontSize(14);
+      doc.text(`${data.resastro || ''}`, 70, y); y += 8;
+
+      doc.setFontSize(16);
+      doc.text("🐲 Chinese Zodiac:", 20, y); doc.setFontSize(14);
+      doc.text(`${data.rescastro || ''}`, 70, y); y += 8;
+
+      doc.setFontSize(16);
+      doc.text("🔢 Life Path:", 20, y); doc.setFontSize(14);
+      doc.text(`${data.resnumerology || ''}`, 70, y); y += 10;
+
+      doc.setFontSize(16);
+      doc.text("💖 Love Language:", 20, y); doc.setFontSize(14);
+      doc.text(`${data.loveLanguage || ''}`, 70, y); y += 10;
+
+      doc.setFontSize(16);
+      doc.text("✨ Soul Insight:", 20, y); y += 8;
+      doc.setFontSize(12); 
+      doc.text(doc.splitTextToSize(summaryText, 170), 20, y);
+
+      // Atsiųsti PDF
+      doc.save("My_Soul_Chart.pdf");
+    });
   </script>
 </body>
 </html>
