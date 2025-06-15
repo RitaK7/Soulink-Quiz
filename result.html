@@ -67,47 +67,49 @@
   </footer>
 
   <script>
-    // Data from LocalStorage
+    // 1. Paimame duomenis iš LocalStorage
     const data = JSON.parse(localStorage.getItem('soulQuiz') || '{}');
     document.getElementById('res-name').textContent = data.name || 'Friend';
     document.getElementById('res-birthdate').textContent = data.birthdate;
     document.getElementById('res-connection').textContent = data.connectionType;
     document.getElementById('res-loveLang').textContent = data.loveLanguage;
 
-    // Western Zodiac Calculation
-    const zodiacs = [
-      { sign: 'Capricorn', end: 19 }, { sign: 'Aquarius', end: 49 },
-      { sign: 'Pisces', end: 79 }, { sign: 'Aries', end: 109 },
-      { sign: 'Taurus', end: 140 }, { sign: 'Gemini', end: 171 },
-      { sign: 'Cancer', end: 202 }, { sign: 'Leo', end: 233 },
-      { sign: 'Virgo', end: 264 }, { sign: 'Libra', end: 295 },
-      { sign: 'Scorpio', end: 325 }, { sign: 'Sagittarius', end: 356 },
-      { sign: 'Capricorn', end: 366 }
-    ];
-    const desc = {
-      'Aries': 'Energetic, courageous and pioneering.',
-      'Taurus': 'Reliable, patient and practical.',
-      'Gemini': 'Adaptable, curious and communicative.',
-      'Cancer': 'Emotional, intuitive and nurturing.',
-      'Leo': 'Warm-hearted, creative and generous.',
-      'Virgo': 'Analytical, kind and hardworking.',
-      'Libra': 'Diplomatic, charming and fair-minded.',
-      'Scorpio': 'Passionate, resourceful and determined.',
-      'Sagittarius': 'Adventurous, optimistic and honest.',
-      'Capricorn': 'Disciplined, responsible and ambitious.',
-      'Aquarius': 'Innovative, independent and humanitarian.',
-      'Pisces': 'Compassionate, artistic and wise.'
+    // 2. Western Zodiac su pataisytu algoritmu
+    function getWesternZodiac(month, day) {
+      if ((month === 1  && day >= 20) || (month === 2  && day <= 18)) return 'Aquarius';
+      if ((month === 2  && day >= 19) || (month === 3  && day <= 20)) return 'Pisces';
+      if ((month === 3  && day >= 21) || (month === 4  && day <= 19)) return 'Aries';
+      if ((month === 4  && day >= 20) || (month === 5  && day <= 20)) return 'Taurus';
+      if ((month === 5  && day >= 21) || (month === 6  && day <= 20)) return 'Gemini';
+      if ((month === 6  && day >= 21) || (month === 7  && day <= 22)) return 'Cancer';
+      if ((month === 7  && day >= 23) || (month === 8  && day <= 22)) return 'Leo';
+      if ((month === 8  && day >= 23) || (month === 9  && day <= 22)) return 'Virgo';
+      if ((month === 9  && day >= 23) || (month === 10 && day <= 22)) return 'Libra';
+      if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'Scorpio';
+      if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'Sagittarius';
+      return 'Capricorn';
+    }
+    const astroDesc = {
+      'Aries':'Energetic, courageous and pioneering.',
+      'Taurus':'Reliable, patient and practical.',
+      'Gemini':'Adaptable, curious and communicative.',
+      'Cancer':'Emotional, intuitive and nurturing.',
+      'Leo':'Warm-hearted, creative and generous.',
+      'Virgo':'Analytical, kind and hardworking.',
+      'Libra':'Diplomatic, charming and fair-minded.',
+      'Scorpio':'Passionate, resourceful and determined.',
+      'Sagittarius':'Adventurous, optimistic and honest.',
+      'Capricorn':'Disciplined, responsible and ambitious.',
+      'Aquarius':'Innovative, independent and humanitarian.',
+      'Pisces':'Compassionate, artistic and wise.'
     };
     let [year, month, day] = data.birthdate.split('-').map(Number);
-    let dnum = ((month * 100) + day);
-    let zodiac = zodiacs.find(z => dnum <= z.end).sign;
+    const zodiac = getWesternZodiac(month, day);
     document.getElementById('res-astro').textContent = zodiac;
-    document.getElementById('res-astro-desc').textContent = desc[zodiac];
+    document.getElementById('res-astro-desc').textContent = astroDesc[zodiac];
 
-    // Chinese Zodiac Calculation
+    // 3. Chinese Zodiac
     const animals = ['Monkey','Rooster','Dog','Pig','Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat'];
-    let index = (year - 1900) % 12;
-    let castro = animals[index];
     const cdesc = {
       'Rat':'Quick-witted, resourceful and versatile.',
       'Ox':'Strong, reliable and determined.',
@@ -122,10 +124,12 @@
       'Dog':'Loyal, honest and prudent.',
       'Pig':'Generous, diligent and compassionate.'
     };
+    let idx = (year - 1900) % 12;
+    const castro = animals[idx];
     document.getElementById('res-castro').textContent = castro;
     document.getElementById('res-castro-desc').textContent = cdesc[castro];
 
-    // Life Path Number Calculation
+    // 4. Numerology (Life Path)
     function lifePath(str) {
       let sum = str.replace(/-/g,'').split('').reduce((a,b)=>a+Number(b),0);
       while (sum > 9 && ![11,22].includes(sum)) {
