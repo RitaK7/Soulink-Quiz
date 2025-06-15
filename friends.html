@@ -3,82 +3,164 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Friendship Matches - Soulink</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>👫 Friendship Compatibility</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+  <script>
+    // Įrašyk čia savo Firebase konfigūrą
+    const firebaseConfig = {
+      apiKey: "TAVO_API_KEY",
+      authDomain: "TAVO_APP.firebaseapp.com",
+      projectId: "TAVO_APP",
+      storageBucket: "TAVO_APP.appspot.com",
+      messagingSenderId: "…",
+      appId: "…"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
-<body class="bg-gradient-to-br from-green-50 to-blue-100 text-gray-800 font-sans">
-  <header class="p-4 bg-white shadow text-center sticky top-0 z-10">
-    <h1 class="text-2xl font-bold">🧑‍🤝‍🧑 Friendship Compatibility</h1>
-    <p class="text-sm text-gray-500">Based on your soulprint & interests</p>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="result.html">Results</a></li>
+      <li><a href="my-soul.html">My Soul</a></li>
+      <li><a href="edit-profile.html">Edit Profile</a></li>
+      <li><a href="soul-chart.html">Soul Chart</a></li>
+      <li><a href="soul-coach.html">Soul Coach</a></li>
+      <li><a href="soulink-match.html">Match</a></li>
+      <li><a href="friends.html">Friends</a></li>
+    </ul>
+    <div class="auth-buttons">
+      <button id="sign-in" class="cta-button-outline">Sign In</button>
+      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero small-hero">
+    <div class="hero-content">
+      <h1>👫 Friendship Compatibility</h1>
+      <p class="subtitle">Based on your soulprint & interests</p>
+    </div>
   </header>
 
-  <main class="p-6 max-w-2xl mx-auto space-y-4" id="friendMatches">
-    <p class="text-center">🔄 Loading your friendship matches...</p>
+  <main class="container">
+    <div id="no-data" class="intro" style="color: #e63946;">
+      <p>❌ No data found. Please <a href="quiz.html" style="color: #e63946; text-decoration: underline;">take the quiz first</a>.</p>
+    </div>
+
+    <section id="data-sections" style="display:none;">
+      <section class="intro">
+        <h2>✨ Hello, <span id="friend-name"></span>!</h2>
+        <p><strong>Birthdate:</strong> <span id="friend-birthdate"></span></p>
+        <p><strong>Love Language:</strong> <span id="friend-loveLang"></span></p>
+      </section>
+
+      <section class="intro">
+        <h2>♈ Zodiac Sign</h2>
+        <p><span id="friend-astro"></span></p>
+      </section>
+
+      <section class="intro">
+        <h2>🐲 Chinese Zodiac</h2>
+        <p><span id="friend-castro"></span></p>
+      </section>
+
+      <section class="intro">
+        <h2>🔢 Life Path Number</h2>
+        <p><span id="friend-numerology"></span></p>
+      </section>
+
+      <section class="intro">
+        <h2>🤖 AI Friend Suggestions</h2>
+        <p id="friend-desc">Your friendship matches will appear here.</p>
+      </section>
+
+      <div class="text-center" style="margin:40px 0;">
+        <button id="find-friends" class="cta-button">🔍 Find Friend Matches</button>
+        <a href="soulink-match.html" class="cta-button">🔗 Go to Soul Matches</a>
+      </div>
+    </section>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav text-center" style="margin-top:40px;">
+      <a href="soulink-match.html" class="cta-button">← Soul Matches</a>
+      <a href="home.html" class="cta-button">Home →</a>
+    </nav>
   </main>
 
-  <script type="module">
-    const container = document.getElementById("friendMatches");
-    container.innerHTML = "";
+  <footer class="site-footer">
+    © 2025 Soulink.global | All rights reserved
+  </footer>
 
-    const user = JSON.parse(localStorage.getItem("soulResults"));
+  <script>
+    // Auth logic
+    firebase.auth().onAuthStateChanged(user => {
+      document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
+      document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
+    });
+    document.getElementById('sign-in').addEventListener('click', () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).catch(console.error);
+    });
+    document.getElementById('sign-out').addEventListener('click', () => {
+      firebase.auth().signOut();
+    });
 
-    if (!user) {
-      container.innerHTML = "<p class='text-center text-red-600'>❌ No data found. Please take the quiz first.</p>";
-    } else {
-      // Simuliuojame kelis kitus naudotojus (demo duomenys)
-      const otherUsers = [
-        {
-          name: "Alex",
-          birthdate: "1991-03-10",
-          loveLanguage: "Words of Affirmation",
-          relationshipType: "Friendship",
-          values: "Adventure, Honesty",
-          interests: "Books, Hiking"
-        },
-        {
-          name: "Maya",
-          birthdate: "1989-07-22",
-          loveLanguage: "Quality Time",
-          relationshipType: "Both",
-          values: "Creativity, Loyalty",
-          interests: "Music, Art"
-        },
-        {
-          name: "Leo",
-          birthdate: "1995-11-03",
-          loveLanguage: "Acts of Service",
-          relationshipType: "Romantic",
-          values: "Growth, Humor",
-          interests: "Tech, Travel"
-        }
-      ];
-
-      function calculateFriendScore(userA, userB) {
-        let score = 0;
-        if (userA.loveLanguage === userB.loveLanguage) score += 30;
-        if (userB.relationshipType === "Friendship" || userB.relationshipType === "Both") score += 30;
-        score += Math.floor(Math.random() * 41); // atsitiktinis papildomas suderinamumas 0–40
-        return score;
-      }
-
-      otherUsers.forEach(friend => {
-        const score = calculateFriendScore(user, friend);
-
-        const block = document.createElement("div");
-        block.className = "bg-white p-4 rounded shadow space-y-2";
-
-        block.innerHTML = `
-          <h2 class="text-xl font-bold">💬 ${friend.name}</h2>
-          <p>🎂 Birthdate: ${friend.birthdate}</p>
-          <p>💖 Love Language: ${friend.loveLanguage}</p>
-          <p>🎯 Relationship Type: ${friend.relationshipType}</p>
-          <p>🤝 Friendship Score: <strong>${score}%</strong></p>
-          <button class="mt-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-1 rounded">View Profile</button>
-        `;
-
-        container.appendChild(block);
-      });
+    // Utility functions
+    function getWesternZodiac(m,d){
+      if((m===1&&d>=20)||(m===2&&d<=18)) return 'Aquarius';
+      if((m===2&&d>=19)||(m===3&&d<=20)) return 'Pisces';
+      if((m===3&&d>=21)||(m===4&&d<=19)) return 'Aries';
+      if((m===4&&d>=20)||(m===5&&d<=20)) return 'Taurus';
+      if((m===5&&d>=21)||(m===6&&d<=20)) return 'Gemini';
+      if((m===6&&d>=21)||(m===7&&d<=22)) return 'Cancer';
+      if((m===7&&d>=23)||(m===8&&d<=22)) return 'Leo';
+      if((m===8&&d>=23)||(m===9&&d<=22)) return 'Virgo';
+      if((m===9&&d>=23)||(m===10&&d<=22)) return 'Libra';
+      if((m===10&&d>=23)||(m===11&&d<=21)) return 'Scorpio';
+      if((m===11&&d>=22)||(m===12&&d<=21)) return 'Sagittarius';
+      return 'Capricorn';
     }
+    function getChineseZodiac(y){
+      const a=['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+      return a[(y-1900)%12];
+    }
+    function lifePath(str){
+      let s = str.replace(/-/g,'').split('').reduce((a,b)=>a+Number(b),0);
+      while(s>9 && ![11,22].includes(s)){
+        s = String(s).split('').reduce((a,b)=>a+Number(b),0);
+      }
+      return s;
+    }
+
+    // Populate data
+    window.addEventListener('DOMContentLoaded', ()=>{
+      const data = JSON.parse(localStorage.getItem('soulQuiz')||'null');
+      if(!data) return;
+      document.getElementById('no-data').style.display = 'none';
+      document.getElementById('data-sections').style.display = 'block';
+
+      document.getElementById('friend-name').textContent      = data.name;
+      document.getElementById('friend-birthdate').textContent = data.birthdate;
+      document.getElementById('friend-loveLang').textContent   = data.loveLanguage;
+
+      const [y,m,d] = data.birthdate.split('-').map(Number);
+      document.getElementById('friend-astro').textContent      = getWesternZodiac(m,d);
+      document.getElementById('friend-castro').textContent     = getChineseZodiac(y);
+      document.getElementById('friend-numerology').textContent = lifePath(data.birthdate);
+    });
+
+    // AI friend matches placeholder
+    document.getElementById('find-friends').addEventListener('click', ()=>{
+      document.getElementById('friend-desc').textContent = 
+        'These friends would vibe with your soul: Alice, Bob, Charlie…';
+    });
   </script>
 </body>
 </html>
