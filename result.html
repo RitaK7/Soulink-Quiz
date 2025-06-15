@@ -108,24 +108,23 @@
     document.getElementById('res-astro').textContent = zodiac;
     document.getElementById('res-astro-desc').textContent = astroDesc[zodiac];
 
-    // 3. Chinese Zodiac
-    const animals = ['Monkey','Rooster','Dog','Pig','Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat'];
-    const cdesc = {
-      'Rat':'Quick-witted, resourceful and versatile.',
-      'Ox':'Strong, reliable and determined.',
-      'Tiger':'Brave, confident and competitive.',
-      'Rabbit':'Gentle, quiet and elegant.',
-      'Dragon':'Charismatic, powerful and lucky.',
-      'Snake':'Wise, enigmatic and intuitive.',
-      'Horse':'Energetic, independent and impatient.',
-      'Goat':'Calm, gentle and sympathetic.',
-      'Monkey':'Witty, curious and clever.',
-      'Rooster':'Observant, hardworking and courageous.',
-      'Dog':'Loyal, honest and prudent.',
-      'Pig':'Generous, diligent and compassionate.'
-    };
-    let idx = (year - 1900) % 12;
-    const castro = animals[idx];
+// 3. Chinese Zodiac – nuo Rat iki Pig
+const animals = [
+  'Rat',    // 1900 → index 0
+  'Ox',
+  'Tiger',
+  'Rabbit',
+  'Dragon',
+  'Snake',
+  'Horse',
+  'Goat',
+  'Monkey',
+  'Rooster',
+  'Dog',
+  'Pig'
+];
+let idx = (year - 1900) % 12;
+const castro = animals[idx];
     document.getElementById('res-castro').textContent = castro;
     document.getElementById('res-castro-desc').textContent = cdesc[castro];
 
