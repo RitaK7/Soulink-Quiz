@@ -129,6 +129,12 @@ fieldset {
 .love-language input {
   margin-right: 10px;
 }
+/* RESULT PAGE STYLES */
+.small-hero { padding: 50px 20px; background: linear-gradient(135deg, #0a9396, #005f73); }
+.intro h2 { font-size: 1.6rem; margin-bottom: 10px; }
+.intro p { opacity: 0.9; margin-bottom: 20px; }
+.text-center .cta-button { font-size: 1.1rem; padding: 12px 25px; }
+
 
 /* ANIMATIONS */
 @keyframes fadeInDown {
