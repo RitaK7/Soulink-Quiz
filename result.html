@@ -1,29 +1,154 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Results</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🔮 Your Soul Results</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="result.html">Results</a></li>
+      <li><a href="my-soul.html">My Soul</a></li>
+      <li><a href="edit-profile.html">Edit Profile</a></li>
+      <li><a href="soul-chart.html">Soul Chart</a></li>
+      <li><a href="soul-coach.html">Soul Coach</a></li>
+      <li><a href="soulink-match.html">Match</a></li>
+      <li><a href="friends.html">Friends</a></li>
+    </ul>
+  </nav>
 
-<nav>
-  <a href="home.html">Home</a> |
-  <a href="quiz.html">Quiz</a> |
-  <a href="result.html">Results</a> |
-  <a href="my-soul.html">My Soul</a> |
-  <a href="edit-profile.html">Edit Profile</a> |
-  <a href="soul-chart.html">Soul Chart</a> |
-  <a href="soul-coach.html">Soul Coach</a> |
-  <a href="soulink-match.html">Match</a> |
-  <a href="friends.html">Friends</a>
-</nav>
+  <!-- HERO -->
+  <header class="hero small-hero">
+    <div class="hero-content">
+      <h1>🔮 Your Soul Results</h1>
+      <p class="subtitle">Here’s what the universe reveals about you</p>
+    </div>
+  </header>
 
-  <main>
-    <h2>Your Results</h2>
-    <!-- Placeholder for result analysis -->
-    <button onclick="location.href='my-soul.html'">Continue to My Soul</button>
+  <main class="container">
+    <!-- User Data Summary -->
+    <section class="intro">
+      <h2>✨ Hello, <span id="res-name"></span>!</h2>
+      <p>You were born on <strong><span id="res-birthdate"></span></strong> and you’re looking for <strong><span id="res-connection"></span></strong>.</p>
+      <p>Your primary love language is <strong><span id="res-loveLang"></span></strong>.</p>
+    </section>
+
+    <!-- Western Zodiac -->
+    <section class="intro">
+      <h2>♈ Western Zodiac Sign</h2>
+      <p><strong><span id="res-astro"></span></strong>: <span id="res-astro-desc"></span></p>
+    </section>
+
+    <!-- Chinese Zodiac -->
+    <section class="intro">
+      <h2>🐲 Chinese Zodiac</h2>
+      <p><strong><span id="res-castro"></span></strong>: <span id="res-castro-desc"></span></p>
+    </section>
+
+    <!-- Numerology -->
+    <section class="intro">
+      <h2>🔢 Life Path Number</h2>
+      <p>Your Life Path is <strong><span id="res-numerology"></span></strong>. <span id="res-num-desc"></span></p>
+    </section>
+
+    <!-- Continue Button -->
+    <div class="text-center" style="margin: 40px 0;">
+      <a href="my-soul.html" class="cta-button">Continue to My Soul</a>
+    </div>
   </main>
+
+  <footer class="site-footer">
+    © 2025 Soulink.global | All rights reserved
+  </footer>
+
+  <script>
+    // Data from LocalStorage
+    const data = JSON.parse(localStorage.getItem('soulQuiz') || '{}');
+    document.getElementById('res-name').textContent = data.name || 'Friend';
+    document.getElementById('res-birthdate').textContent = data.birthdate;
+    document.getElementById('res-connection').textContent = data.connectionType;
+    document.getElementById('res-loveLang').textContent = data.loveLanguage;
+
+    // Western Zodiac Calculation
+    const zodiacs = [
+      { sign: 'Capricorn', end: 19 }, { sign: 'Aquarius', end: 49 },
+      { sign: 'Pisces', end: 79 }, { sign: 'Aries', end: 109 },
+      { sign: 'Taurus', end: 140 }, { sign: 'Gemini', end: 171 },
+      { sign: 'Cancer', end: 202 }, { sign: 'Leo', end: 233 },
+      { sign: 'Virgo', end: 264 }, { sign: 'Libra', end: 295 },
+      { sign: 'Scorpio', end: 325 }, { sign: 'Sagittarius', end: 356 },
+      { sign: 'Capricorn', end: 366 }
+    ];
+    const desc = {
+      'Aries': 'Energetic, courageous and pioneering.',
+      'Taurus': 'Reliable, patient and practical.',
+      'Gemini': 'Adaptable, curious and communicative.',
+      'Cancer': 'Emotional, intuitive and nurturing.',
+      'Leo': 'Warm-hearted, creative and generous.',
+      'Virgo': 'Analytical, kind and hardworking.',
+      'Libra': 'Diplomatic, charming and fair-minded.',
+      'Scorpio': 'Passionate, resourceful and determined.',
+      'Sagittarius': 'Adventurous, optimistic and honest.',
+      'Capricorn': 'Disciplined, responsible and ambitious.',
+      'Aquarius': 'Innovative, independent and humanitarian.',
+      'Pisces': 'Compassionate, artistic and wise.'
+    };
+    let [year, month, day] = data.birthdate.split('-').map(Number);
+    let dnum = ((month * 100) + day);
+    let zodiac = zodiacs.find(z => dnum <= z.end).sign;
+    document.getElementById('res-astro').textContent = zodiac;
+    document.getElementById('res-astro-desc').textContent = desc[zodiac];
+
+    // Chinese Zodiac Calculation
+    const animals = ['Monkey','Rooster','Dog','Pig','Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat'];
+    let index = (year - 1900) % 12;
+    let castro = animals[index];
+    const cdesc = {
+      'Rat':'Quick-witted, resourceful and versatile.',
+      'Ox':'Strong, reliable and determined.',
+      'Tiger':'Brave, confident and competitive.',
+      'Rabbit':'Gentle, quiet and elegant.',
+      'Dragon':'Charismatic, powerful and lucky.',
+      'Snake':'Wise, enigmatic and intuitive.',
+      'Horse':'Energetic, independent and impatient.',
+      'Goat':'Calm, gentle and sympathetic.',
+      'Monkey':'Witty, curious and clever.',
+      'Rooster':'Observant, hardworking and courageous.',
+      'Dog':'Loyal, honest and prudent.',
+      'Pig':'Generous, diligent and compassionate.'
+    };
+    document.getElementById('res-castro').textContent = castro;
+    document.getElementById('res-castro-desc').textContent = cdesc[castro];
+
+    // Life Path Number Calculation
+    function lifePath(str) {
+      let sum = str.replace(/-/g,'').split('').reduce((a,b)=>a+Number(b),0);
+      while (sum > 9 && ![11,22].includes(sum)) {
+        sum = String(sum).split('').reduce((a,b)=>a+Number(b),0);
+      }
+      return sum;
+    }
+    const lp = lifePath(data.birthdate);
+    const ndesc = {
+      1:'You are a natural leader and independent thinker.',
+      2:'You are diplomatic, sensitive and cooperative.',
+      3:'You are creative, social and optimistic.',
+      4:'You are practical, disciplined and trustworthy.',
+      5:'You are adventurous, free-spirited and energetic.',
+      6:'You are responsible, nurturing and community-oriented.',
+      7:'You are introspective, analytical and spiritual.',
+      8:'You are ambitious, efficient and goal-oriented.',
+      9:'You are compassionate, humanitarian and generous.',
+      11:'You are visionary, intuitive and inspired.',
+      22:'You are master builder, practical and big-picture.'
+    };
+    document.getElementById('res-numerology').textContent = lp;
+    document.getElementById('res-num-desc').textContent = ndesc[lp];
+  </script>
 </body>
 </html>
