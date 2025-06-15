@@ -80,5 +80,25 @@
       });
     }
   </script>
+
+<script>
+  // Authentication button logic
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      document.getElementById('sign-in').style.display = 'none';
+      document.getElementById('sign-out').style.display = 'inline-block';
+    } else {
+      document.getElementById('sign-in').style.display = 'inline-block';
+      document.getElementById('sign-out').style.display = 'none';
+    }
+  });
+  document.getElementById('sign-in').addEventListener('click', () => {
+    // TODO: implement sign-in flow
+  });
+  document.getElementById('sign-out').addEventListener('click', () => {
+    firebase.auth().signOut();
+  });
+</script>
+
 </body>
 </html>

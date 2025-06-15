@@ -158,3 +158,12 @@ fieldset {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+
+/* Authentication Buttons */
+.auth-buttons { margin-left: auto; display: flex; gap: 10px; }
+.cta-button-outline { background: transparent; border: 2px solid #94d2bd; color: #fff; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
+
+/* Photo Upload Preview */
+#profile-photo { margin-top: 10px; }
+#preview-photo { max-width: 120px; border-radius: 50%; display: block; margin-top: 10px; }
