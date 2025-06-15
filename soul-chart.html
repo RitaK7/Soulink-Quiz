@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🧭 Your Soul Chart</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Your Soul Chart</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <!-- NAVIGATION -->
@@ -25,45 +25,43 @@
   <!-- HERO -->
   <header class="hero small-hero">
     <div class="hero-content">
-      <h1>🧭 Your Soul Chart</h1>
+      <h1>Your Soul Chart</h1>
       <p class="subtitle">Visualize your soul insights</p>
     </div>
   </header>
 
   <main class="container">
-    <!-- Avatar Placeholder -->
     <section class="intro text-center">
-      <img id="profile-avatar" src="avatar.png" alt="Avatar" style="max-width:120px;border-radius:50%;margin-bottom:20px;" />
+      <img id="profile-avatar" src="avatar.png" alt="Avatar" style="max-width:120px;border-radius:50%;margin-bottom:20px;"/>
     </section>
 
-    <!-- Core Insights -->
     <section class="intro">
-      <h2>🔱 Zodiac Sign</h2>
+      <h2>Zodiac Sign</h2>
       <p id="chart-astro"></p>
     </section>
 
     <section class="intro">
-      <h2>🐲 Chinese Zodiac</h2>
+      <h2>Chinese Zodiac</h2>
       <p id="chart-castro"></p>
     </section>
 
     <section class="intro">
-      <h2>🔢 Life Path Number</h2>
+      <h2>Life Path Number</h2>
       <p id="chart-numerology"></p>
     </section>
 
     <section class="intro">
-      <h2>💖 Love Language</h2>
+      <h2>Love Language</h2>
       <p id="chart-loveLang"></p>
     </section>
 
     <section class="intro">
-      <h2>✨ Soul Insight Summary</h2>
+      <h2>Soul Insight Summary</h2>
       <p id="chart-summary">Your soul is a radiant force of intuition, love and light...</p>
     </section>
 
     <div class="text-center" style="margin: 30px 0;">
-      <button id="download-pdf" class="cta-button">🎁 Download Your Soul PDF</button>
+      <button id="download-pdf" class="cta-button">Download Your Soul PDF</button>
     </div>
   </main>
 
@@ -71,53 +69,92 @@
     © 2025 Soulink.global | All rights reserved
   </footer>
 
-  <!-- jsPDF from CDN -->
+  <!-- jsPDF CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-    // Užpildome duomenis iš LocalStorage
+    // 1. Pasiimame duomenis
     const data = JSON.parse(localStorage.getItem('soulQuiz') || '{}');
-    document.getElementById('chart-astro').textContent = data.resastro || data.birthdate;
-    document.getElementById('chart-castro').textContent = data.rescastro || '';
-    document.getElementById('chart-numerology').textContent = data.resnumerology || '';
-    document.getElementById('chart-loveLang').textContent = data.loveLanguage || '';
-    // Gali pakeisti pagal tavo summarį, arba parsisiųsti summary iš result puslapio
-    const summaryText = document.getElementById('chart-summary').textContent;
+    const [year, month, day] = (data.birthdate||'').split('-').map(Number);
 
+    // 2. Funkcijos apskaičiavimams
+    function getWesternZodiac(m, d) {
+      if ((m === 1 && d >= 20) || (m === 2 && d <= 18)) return 'Aquarius';
+      if ((m === 2 && d >= 19) || (m === 3 && d <= 20)) return 'Pisces';
+      if ((m === 3 && d >= 21) || (m === 4 && d <= 19)) return 'Aries';
+      if ((m === 4 && d >= 20) || (m === 5 && d <= 20)) return 'Taurus';
+      if ((m === 5 && d >= 21) || (m === 6 && d <= 20)) return 'Gemini';
+      if ((m === 6 && d >= 21) || (m === 7 && d <= 22)) return 'Cancer';
+      if ((m === 7 && d >= 23) || (m === 8 && d <= 22)) return 'Leo';
+      if ((m === 8 && d >= 23) || (m === 9 && d <= 22)) return 'Virgo';
+      if ((m === 9 && d >= 23) || (m === 10 && d <= 22)) return 'Libra';
+      if ((m === 10 && d >= 23) || (m === 11 && d <= 21)) return 'Scorpio';
+      if ((m === 11 && d >= 22) || (m === 12 && d <= 21)) return 'Sagittarius';
+      return 'Capricorn';
+    }
+    function getChineseZodiac(y) {
+      const animals = ['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+      return animals[(y - 1900) % 12];
+    }
+    function getLifePath(str) {
+      let sum = str.replace(/-/g,'').split('').reduce((a,b)=>a+Number(b),0);
+      while (sum > 9 && ![11,22].includes(sum)) {
+        sum = String(sum).split('').reduce((a,b)=>a+Number(b),0);
+      }
+      return sum;
+    }
+
+    // 3. Užpildome DOM
+    const astro  = getWesternZodiac(month, day);
+    const castro = getChineseZodiac(year);
+    const lp     = getLifePath(data.birthdate||'');
+
+    document.getElementById('chart-astro').textContent      = astro;
+    document.getElementById('chart-castro').textContent     = castro;
+    document.getElementById('chart-numerology').textContent = lp;
+    document.getElementById('chart-loveLang').textContent   = data.loveLanguage || '';
+
+    // 4. PDF generavimas
     document.getElementById('download-pdf').addEventListener('click', () => {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-      let y = 15;
+      let y = 20;
 
-      doc.setFontSize(22);
-      doc.text("Your Soul Chart", 105, y, null, null, "center");
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.text("Your Soul Chart", 105, y, { align: 'center' });
       y += 10;
 
-      doc.setFontSize(14);
-      doc.text(`Name: ${data.name || ''}`, 20, y); y += 8;
-      doc.text(`Birth Date: ${data.birthdate || ''}`, 20, y); y += 10;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(12);
+      doc.text(`Name: ${data.name||''}`, 20, y); y+=7;
+      doc.text(`Birth Date: ${data.birthdate||''}`, 20, y); y+=10;
 
-      doc.setFontSize(16);
-      doc.text("🔱 Zodiac Sign:", 20, y); doc.setFontSize(14);
-      doc.text(`${data.resastro || ''}`, 70, y); y += 8;
+      doc.setFont('helvetica','bold');
+      doc.text("Zodiac Sign:", 20, y);
+      doc.setFont('helvetica','normal');
+      doc.text(astro, 60, y); y+=7;
 
-      doc.setFontSize(16);
-      doc.text("🐲 Chinese Zodiac:", 20, y); doc.setFontSize(14);
-      doc.text(`${data.rescastro || ''}`, 70, y); y += 8;
+      doc.setFont('helvetica','bold');
+      doc.text("Chinese Zodiac:", 20, y);
+      doc.setFont('helvetica','normal');
+      doc.text(castro, 60, y); y+=7;
 
-      doc.setFontSize(16);
-      doc.text("🔢 Life Path:", 20, y); doc.setFontSize(14);
-      doc.text(`${data.resnumerology || ''}`, 70, y); y += 10;
+      doc.setFont('helvetica','bold');
+      doc.text("Life Path Number:", 20, y);
+      doc.setFont('helvetica','normal');
+      doc.text(String(lp), 60, y); y+=10;
 
-      doc.setFontSize(16);
-      doc.text("💖 Love Language:", 20, y); doc.setFontSize(14);
-      doc.text(`${data.loveLanguage || ''}`, 70, y); y += 10;
+      doc.setFont('helvetica','bold');
+      doc.text("Love Language:", 20, y);
+      doc.setFont('helvetica','normal');
+      doc.text(data.loveLanguage||'', 60, y); y+=10;
 
-      doc.setFontSize(16);
-      doc.text("✨ Soul Insight:", 20, y); y += 8;
-      doc.setFontSize(12); 
-      doc.text(doc.splitTextToSize(summaryText, 170), 20, y);
+      doc.setFont('helvetica','bold');
+      doc.text("Soul Insight:", 20, y); y+=7;
+      doc.setFont('helvetica','normal');
+      const summary = document.getElementById('chart-summary').textContent || '';
+      doc.text(doc.splitTextToSize(summary, 170), 20, y);
 
-      // Atsiųsti PDF
       doc.save("My_Soul_Chart.pdf");
     });
   </script>
