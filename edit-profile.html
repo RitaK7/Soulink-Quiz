@@ -18,57 +18,14 @@
   <a href="soul-coach.html">Soul Coach</a> |
   <a href="soulink-match.html">Match</a> |
   <a href="friends.html">Friends</a>
-
-    <div class="auth-buttons">
-      <button id="sign-in" class="cta-button-outline">Sign In</button>
-      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
-    </div>
-
-  </nav>
+</nav>
 
   <main>
     <h2>Edit Your Profile</h2>
     <form>
       <input type="text" placeholder="Your Name" />
       <button type="submit">Save</button>
-    
-      <label>
-        Upload Your Photo:
-        <input type="file" id="profile-photo" accept="image/*" />
-      </label>
-      <img id="preview-photo" src="" alt="Profile Preview" style="max-width:120px;border-radius:50%;display:block;margin-top:10px;" />
-<script>
-  document.getElementById('profile-photo').addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      document.getElementById('preview-photo').src = url;
-      // TODO: upload to Firebase Storage and save URL
-    }
-  });
-</script>
-
     </form>
   </main>
-
-<script>
-  // Authentication button logic
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      document.getElementById('sign-in').style.display = 'none';
-      document.getElementById('sign-out').style.display = 'inline-block';
-    } else {
-      document.getElementById('sign-in').style.display = 'inline-block';
-      document.getElementById('sign-out').style.display = 'none';
-    }
-  });
-  document.getElementById('sign-in').addEventListener('click', () => {
-    // TODO: implement sign-in flow
-  });
-  document.getElementById('sign-out').addEventListener('click', () => {
-    firebase.auth().signOut();
-  });
-</script>
-
 </body>
 </html>

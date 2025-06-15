@@ -20,12 +20,6 @@
       <li><a href="soulink-match.html">Match</a></li>
       <li><a href="friends.html">Friends</a></li>
     </ul>
-  
-    <div class="auth-buttons">
-      <button id="sign-in" class="cta-button-outline">Sign In</button>
-      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
-    </div>
-
   </nav>
 
   <!-- HERO -->
@@ -71,12 +65,6 @@
         <nav class="bottom-nav text-center" style="margin: 40px 0;">
     <a href="my-soul.html" class="cta-button">← My Soul</a>
     <a href="soul-coach.html" class="cta-button">Next: Soul Coach →</a>
-  
-    <div class="auth-buttons">
-      <button id="sign-in" class="cta-button-outline">Sign In</button>
-      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
-    </div>
-
   </nav>
 
     </div>
@@ -175,25 +163,5 @@
       doc.save("My_Soul_Chart.pdf");
     });
   </script>
-
-<script>
-  // Authentication button logic
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      document.getElementById('sign-in').style.display = 'none';
-      document.getElementById('sign-out').style.display = 'inline-block';
-    } else {
-      document.getElementById('sign-in').style.display = 'inline-block';
-      document.getElementById('sign-out').style.display = 'none';
-    }
-  });
-  document.getElementById('sign-in').addEventListener('click', () => {
-    // TODO: implement sign-in flow
-  });
-  document.getElementById('sign-out').addEventListener('click', () => {
-    firebase.auth().signOut();
-  });
-</script>
-
 </body>
 </html>
