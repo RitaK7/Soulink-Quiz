@@ -39,6 +39,12 @@
       <button id="sign-in" class="cta-button-outline">Sign In</button>
       <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
     </div>
+  
+    <div class="auth-buttons">
+      <button id="sign-in" class="cta-button-outline">Sign In</button>
+      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
+    </div>
+
   </nav>
 
   <!-- HERO -->
@@ -91,7 +97,13 @@
     <nav class="bottom-nav text-center" style="margin-top:40px;">
       <a href="soulink-match.html" class="cta-button">← Soul Matches</a>
       <a href="home.html" class="cta-button">Home →</a>
-    </nav>
+    
+    <div class="auth-buttons">
+      <button id="sign-in" class="cta-button-outline">Sign In</button>
+      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
+    </div>
+
+  </nav>
   </main>
 
   <footer class="site-footer">
@@ -162,5 +174,21 @@
         'These friends would vibe with your soul: Alice, Bob, Charlie…';
     });
   </script>
+
+<script>
+// Firebase compat auth (or adapt to your setup)
+firebase.auth().onAuthStateChanged(user => {
+  document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
+  document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
+});
+document.getElementById('sign-in').addEventListener('click', () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).catch(console.error);
+});
+document.getElementById('sign-out').addEventListener('click', () => {
+  firebase.auth().signOut();
+});
+</script>
+
 </body>
 </html>

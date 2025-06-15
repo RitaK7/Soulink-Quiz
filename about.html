@@ -17,5 +17,21 @@
     <p>Our mission is to foster conscious, sustainable, and loving connections around the world through compatibility in love languages, values, numerology, and more.</p>
     <p>Welcome to your soulful journey! 🌟</p>
   </main>
+
+<script>
+// Firebase compat auth (or adapt to your setup)
+firebase.auth().onAuthStateChanged(user => {
+  document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
+  document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
+});
+document.getElementById('sign-in').addEventListener('click', () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).catch(console.error);
+});
+document.getElementById('sign-out').addEventListener('click', () => {
+  firebase.auth().signOut();
+});
+</script>
+
 </body>
 </html>

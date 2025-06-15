@@ -85,5 +85,21 @@
     <div id="circleAvatars" class="flex gap-4 justify-center mb-6"></div>
     <section id="circleList" class="grid gap-4 md:grid-cols-2"></section>
   </main>
+
+<script>
+// Firebase compat auth (or adapt to your setup)
+firebase.auth().onAuthStateChanged(user => {
+  document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
+  document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
+});
+document.getElementById('sign-in').addEventListener('click', () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).catch(console.error);
+});
+document.getElementById('sign-out').addEventListener('click', () => {
+  firebase.auth().signOut();
+});
+</script>
+
 </body>
 </html>

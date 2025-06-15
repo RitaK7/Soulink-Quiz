@@ -16,5 +16,21 @@
   <a href="login.html" class="inline-block px-6 py-3 bg-blue-500 text-white rounded-full text-lg hover:bg-blue-600 transition">
     🔑 Log In Again
   </a>
+
+<script>
+// Firebase compat auth (or adapt to your setup)
+firebase.auth().onAuthStateChanged(user => {
+  document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
+  document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
+});
+document.getElementById('sign-in').addEventListener('click', () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).catch(console.error);
+});
+document.getElementById('sign-out').addEventListener('click', () => {
+  firebase.auth().signOut();
+});
+</script>
+
 </body>
 </html>

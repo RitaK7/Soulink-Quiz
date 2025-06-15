@@ -18,14 +18,53 @@
   <a href="soul-coach.html">Soul Coach</a> |
   <a href="soulink-match.html">Match</a> |
   <a href="friends.html">Friends</a>
-</nav>
+
+    <div class="auth-buttons">
+      <button id="sign-in" class="cta-button-outline">Sign In</button>
+      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
+    </div>
+
+  </nav>
 
   <main>
     <h2>Edit Your Profile</h2>
     <form>
       <input type="text" placeholder="Your Name" />
       <button type="submit">Save</button>
+    
+      <label>
+        Upload Your Photo:
+        <input type="file" id="profile-photo" accept="image/*" />
+      </label>
+      <img id="preview-photo" src="" alt="Profile Preview" style="max-width:120px;border-radius:50%;display:block;margin-top:10px;" />
+<script>
+document.getElementById('profile-photo').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) {
+    const url = URL.createObjectURL(file);
+    document.getElementById('preview-photo').src = url;
+    // TODO: upload to Firebase Storage
+  }
+});
+</script>
+
     </form>
   </main>
+
+<script>
+// Firebase compat auth (or adapt to your setup)
+firebase.auth().onAuthStateChanged(user => {
+  document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
+  document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
+});
+document.getElementById('sign-in').addEventListener('click', () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).catch(console.error);
+});
+document.getElementById('sign-out').addEventListener('click', () => {
+  firebase.auth().signOut();
+});
+</script>
+
 </body>
 </html>
