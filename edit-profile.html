@@ -1,92 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Your Profile</title>
+  <title>Edit Profile</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gradient-to-br from-yellow-50 to-pink-100 text-gray-800 font-sans">
-  <main class="p-6 max-w-xl mx-auto space-y-6">
-    <h1 class="text-2xl font-bold text-center">📝 Edit Your Soul Profile</h1>
-    <form id="editForm" class="space-y-4">
-      <input type="text" id="name" placeholder="Your Name" class="w-full border rounded p-2" required />
-      <input type="text" id="birthdate" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" class="w-full border rounded p-2" required />
-
-      <select id="loveLanguage" class="w-full border rounded p-2" required>
-        <option value="">Select Love Language</option>
-        <option value="Words of Affirmation">Words of Affirmation</option>
-        <option value="Acts of Service">Acts of Service</option>
-        <option value="Receiving Gifts">Receiving Gifts</option>
-        <option value="Quality Time">Quality Time</option>
-        <option value="Physical Touch">Physical Touch</option>
-      </select>
-
-      <div class="space-y-2">
-        <p class="font-medium">What are you looking for?</p>
-        <label><input type="radio" name="relationshipType" value="Romantic" required /> Romantic Relationship</label><br />
-        <label><input type="radio" name="relationshipType" value="Friendship" /> Friendship</label><br />
-        <label><input type="radio" name="relationshipType" value="Both" /> Both</label>
-      </div>
-
-      <button type="submit" class="bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition">💾 Save Profile</button>
-      <p id="statusMsg" class="text-green-600 text-sm"></p>
+<body>
+  <main>
+    <h2>Edit Your Profile</h2>
+    <form>
+      <input type="text" placeholder="Your Name" />
+      <button type="submit">Save</button>
     </form>
   </main>
-
-  <script type="module">
-    import { db } from './firebase-config.js';
-    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
-    import { doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
-
-    const auth = getAuth();
-    const nameField = document.getElementById("name");
-    const birthdateField = document.getElementById("birthdate");
-    const loveLangField = document.getElementById("loveLanguage");
-    const statusMsg = document.getElementById("statusMsg");
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        nameField.value = data.name || "";
-        birthdateField.value = data.birthdate || "";
-        loveLangField.value = data.loveLanguage || "";
-        const relType = data.relationshipType;
-        if (relType) {
-          document.querySelector(`input[name='relationshipType'][value='${relType}']`).checked = true;
-        }
-      }
-
-      document.getElementById("editForm").addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const updatedName = nameField.value;
-        const updatedBirthdate = birthdateField.value;
-        const updatedLoveLang = loveLangField.value;
-        const updatedRelType = document.querySelector("input[name='relationshipType']:checked").value;
-
-        await updateDoc(docRef, {
-          name: updatedName,
-          birthdate: updatedBirthdate,
-          loveLanguage: updatedLoveLang,
-          relationshipType: updatedRelType
-        });
-
-        localStorage.setItem("name", updatedName);
-        localStorage.setItem("birthdate", updatedBirthdate);
-        localStorage.setItem("loveLanguage", updatedLoveLang);
-        localStorage.setItem("relationshipType", updatedRelType);
-
-        statusMsg.textContent = "✅ Profile saved successfully!";
-      });
-    });
-  </script>
 </body>
 </html>

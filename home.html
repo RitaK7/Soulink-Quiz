@@ -3,99 +3,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Soulprint</title>
+  <title>Soulink Home</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      background-color: #003c43;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
-    main {
-      background-color: #004c54;
-      padding: 2rem;
-      border-radius: 1rem;
-      margin: 2rem auto;
-      max-width: 800px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.15);
-    }
-    h1 {
-      color: white;
-    }
-    a, .btn {
-      color: #a0e9ff;
-      text-decoration: none;
-    }
-    a:hover, .btn:hover {
-      color: #72e1ff;
-      text-decoration: underline;
-    }
-    .btn {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #9333ea;
-      color: white;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background-color: #7e22ce;
-    }
-    #avatar {
-      border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
-  </style>
 </head>
 <body>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="quiz.html">Take the Quiz</a>
+    <a href="my-soul.html">My Soul</a>
+  </nav>
   <main>
-    <div style="text-align:center;">
-      <img id="avatar" src="" alt="Avatar" />
-    </div>
-    <h1>🌟 🌞 Welcome to Soulink</h1>
-    <p><strong>Name:</strong> <span id="name">...</span></p>
-    <p><strong>Birthdate:</strong> <span id="birthdate">...</span></p>
-    <p><strong>Love Language:</strong> <span id="loveLanguage">...</span></p>
-    <p><strong>Zodiac Sign:</strong> <span id="zodiac">...</span></p>
-    <p><strong>Chinese Zodiac:</strong> <span id="chineseZodiac">...</span></p>
-    <p><strong>Life Path Number:</strong> <span id="lifePath">...</span></p>
-    <p><strong>AI Soul Description:</strong> <span id="description">...</span></p>
-
-    <div style="margin-top: 2rem;">
-      <a href="soulink-match.html" class="btn">👩🏽‍🚀 Take the Soul Compatibility Quiz</a>
-      <a href="my-soul.html" class="btn">🪄 Go to My Soul Profile</a>
-    </div>
+    <h1>Welcome to Soulink</h1>
+    <button onclick="location.href='quiz.html'">Fake the Quiz</button>
   </main>
-
-  <script>
-    const data = {
-      name: localStorage.getItem("name") || "Unknown",
-      birthdate: localStorage.getItem("birthdate") || "-",
-      loveLanguage: localStorage.getItem("loveLanguage") || "-",
-      zodiac: localStorage.getItem("zodiac") || "-",
-      chineseZodiac: localStorage.getItem("chineseZodiac") || "-",
-      lifePath: localStorage.getItem("lifePath") || "-",
-      description: localStorage.getItem("longDescription") || "No description.",
-      avatar: localStorage.getItem("userProfileImage") || ""
-    };
-
-    document.getElementById("name").textContent = data.name;
-    document.getElementById("birthdate").textContent = data.birthdate;
-    document.getElementById("loveLanguage").textContent = data.loveLanguage;
-    document.getElementById("zodiac").textContent = data.zodiac;
-    document.getElementById("chineseZodiac").textContent = data.chineseZodiac;
-    document.getElementById("lifePath").textContent = data.lifePath;
-    document.getElementById("description").textContent = data.description;
-    document.getElementById("avatar").src = data.avatar;
-  </script>
 </body>
 </html>

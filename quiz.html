@@ -1,45 +1,16 @@
 
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Soul Compatibility Quiz</title>
-<link href="style.css" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <title>Quiz</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-soulink text-white font-sans">
-<main class="p-6 max-w-xl mx-auto space-y-4 bg-soulink-light rounded-lg shadow">
-<h1 class="text-3xl font-bold">💖 Soul Compatibility Quiz</h1>
-<form class="space-y-4" id="quizForm">
-<label>Name: <input id="name" required="" type="text"/></label><br/>
-<label>Birthdate: <input id="birthdate" required="" type="date"/></label><br/>
-<label>Love Language:
-        <select id="loveLanguage">
-<option>Words of Affirmation</option>
-<option>Acts of Service</option>
-<option>Receiving Gifts</option>
-<option>Quality Time</option>
-<option>Physical Touch</option>
-</select>
-</label><br/>
-<p>What are you currently looking for?</p>
-<label><input name="relationship" type="radio" value="Romantic"/> Romantic</label>
-<label><input name="relationship" type="radio" value="Friendship"/> Friendship</label>
-<label><input checked="" name="relationship" type="radio" value="Both"/> Both</label><br/>
-<button class="btn" type="submit">Submit</button>
-</form>
-</main>
-<script>
-    document.getElementById("quizForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      localStorage.setItem("name", document.getElementById("name").value);
-      localStorage.setItem("birthdate", document.getElementById("birthdate").value);
-      localStorage.setItem("loveLanguage", document.getElementById("loveLanguage").value);
-      const rel = document.querySelector('input[name="relationship"]:checked').value;
-      localStorage.setItem("relationshipType", rel);
-      window.location.href = "result.html";
-    });
-  </script>
+<body>
+  <main>
+    <h2>Quiz Page</h2>
+    <!-- Placeholder for quiz -->
+    <button onclick="location.href='result.html'">See Results</button>
+  </main>
 </body>
 </html>
