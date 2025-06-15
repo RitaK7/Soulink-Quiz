@@ -37,12 +37,30 @@
         <input type="date" id="birthdate" required />
       </label>
 
+      <!-- Ryšio tipas -->
+      <fieldset>
+        <legend>🔗 What are you looking for?</legend>
+
+        <div class="love-language">
+          <input type="radio" id="relationship" name="connectionType" value="Romantic Relationship" required/>
+          <label for="relationship"><strong>Romantic Relationship</strong></label>
+        </div>
+        <div class="love-language">
+          <input type="radio" id="friendship" name="connectionType" value="Friendship" />
+          <label for="friendship"><strong>Friendship</strong></label>
+        </div>
+        <div class="love-language">
+          <input type="radio" id="both" name="connectionType" value="Both" />
+          <label for="both"><strong>Both</strong> (I’m open to both friendship and romance)</label>
+        </div>
+      </fieldset>
+
       <!-- Meilės kalbų pasirinkimas -->
       <fieldset>
         <legend>💖 Choose Your Primary Love Language</legend>
 
         <div class="love-language">
-          <input type="radio" id="affirmation" name="loveLanguage" value="Words of Affirmation" required/>
+          <input type="radio" id="affirmation" name="loveLanguage" value="Words of Affirmation" />
           <label for="affirmation">
             <strong>Words of Affirmation</strong>: Expressing love through heartfelt compliments, praise, and kind words.
           </label>
@@ -89,12 +107,14 @@
   <script>
     document.getElementById('quiz-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      // Surenkame atsakymus ir saugome LocalStorage
+      // Surenkame atsakymus
       const data = {
         name: document.getElementById('name').value,
         birthdate: document.getElementById('birthdate').value,
+        connectionType: document.querySelector('input[name="connectionType"]:checked').value,
         loveLanguage: document.querySelector('input[name="loveLanguage"]:checked').value
       };
+      // Saugo į LocalStorage
       localStorage.setItem('soulQuiz', JSON.stringify(data));
       // Automatinis perėjimas į result.html
       window.location.href = 'result.html';
