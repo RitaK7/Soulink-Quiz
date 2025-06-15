@@ -1,7 +1,6 @@
 // -- firebase-config.js --
 const firebaseConfig = {
-  const firebaseConfig = {
-  apiKey: "AIzaSyCb0TOXVrP1dQe16T6RNrvAg8Iwu9QPnf4",
+  apiKey: "AIzaSyCb0T0XVrP1dqE16T6RNrvAg8Iwu9Q9Pnf4",
   authDomain: "soulink-342bb.firebaseapp.com",
   projectId: "soulink-342bb",
   storageBucket: "soulink-342bb.appspot.com",
@@ -9,7 +8,5 @@ const firebaseConfig = {
   appId: "1:541312933178:web:239cbbb60e68b183f48403"
 };
 
-// 2) Inicijuojam
-firebase.initializeApp(firebaseConfig);
-};
+// Inicializuojame Firebase vieną kartą
 firebase.initializeApp(firebaseConfig);
