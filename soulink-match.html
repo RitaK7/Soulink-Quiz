@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>🔗 Your Soul Matches</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -39,12 +39,12 @@
     <div class="match-card">
       <img id="match-avatar" src="avatar.png" alt="Avatar" />
       <div class="match-info">
-        <p><strong>Name:</strong> <span id="match-name"></span></p>
-        <p><strong>Birthdate:</strong> <span id="match-birthdate"></span></p>
-        <p><strong>Love Language:</strong> <span id="match-loveLang"></span></p>
-        <p><strong>Zodiac Sign:</strong> <span id="match-astro"></span></p>
-        <p><strong>Chinese Zodiac:</strong> <span id="match-castro"></span></p>
-        <p><strong>Life Path Number:</strong> <span id="match-numerology"></span></p>
+        <p><strong>Name:</strong> <span id="match-name">Loading…</span></p>
+        <p><strong>Birthdate:</strong> <span id="match-birthdate">Loading…</span></p>
+        <p><strong>Love Language:</strong> <span id="match-loveLang">Loading…</span></p>
+        <p><strong>Zodiac Sign:</strong> <span id="match-astro">–</span></p>
+        <p><strong>Chinese Zodiac:</strong> <span id="match-castro">–</span></p>
+        <p><strong>Life Path Number:</strong> <span id="match-numerology">–</span></p>
         <p><strong>AI Soul Description:</strong> <span id="match-desc">No description available.</span></p>
       </div>
     </div>
@@ -54,7 +54,7 @@
       <a href="my-soul.html" class="cta-button">✨ Go to My Soul Profile</a>
     </div>
 
-    <!-- Navigation Bottom -->
+    <!-- Bottom navigation -->
     <nav class="bottom-nav text-center">
       <a href="soul-coach.html" class="cta-button">← Soul Coach</a>
       <a href="friends.html" class="cta-button">Next: Friends →</a>
@@ -65,10 +65,24 @@
     © 2025 Soulink.global | All rights reserved
   </footer>
 
+  <!-- AUTH + LOGIC SCRIPTS -->
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
   <script>
-    // Auth logic (ensure Firebase init above)
+    // 1. Init Firebase (įdėk savo config)
+    const firebaseConfig = {
+      apiKey: "TAVO_API_KEY",
+      authDomain: "TAVO_APP.firebaseapp.com",
+      projectId: "TAVO_APP",
+      storageBucket: "TAVO_APP.appspot.com",
+      messagingSenderId: "…",
+      appId: "…"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // 2. Auth button logic
     firebase.auth().onAuthStateChanged(user => {
-      document.getElementById('sign-in').style.display = user ? 'none' : 'inline-block';
+      document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
       document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
     });
     document.getElementById('sign-in').addEventListener('click', () => {
@@ -79,47 +93,53 @@
       firebase.auth().signOut();
     });
 
-    // Load user quiz data
-    const data = JSON.parse(localStorage.getItem('soulQuiz') || '{}');
-    document.getElementById('match-name').textContent = data.name || 'Friend';
-    document.getElementById('match-birthdate').textContent = data.birthdate || '—';
-    document.getElementById('match-loveLang').textContent = data.loveLanguage || '—';
-
-    // Calculate and display zodiacs & numerology
-    function getWesternZodiac(m, d) {
-      if ((m===1&&d>=20)||(m===2&&d<=18)) return 'Aquarius';
-      if ((m===2&&d>=19)||(m===3&&d<=20)) return 'Pisces';
-      if ((m===3&&d>=21)||(m===4&&d<=19)) return 'Aries';
-      if ((m===4&&d>=20)||(m===5&&d<=20)) return 'Taurus';
-      if ((m===5&&d>=21)||(m===6&&d<=20)) return 'Gemini';
-      if ((m===6&&d>=21)||(m===7&&d<=22)) return 'Cancer';
-      if ((m===7&&d>=23)||(m===8&&d<=22)) return 'Leo';
-      if ((m===8&&d>=23)||(m===9&&d<=22)) return 'Virgo';
-      if ((m===9&&d>=23)||(m===10&&d<=22)) return 'Libra';
-      if ((m===10&&d>=23)||(m===11&&d<=21)) return 'Scorpio';
-      if ((m===11&&d>=22)||(m===12&&d<=21)) return 'Sagittarius';
+    // 3. Utility functions
+    function getWesternZodiac(m,d){
+      if((m===1&&d>=20)||(m===2&&d<=18)) return 'Aquarius';
+      if((m===2&&d>=19)||(m===3&&d<=20)) return 'Pisces';
+      if((m===3&&d>=21)||(m===4&&d<=19)) return 'Aries';
+      if((m===4&&d>=20)||(m===5&&d<=20)) return 'Taurus';
+      if((m===5&&d>=21)||(m===6&&d<=20)) return 'Gemini';
+      if((m===6&&d>=21)||(m===7&&d<=22)) return 'Cancer';
+      if((m===7&&d>=23)||(m===8&&d<=22)) return 'Leo';
+      if((m===8&&d>=23)||(m===9&&d<=22)) return 'Virgo';
+      if((m===9&&d>=23)||(m===10&&d<=22)) return 'Libra';
+      if((m===10&&d>=23)||(m===11&&d<=21)) return 'Scorpio';
+      if((m===11&&d>=22)||(m===12&&d<=21)) return 'Sagittarius';
       return 'Capricorn';
     }
-    function getChineseZodiac(y) {
-      const animals=['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
-      return animals[(y-1900)%12];
+    function getChineseZodiac(y){
+      const a=['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+      return a[(y-1900)%12];
     }
-    function lifePath(str) {
-      let s=str.replace(/-/g,'').split('').reduce((a,b)=>a+Number(b),0);
-      while(s>9&&![11,22].includes(s)) s=String(s).split('').reduce((a,b)=>a+Number(b),0);
+    function lifePath(str){
+      let s = str.replace(/-/g,'').split('').reduce((a,b)=>a+Number(b),0);
+      while(s>9 && ![11,22].includes(s)){
+        s = String(s).split('').reduce((a,b)=>a+Number(b),0);
+      }
       return s;
     }
-    if (data.birthdate) {
-      const [y,m,d]=data.birthdate.split('-').map(Number);
-      document.getElementById('match-astro').textContent = getWesternZodiac(m,d);
-      document.getElementById('match-castro').textContent = getChineseZodiac(y);
-      document.getElementById('match-numerology').textContent = lifePath(data.birthdate);
-    }
 
-    // Fetch AI description (placeholder)
+    // 4. Populate fields after DOM loaded
+    window.addEventListener('DOMContentLoaded', ()=>{
+      const data = JSON.parse(localStorage.getItem('soulQuiz') || 'null');
+      if(!data) return;  // jei nėra duomenų, palik default
+
+      document.getElementById('match-name').textContent      = data.name;
+      document.getElementById('match-birthdate').textContent = data.birthdate;
+      document.getElementById('match-loveLang').textContent   = data.loveLanguage;
+
+      const [y,m,d] = data.birthdate.split('-').map(Number);
+      document.getElementById('match-astro').textContent      = getWesternZodiac(m,d);
+      document.getElementById('match-castro').textContent     = getChineseZodiac(y);
+      document.getElementById('match-numerology').textContent = lifePath(data.birthdate);
+    });
+
+    // 5. AI matches placeholder
     document.getElementById('find-matches').addEventListener('click', ()=>{
-      // TODO: call AI endpoint to get matches and populate description
-      document.getElementById('match-desc').textContent = 'Your top soul matches are being prepared!';
+      // TODO: call your AI endpoint
+      document.getElementById('match-desc').textContent = 
+        'Top matches are on their way! 🥰';
     });
   </script>
 </body>
