@@ -1,17 +1,20 @@
-// firebase-config.js
-// (no real keys here—just reads from env)
-import firebase from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js";
-import "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js";
+// firebase-config.js (saugus variantas – nebekelia API rakto į GitHub)
+
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey:             process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-  authDomain:         process.env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN,
-  projectId:          process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
-  storageBucket:      process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
-  messagingSenderId:  process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
-  appId:              process.env.NEXT_PUBLIC_FIREBASE_APPID,
+  apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTHDOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECTID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGEBUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGINGSENDERID,
+  appId: import.meta.env.VITE_FIREBASE_APPID,
 };
 
-firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth();
-export default firebase;
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+export { db, auth };
