@@ -1,28 +1,43 @@
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { db } from "./firebase-config.js";
+// auth.js
 
-// Stebi ar vartotojas prisijungęs
-export function observeUser(callback) {
-  const auth = getAuth();
-  onAuthStateChanged(auth, callback);
+// 1) Priklausomybė: firebase.initializeApp(...) jau turi būti paleista iš firebase-config.js
+const auth = firebase.auth();
+
+// Funkcija header.html įkrovimui
+function loadHeader() {
+  fetch('header.html')
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('site-header').innerHTML = html;
+      setupAuthButtons();
+    })
+    .catch(err => console.error('Error loading header:', err));
 }
 
-// Atsijungimas
-export function logout() {
-  const auth = getAuth();
-  return signOut(auth);
+// Auth mygtukų logika
+function setupAuthButtons() {
+  const btnSignUp  = document.getElementById('sign-up');
+  const btnLogin   = document.getElementById('login');
+  const btnSignOut = document.getElementById('sign-out');
+
+  // Rodyti / slėpti mygtukus pagal vartotojo būseną
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      btnSignUp.style.display  = 'none';
+      btnLogin.style.display   = 'none';
+      btnSignOut.style.display = 'inline-block';
+    } else {
+      btnSignUp.style.display  = 'inline-block';
+      btnLogin.style.display   = 'inline-block';
+      btnSignOut.style.display = 'none';
+    }
+  });
+
+  // Mygtukų event'ai
+  btnSignUp.addEventListener('click',  () => window.location.href = 'signup.html');
+  btnLogin.addEventListener('click',   () => window.location.href = 'login.html');
+  btnSignOut.addEventListener('click', () => auth.signOut());
 }
 
-// Gauti vartotojo papildomus duomenis iš Firestore
-export async function getUserData(uid) {
-  const userDoc = await getDoc(doc(db, "users", uid));
-  return userDoc.exists() ? userDoc.data() : null;
-}
-
-// Tikrina ar vartotojas yra Premium
-export async function isPremium(user) {
-  if (!user) return false;
-  const userData = await getUserData(user.uid);
-  return userData?.plan === "premium";
-}
+// Palaukiame, kol DOM sukrautas, ir kviečiame header įkrovimą
+document.addEventListener('DOMContentLoaded', loadHeader);
