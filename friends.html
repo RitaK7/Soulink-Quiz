@@ -1,1 +1,201 @@
-<!DOCTYPE html><html><head><title>Friends</title></head><body><div id='site-header'></div><h1>Find Friends</h1><a href='soulink-match.html'>← Matches</a><script>fetch('header.html').then(r=>r.text()).then(html=>{document.getElementById('site-header').innerHTML = html;});</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>👫 Friendship Compatibility</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+  <script>
+    // Įrašyk čia savo Firebase konfigūrą
+    const firebaseConfig = {
+      apiKey: "TAVO_API_KEY",
+      authDomain: "TAVO_APP.firebaseapp.com",
+      projectId: "TAVO_APP",
+      storageBucket: "TAVO_APP.appspot.com",
+      messagingSenderId: "…",
+      appId: "…"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <!-- NAVIGATION -->
+  
+
+  <!-- HERO -->
+  <header class="hero small-hero">
+    <div class="hero-content">
+      <h1>👫 Friendship Compatibility</h1>
+      <p class="subtitle">Based on your soulprint & interests</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="no-data" class="intro" style="color: #e63946;">
+      <p>❌ No data found. Please <a href="quiz.html" style="color: #e63946; text-decoration: underline;">take the quiz first</a>.</p>
+    </div>
+
+    <section id="data-sections" style="display:none;">
+      <section class="intro">
+        <h2>✨ Hello, <span id="friend-name"></span>!</h2>
+        <p><strong>Birthdate:</strong> <span id="friend-birthdate"></span></p>
+        <p><strong>Love Language:</strong> <span id="friend-loveLang"></span></p>
+      </section>
+
+      <section class="intro">
+        <h2>♈ Zodiac Sign</h2>
+        <p><span id="friend-astro"></span></p>
+      </section>
+
+      <section class="intro">
+        <h2>🐲 Chinese Zodiac</h2>
+        <p><span id="friend-castro"></span></p>
+      </section>
+
+      <section class="intro">
+        <h2>🔢 Life Path Number</h2>
+        <p><span id="friend-numerology"></span></p>
+      </section>
+
+      <section class="intro">
+        <h2>🤖 AI Friend Suggestions</h2>
+        <p id="friend-desc">Your friendship matches will appear here.</p>
+      </section>
+
+      <div class="text-center" style="margin:40px 0;">
+        <button id="find-friends" class="cta-button">🔍 Find Friend Matches</button>
+        <a href="soulink-match.html" class="cta-button">🔗 Go to Soul Matches</a>
+      </div>
+    </section>
+
+    <!-- Bottom nav -->
+    
+  </main>
+
+  <footer class="site-footer">
+    © 2025 Soulink.global | All rights reserved
+  </footer>
+
+  <script>
+    // Auth logic
+    firebase.auth().onAuthStateChanged(user => {
+      document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
+      document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
+    });
+    document.getElementById('sign-in').addEventListener('click', () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider).catch(console.error);
+    });
+    document.getElementById('sign-out').addEventListener('click', () => {
+      firebase.auth().signOut();
+    });
+
+    // Utility functions
+    function getWesternZodiac(m,d){
+      if((m===1&&d>=20)||(m===2&&d<=18)) return 'Aquarius';
+      if((m===2&&d>=19)||(m===3&&d<=20)) return 'Pisces';
+      if((m===3&&d>=21)||(m===4&&d<=19)) return 'Aries';
+      if((m===4&&d>=20)||(m===5&&d<=20)) return 'Taurus';
+      if((m===5&&d>=21)||(m===6&&d<=20)) return 'Gemini';
+      if((m===6&&d>=21)||(m===7&&d<=22)) return 'Cancer';
+      if((m===7&&d>=23)||(m===8&&d<=22)) return 'Leo';
+      if((m===8&&d>=23)||(m===9&&d<=22)) return 'Virgo';
+      if((m===9&&d>=23)||(m===10&&d<=22)) return 'Libra';
+      if((m===10&&d>=23)||(m===11&&d<=21)) return 'Scorpio';
+      if((m===11&&d>=22)||(m===12&&d<=21)) return 'Sagittarius';
+      return 'Capricorn';
+    }
+    function getChineseZodiac(y){
+      const a=['Rat','Ox','Tiger','Rabbit','Dragon','Snake','Horse','Goat','Monkey','Rooster','Dog','Pig'];
+      return a[(y-1900)%12];
+    }
+    function lifePath(str){
+      let s = str.replace(/-/g,'').split('').reduce((a,b)=>a+Number(b),0);
+      while(s>9 && ![11,22].includes(s)){
+        s = String(s).split('').reduce((a,b)=>a+Number(b),0);
+      }
+      return s;
+    }
+
+    // Populate data
+    window.addEventListener('DOMContentLoaded', ()=>{
+      const data = JSON.parse(localStorage.getItem('soulQuiz')||'null');
+      if(!data) return;
+      document.getElementById('no-data').style.display = 'none';
+      document.getElementById('data-sections').style.display = 'block';
+
+      document.getElementById('friend-name').textContent      = data.name;
+      document.getElementById('friend-birthdate').textContent = data.birthdate;
+      document.getElementById('friend-loveLang').textContent   = data.loveLanguage;
+
+      const [y,m,d] = data.birthdate.split('-').map(Number);
+      document.getElementById('friend-astro').textContent      = getWesternZodiac(m,d);
+      document.getElementById('friend-castro').textContent     = getChineseZodiac(y);
+      document.getElementById('friend-numerology').textContent = lifePath(data.birthdate);
+    });
+
+    // AI friend matches placeholder
+    document.getElementById('find-friends').addEventListener('click', ()=>{
+      document.getElementById('friend-desc').textContent = 
+        'These friends would vibe with your soul: Alice, Bob, Charlie…';
+    });
+  </script>
+
+<script>
+// Firebase compat auth (or adapt to your setup)
+firebase.auth().onAuthStateChanged(user => {
+  document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
+  document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
+});
+document.getElementById('sign-in').addEventListener('click', () => {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).catch(console.error);
+});
+document.getElementById('sign-out').addEventListener('click', () => {
+  firebase.auth().signOut();
+});
+</script>
+
+
+  <!-- HEADER include + Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_APP.firebaseapp.com",
+      projectId: "YOUR_APP",
+      storageBucket: "YOUR_APP.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    fetch('header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+        const btnSignUp = document.getElementById('sign-up');
+        const btnLogin  = document.getElementById('login');
+        const btnSignOut = document.getElementById('sign-out');
+        firebase.auth().onAuthStateChanged(user => {
+          if (user) {
+            btnSignUp.style.display = 'none';
+            btnLogin .style.display = 'none';
+            btnSignOut.style.display = 'inline-block';
+          } else {
+            btnSignUp.style.display = 'inline-block';
+            btnLogin .style.display = 'inline-block';
+            btnSignOut.style.display = 'none';
+          }
+        });
+        btnSignUp.addEventListener('click', ()=> window.location.href='signup.html');
+        btnLogin .addEventListener('click', ()=> window.location.href='login.html');
+        btnSignOut.addEventListener('click', ()=> firebase.auth().signOut());
+      });
+  </script>
+</body>
+</html>
