@@ -1,3 +1,3 @@
-npx git filter-repo --invert-paths --paths firebase-config.js
+npx git filter-repo --invert-paths --paths .env
 git push origin main --force
 
