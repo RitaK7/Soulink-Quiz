@@ -1,24 +1,28 @@
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { db } from "./firebase-config.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-  const signUpBtn = document.getElementById("sign-up");
-  const loginBtn = document.getElementById("login");
-  const signOutBtn = document.getElementById("sign-out");
+// Stebi ar vartotojas prisijungęs
+export function observeUser(callback) {
+  const auth = getAuth();
+  onAuthStateChanged(auth, callback);
+}
 
-  const auth = firebase.auth();
+// Atsijungimas
+export function logout() {
+  const auth = getAuth();
+  return signOut(auth);
+}
 
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      signUpBtn.style.display = "none";
-      loginBtn.style.display = "none";
-      signOutBtn.style.display = "inline-block";
-    } else {
-      signUpBtn.style.display = "inline-block";
-      loginBtn.style.display = "inline-block";
-      signOutBtn.style.display = "none";
-    }
-  });
+// Gauti vartotojo papildomus duomenis iš Firestore
+export async function getUserData(uid) {
+  const userDoc = await getDoc(doc(db, "users", uid));
+  return userDoc.exists() ? userDoc.data() : null;
+}
 
-  signUpBtn.onclick = () => alert("Redirect to Sign Up page or modal.");
-  loginBtn.onclick = () => alert("Redirect to Login page or modal.");
-  signOutBtn.onclick = () => auth.signOut();
-});
+// Tikrina ar vartotojas yra Premium
+export async function isPremium(user) {
+  if (!user) return false;
+  const userData = await getUserData(user.uid);
+  return userData?.plan === "premium";
+}
