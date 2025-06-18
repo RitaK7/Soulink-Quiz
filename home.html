@@ -1,56 +1,35 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Soulink – Home</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Soulink</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="auth.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav-container">
-      <ul class="nav-list">
-        <li><a href="home.html">Home</a></li>
-        <li><a href="quiz.html">Quiz</a></li>
-        <li><a href="result.html">Results</a></li>
-        <li><a href="my-soul.html">My Soul</a></li>
-      </ul>
-      <div class="auth-buttons">
-        <button onclick="location.href='signup.html'" class="btn auth-btn">Sign Up</button>
-        <button onclick="location.href='login.html'" class="btn auth-btn">Log In</button>
-        <button id="sign-out" class="btn auth-btn" style="display:none;">Sign Out</button>
-      </div>
-    </nav>
-  </header>
+  <div id="site-header"></div>
 
   <section class="page-banner">
-    <h1>Welcome to Soulink 💫</h1>
-    <p>Discover your soul's path through deep compatibility matching.</p>
-    <a href="quiz.html" class="btn-primary">Take the Soul Compatibility Quiz</a>
+    <h1>Welcome to Soulink ✨</h1>
+    <p>Discover your soul’s path through deep compatibility matching.</p>
+    <a class="btn-primary" href="quiz.html">Take the Soul Compatibility Quiz</a>
   </section>
 
   <footer class="site-footer">
-    <p>&copy; 2025 Soulink. All rights reserved.</p>
+    <p>© 2025 Soulink. All rights reserved.</p>
   </footer>
 
-  <!-- Firebase + auth -->
-  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
-  <script src="firebase-config.js"></script>
-  <script src="auth.js"></script>
-
   <script>
-    // Show sign-out if logged in
-    firebase.auth().onAuthStateChanged(user => {
-      document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
-    });
-
-    // Log out
-    document.getElementById('sign-out').addEventListener('click', () => {
-      firebase.auth().signOut().then(() => {
-        window.location.href = 'home.html';
+    fetch('header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
       });
-    });
   </script>
 </body>
 </html>
