@@ -2,107 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to Soulink</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- HERO SECTION -->
-  <header class="hero">
-    <nav class="main-nav">
-      <ul>
-        <li><a href="home.html">Home</a></li>
-        <li><a href="quiz.html">Quiz</a></li>
-        <li><a href="result.html">Results</a></li>
-        <li><a href="my-soul.html">My Soul</a></li>
-        <li><a href="edit-profile.html">Edit Profile</a></li>
-        <li><a href="soul-chart.html">Soul Chart</a></li>
-        <li><a href="soul-coach.html">Soul Coach</a></li>
-        <li><a href="soulink-match.html">Match</a></li>
-        <li><a href="friends.html">Friends</a></li>
-      </ul>
-    
-    <div class="auth-buttons">
-      <button id="sign-in" class="cta-button-outline">Sign In</button>
-      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
-    </div>
-
-  
-    <div class="auth-buttons">
-      <button id="sign-in" class="cta-button-outline">Sign In</button>
-      <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
-    </div>
-
+  <nav class="main-nav">
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="quiz.html">Quiz</a></li>
+      <li><a href="result.html">Results</a></li>
+      <li><a href="my-soul.html">My Soul</a></li>
+      <li><a href="edit-profile.html">Edit Profile</a></li>
+      <li><a href="soul-chart.html">Soul Chart</a></li>
+      <li><a href="soul-coach.html">Soul Coach</a></li>
+      <li><a href="soulink-match.html">Match</a></li>
+      <li><a href="friends.html">Friends</a></li>
+      <li class="auth-links">
+        <a href="signup.html" class="button small">Sign Up</a>
+        <a href="login.html" class="button small">Log In</a>
+        <a href="#" id="logoutBtn" class="button small" style="display:none;">Log Out</a>
+      </li>
+    </ul>
   </nav>
-    <div class="hero-content">
-      <h1>✨ Welcome to Soulink</h1>
-      <p class="subtitle">Where souls find their true match</p>
-      <a href="quiz.html" class="cta-button">Take the Soul Compatibility Quiz</a>
-    </div>
+
+  <header class="hero">
+    <h1>✨ Welcome to Soulink</h1>
+    <p>Where souls find their true match</p>
+    <a href="quiz.html" class="button">Take the Soul Compatibility Quiz</a>
   </header>
 
-  <main class="container">
-    <section class="intro">
-      <h2>💖 What is Soulink?</h2>
-      <p>Soulink is not just another dating app. It’s a global movement to help humans reconnect through values, energy, and authentic compatibility. Powered by AI and aligned with love languages, numerology, and your unique soulprint.</p>
-    </section>
+  <section class="about">
+    <h2>💖 What is Soulink?</h2>
+    <p>Soulink is not just another dating app. It's a global movement to help humans reconnect through values, energy, and authentic compatibility.</p>
+  </section>
 
-    <section class="intro">
-      <h2>🎯 Our Mission</h2>
-      <p>To create a safe, soulful, and powerful space where meaningful relationships – romantic or friendly – blossom with purpose and harmony. Soulink is inclusive to all orientations and age groups.</p>
-    </section>
-
-    <section class="intro">
-      <h2>🚀 Get Started</h2>
-      <p>Ready to discover your perfect match?</p>
-      <a href="quiz.html" class="link-quiz">Take the Soul Compatibility Quiz</a>
-    </section>
-
-    <section class="testimonials">
-      <h2>💬 What people say</h2>
-      <blockquote>“Finally, a platform that actually gets who I am. Soulink helped me meet someone who sees me truly.” – <em>Sophia, 37</em></blockquote>
-      <blockquote>“Even as a skeptic, I felt guided and safe here. Soulink feels magical.” – <em>Alex, 29</em></blockquote>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    © 2025 Soulink.global | All rights reserved
-  </footer>
-
-<script>
-  // Authentication button logic
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      document.getElementById('sign-in').style.display = 'none';
-      document.getElementById('sign-out').style.display = 'inline-block';
-    } else {
-      document.getElementById('sign-in').style.display = 'inline-block';
-      document.getElementById('sign-out').style.display = 'none';
-    }
-  });
-  document.getElementById('sign-in').addEventListener('click', () => {
-    // TODO: implement sign-in flow
-  });
-  document.getElementById('sign-out').addEventListener('click', () => {
-    firebase.auth().signOut();
-  });
-</script>
-
-
-<script>
-// Firebase compat auth (or adapt to your setup)
-firebase.auth().onAuthStateChanged(user => {
-  document.getElementById('sign-in').style.display  = user ? 'none' : 'inline-block';
-  document.getElementById('sign-out').style.display = user ? 'inline-block' : 'none';
-});
-document.getElementById('sign-in').addEventListener('click', () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider).catch(console.error);
-});
-document.getElementById('sign-out').addEventListener('click', () => {
-  firebase.auth().signOut();
-});
-</script>
-
+  <script>
+    // auth.js login status imitation
+    document.addEventListener("DOMContentLoaded", () => {
+      const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (isLoggedIn) {
+        logoutBtn.style.display = "inline-block";
+      }
+      logoutBtn.addEventListener("click", () => {
+        localStorage.setItem("userLoggedIn", "false");
+        location.reload();
+      });
+    });
+  </script>
 </body>
 </html>
