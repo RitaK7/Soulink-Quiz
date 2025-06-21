@@ -6,7 +6,12 @@
   <title>Soulink</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Responsive nav */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #003c43;
+      color: white;
+    }
     .main-nav {
       display: flex;
       justify-content: space-between;
@@ -50,6 +55,20 @@
       transition: 0.3s;
     }
     @media (max-width: 768px) {
+      .main-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .main-nav .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 1rem;
+      }
+      .menu-toggle {
+        display: flex;
+        align-self: flex-end;
+      }
       .main-nav ul,
       .auth-buttons {
         display: none;
@@ -65,20 +84,21 @@
         margin-left: 0;
         margin-top: 0.75rem;
       }
-      .auth-buttons .cta-button-outline {
-        margin: 0.75rem 0;
+      .auth-buttons {
+        align-items: center;
+        padding-bottom: 1rem;
       }
-      .menu-toggle {
-        display: flex;
+      .auth-buttons .cta-button-outline {
+        margin: 0.5rem 0;
+        width: 80%;
       }
     }
   </style>
 </head>
 <body>
-  <!-- HERO SECTION -->
   <header class="hero">
     <nav class="main-nav">
-      <a href="home.html" class="logo" style="color:#fff; font-size:1.25rem; font-weight:bold;">Soulink</a>
+      <div class="logo">Soulink</div>
       <div class="menu-toggle" id="menuToggle">
         <span></span>
         <span></span>
@@ -101,6 +121,7 @@
         <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
       </div>
     </nav>
+
     <div class="hero-content">
       <h1>✨ Welcome to Soulink</h1>
       <p class="subtitle">Where souls find true connections</p>
