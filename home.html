@@ -13,29 +13,43 @@
       color: white;
       overflow-x: hidden;
     }
-    .main-nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
+
+    header {
+      background-color: #014c4f;
     }
-    .main-nav ul li a {
-      text-decoration: none;
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-links li a {
       color: white;
+      text-decoration: none;
       padding: 0.5rem 1rem;
       border-radius: 20px;
       transition: background-color 0.3s;
     }
-    .main-nav ul li a:hover {
+
+    .nav-links li a:hover {
       background-color: #02686c;
     }
+
     .auth-buttons {
-      margin-left: auto;
       display: flex;
       gap: 1rem;
     }
+
     .cta-button-outline {
       background: transparent;
       border: 2px solid #aefeff;
@@ -44,15 +58,55 @@
       padding: 0.5rem 1rem;
       cursor: pointer;
     }
+
     .cta-button-outline:hover {
       background-color: #014c4f;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: #aefeff;
+      margin: 4px 0;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links,
+      .auth-buttons {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #014c4f;
+        padding: 1rem 0;
+      }
+
+      .nav-links.show,
+      .auth-buttons.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <nav class="main-nav" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem;">
-      <ul>
+  <header>
+    <nav class="main-nav">
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
         <li><a href="home.html">Home</a></li>
         <li><a href="quiz.html">Quiz</a></li>
         <li><a href="result.html">Results</a></li>
@@ -63,18 +117,18 @@
         <li><a href="soulink-match.html">Match</a></li>
         <li><a href="friends.html">Friends</a></li>
       </ul>
-      <div class="auth-buttons">
+      <div class="auth-buttons" id="authButtons">
         <a href="login.html" class="cta-button-outline">Log In</a>
         <a href="signup.html" class="cta-button-outline">Sign Up</a>
       </div>
     </nav>
-
-    <div class="hero-content" style="text-align:center; padding: 3rem 2rem;">
-      <h1>✨ Welcome to Soulink</h1>
-      <p class="subtitle">Where souls find their true match</p>
-      <a href="quiz.html" class="cta-button">Take the Soul Compatibility Quiz</a>
-    </div>
   </header>
+
+  <div class="hero-content" style="text-align:center; padding: 3rem 2rem;">
+    <h1>✨ Welcome to Soulink</h1>
+    <p class="subtitle">Where souls find their true match</p>
+    <a href="quiz.html" class="cta-button">Take the Soul Compatibility Quiz</a>
+  </div>
 
   <main class="container" style="padding: 2rem;">
     <section class="intro">
@@ -103,5 +157,12 @@
   <footer class="site-footer" style="text-align:center; padding: 1rem; background-color: #012c2f;">
     © 2025 Soulink.global | All rights reserved
   </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('show');
+      document.getElementById('authButtons').classList.toggle('show');
+    }
+  </script>
 </body>
 </html>
