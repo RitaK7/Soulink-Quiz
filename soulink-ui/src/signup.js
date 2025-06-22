@@ -1,8 +1,7 @@
-// src/signup.js
 import { auth } from "./firebase-config.js";
-import { 
-  createUserWithEmailAndPassword, 
-  updateProfile 
+import {
+  createUserWithEmailAndPassword,
+  updateProfile
 } from "firebase/auth";
 
 function showMessage(msg, isError = true) {
@@ -11,10 +10,10 @@ function showMessage(msg, isError = true) {
   el.style.color = isError ? "#ffcccb" : "#9fffb4";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("signupForm");
-  form.addEventListener("submit", async e => {
+document.getElementById("signupForm")
+  .addEventListener("submit", async e => {
     e.preventDefault();
+    const form = e.target;
     const name     = form.displayName.value.trim();
     const email    = form.email.value.trim();
     const password = form.password.value;
@@ -28,16 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(user, { displayName: name });
-      // **Išsaugome localStorage**:
+
       localStorage.setItem("soulinkUser", JSON.stringify({
         uid: user.uid,
         email: user.email,
         displayName: user.displayName
       }));
-      // Redirect
       window.location.href = "/dashboard.html";
     } catch (err) {
       showMessage(err.message);
     }
   });
-});
