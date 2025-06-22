@@ -1,53 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up – Soulink</title>
-  <!-- Stilius importuojamas per JS modulį arba iš src aplanko -->
-  <link rel="stylesheet" href="/src/style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav class="main-nav">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/quiz.html">Quiz</a></li>
-      <li><a href="/result.html">Results</a></li>
-      <li><a href="/my-soul.html">My Soul</a></li>
-      <li><a href="/edit-profile.html">Edit Profile</a></li>
-      <li><a href="/soul-chart.html">Soul Chart</a></li>
-      <li><a href="/soul-coach.html">Soul Coach</a></li>
-      <li><a href="/soulink-match.html">Match</a></li>
-      <li><a href="/friends.html">Friends</a></li>
-    </ul>
-  </nav>
-
-  <main class="container">
+  <div class="signup-container">
     <h1>Sign Up</h1>
     <form id="signupForm">
-      <input name="displayName"   id="displayName"   type="text"     placeholder="Full Name"       required />
-      <input name="email"         id="email"         type="email"    placeholder="Email Address"   required />
-      <input name="password"      id="password"      type="password" placeholder="Password"        required />
-      <input name="confirmPassword" id="confirmPassword" type="password" placeholder="Confirm Password" required />
+      <input type="text" id="fullName" placeholder="Full Name" required />
 
-      <div class="checkbox-group">
-        <input name="terms" id="terms" type="checkbox" required />
-        <label for="terms">
-          I agree to the <a href="/terms.html" target="_blank">Terms &amp; Conditions</a>
-        </label>
-      </div>
+      <input type="email" id="email" placeholder="Email Address" required />
+
+      <input type="password" id="password" placeholder="Password" required />
+
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+
+      <label>
+        <input type="checkbox" id="terms" />
+        I agree to the <a href="#">Terms & Conditions</a>
+      </label>
 
       <button type="submit">Create Account</button>
-      <div id="message"></div>
     </form>
 
-    <p>
-      Already have an account?
-      <a href="/login.html">Log In</a>
-    </p>
-  </main>
+    <div id="message" class="message"></div>
+  </div>
 
-  <!-- Vienintelis modulinis importas: visa login/signup logika src/signup.js -->
-  <script type="module" src="/src/signup.js"></script>
+  <!-- įtraukiame modulinį JS -->
+  <script type="module" src="signup.js"></script>
 </body>
 </html>
