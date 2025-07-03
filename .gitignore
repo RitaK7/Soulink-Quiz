@@ -1,4 +1,14 @@
-npx git filter-repo --invert-paths --paths .env
-git push origin main --force
+# Ignore environment variables
+.env
+
+# Ignore node modules
+node_modules/
+
+# Ignore build output
+dist/
+
+# Ignore system files (optional)
+.DS_Store
+
 
 
