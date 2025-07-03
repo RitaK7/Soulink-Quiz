@@ -1,59 +1,65 @@
-// 1) Importuojame Firebase modulius per CDN
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
+// src/signup.js
+import { initializeApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   updateProfile
-} from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js';
+} from "firebase/auth";
+import { firebaseConfig } from "./firebase-config.js";
 
-// 2) Įrašykite savo Firebase konfigą
-const firebaseConfig = {
-  apiKey: "JŪSŲ_API_KEY",
-  authDomain: "JŪSŲ_AUTH_DOMAIN",
-  projectId: "JŪSŲ_PROJECT_ID",
-  storageBucket: "JŪSŲ_STORAGE_BUCKET",
-  messagingSenderId: "JŪSŲ_SENDER_ID",
-  appId: "JŪSŲ_APP_ID"
-};
-
-// 3) Inicializuojame Firebase
+// Inicializuojame Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// 4) Paimame formos elementus
-const form = document.getElementById('signupForm');
-const messageDiv = document.getElementById('message');
+// Gaunam formą
+const form = document.getElementById("signupForm");
+const messageDiv = document.getElementById("message");
 
-form.addEventListener('submit', async (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  // surenkame įvestis
-  const name = document.getElementById('fullName').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-  const agreed = document.getElementById('terms').checked;
 
-  // validacijos
-  if (password !== confirmPassword) {
-    return showMessage('Passwords do not match');
-  }
+  // Paimam įrašytus duomenis
+  const name = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const agreed = document.getElementById("terms").checked;
+
+  // Tikrinimai
   if (!agreed) {
-    return showMessage('You must agree to the Terms & Conditions');
+    return showMessage("❗ You must agree to the Terms & Conditions.");
   }
 
-  // registracija
+  if (password !== confirmPassword) {
+    return showMessage("❗ Passwords do not match.");
+  }
+
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    // užpildome displayName
     await updateProfile(userCredential.user, { displayName: name });
-    showMessage('Account created successfully!', 'success');
+
+    showMessage("✅ Account created successfully!", "success");
+
+    // Optionally išsaugom naudotoją localStorage (pvz.)
+    localStorage.setItem("soulinkUser", JSON.stringify({
+      email: email,
+      name: name,
+      uid: userCredential.user.uid
+    }));
+
+    // Po 2 sek. perkeliam į my-soul.html
+    setTimeout(() => {
+      window.location.href = "/my-soul.html";
+    }, 2000);
+
     form.reset();
   } catch (err) {
-    showMessage(err.message);
+    showMessage("❌ " + err.message);
   }
 });
 
-function showMessage(msg, type = 'error') {
+// Pranešimų rodymo funkcija
+function showMessage(msg, type = "error") {
   messageDiv.textContent = msg;
-  messageDiv.className = type;   // galėsite CSS naudoti .error / .success stilizavimui
+  messageDiv.style.color = type === "success" ? "#00ff88" : "#ff4444";
 }

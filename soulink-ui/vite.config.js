@@ -2,10 +2,5 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  server: {
-    port: 3000
-  },
-  define: {
-    'process.env': process.env
-  }
+  // nieko čia daugiau NEREIKIA jei naudoji VITE_ prefiksą
 });

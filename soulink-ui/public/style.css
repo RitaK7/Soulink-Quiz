@@ -1,0 +1,191 @@
+/* public/style.css */
+
+/* Global */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #003c43;
+  color: #fff;
+}
+a {
+  color: #99ffe5;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Top Navigation */
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #002c2f;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+}
+.main-nav .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.main-nav ul li {
+  margin: 0 1rem;
+}
+.main-nav a {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: 500;
+}
+.main-nav a i {
+  margin-right: 0.5rem;
+}
+.auth-buttons a.btn-outline {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #00ffd0;
+  border-radius: 8px;
+  background: transparent;
+  color: #00ffd0;
+  transition: 0.3s ease;
+}
+.auth-buttons a.btn-outline:hover {
+  background-color: #00ffd0;
+  color: #003c43;
+}
+
+/* Match Cards */
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+.match-card {
+  background: #014b51;
+  border-radius: 1rem;
+  padding: 1.2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.match-card h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+.match-card p {
+  margin: 0.5rem 0;
+}
+.match-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.33);
+}
+.match-card {
+  background-color: #026466;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Gradient Button */
+.btn-gradient {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #00ffd0, #00bfa5);
+  color: #002c2f;
+  font-weight: bold;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #00bfa5, #00ffd0);
+}
+
+/* Footer */
+footer.site-footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #002c2f;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* No matches message */
+.no-matches {
+  text-align: center;
+  font-style: italic;
+  margin-top: 2rem;
+}
+/* Soul Quiz custom layout fix */
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.radio-group label {
+  display: block;
+  font-weight: normal;
+  color: #fff;
+}
+
+.radio-group strong {
+  display: inline-block;
+  font-weight: bold;
+  color: #00ffd0;
+  margin-bottom: 0.2rem;
+}
+
+.radio-group small {
+  display: block;
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-left: 1.6rem;
+}
+/* Universali navigacijos korekcija */
+.main-nav {
+  justify-content: flex-start; /* vietoj space-between */
+  gap: 2rem; /* atstumas tarp meniu punktų */
+}
+
+.main-nav ul {
+  padding-left: 0;
+  margin-left: 2rem;
+}
+
+.main-nav .logo {
+  margin-right: auto; /* logo lieka kairėje, meniu – toliau */
+}
+
+/* Apsauga nuo susispaudimo mažesniuose ekranuose */
+@media (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    margin-left: 0;
+    padding-left: 1rem;
+    gap: 0.8rem;
+  }
+
+  .auth-buttons {
+    margin-top: 1rem;
+  }
+}

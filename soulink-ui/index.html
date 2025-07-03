@@ -3,174 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Soulink</title>
+  <title>Welcome to Soulink</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
+      background-color: #003c43;
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #003c43;
       color: white;
-    }
-    .main-nav {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #004d40;
-      padding: 1rem;
-    }
-    .main-nav ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    .main-nav li + li {
-      margin-left: 1rem;
-    }
-    .main-nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .auth-buttons .cta-button-outline {
-      border-radius: 25px;
-      padding: 0.5rem 1rem;
-      margin-left: 0.5rem;
-      background: transparent;
-      border: 2px solid #fff;
-      color: #fff;
-      cursor: pointer;
-    }
-    .menu-toggle {
-      display: none;
       flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .welcome-card {
+      background-color: #032f35;
+      padding: 3rem;
+      border-radius: 2rem;
+      box-shadow: 0 0 40px #00ffcc33;
+      text-align: center;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #00ffd0;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+    }
+
+    .start-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: #00ffd0;
+      color: #003c43;
+      border: none;
+      border-radius: 2rem;
       cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 10px #00ffd0aa;
+      transition: transform 0.2s;
     }
-    .menu-toggle span {
-      width: 25px;
-      height: 3px;
-      background: #fff;
-      margin: 4px 0;
-      transition: 0.3s;
+
+    .start-btn:hover {
+      transform: scale(1.05);
     }
-    @media (max-width: 768px) {
-      .main-nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .main-nav .logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: white;
-        margin-bottom: 1rem;
-      }
-      .menu-toggle {
-        display: flex;
-        align-self: flex-end;
-      }
-      .main-nav ul,
-      .auth-buttons {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background: #004d40;
-      }
-      .main-nav ul.active,
-      .auth-buttons.active {
-        display: flex;
-      }
-      .main-nav li + li {
-        margin-left: 0;
-        margin-top: 0.75rem;
-      }
-      .auth-buttons {
-        align-items: center;
-        padding-bottom: 1rem;
-      }
-      .auth-buttons .cta-button-outline {
-        margin: 0.5rem 0;
-        width: 80%;
-      }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background-color: transparent;
+      color: #ddd;
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <nav class="main-nav">
-      <div class="logo">Soulink</div>
-      <div class="menu-toggle" id="menuToggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul id="navLinks">
-        <li><a href="home.html">Home</a></li>
-        <li><a href="quiz.html">Quiz</a></li>
-        <li><a href="result.html">Results</a></li>
-        <li><a href="my-soul.html">My Soul</a></li>
-        <li><a href="edit-profile.html">Edit Profile</a></li>
-        <li><a href="soul-chart.html">Soul Chart</a></li>
-        <li><a href="soul-coach.html">Soul Coach</a></li>
-        <li><a href="soulink-match.html">Match</a></li>
-        <li><a href="friends.html">Friends</a></li>
-      </ul>
-      <div class="auth-buttons" id="authButtons">
-        <button id="login-btn" class="cta-button-outline">Log In</button>
-        <button id="signup-btn" class="cta-button-outline">Sign Up</button>
-        <button id="sign-out" class="cta-button-outline" style="display:none;">Sign Out</button>
-      </div>
-    </nav>
-
-    <div class="hero-content">
-      <h1>✨ Welcome to Soulink</h1>
-      <p class="subtitle">Where souls find true connections</p>
-      <a href="quiz.html" class="cta-button">Start Quiz</a>
+  <div class="container">
+    <div class="welcome-card">
+      <h1>Welcome to Soulink 🌍💫</h1>
+      <p>You've just stepped into a new world of meaningful connections.<br><br>
+      Soulink is more than a platform – it's a bridge between souls.<br><br>
+      Whether you're here for love, friendship, or soul growth, your journey starts with one click.</p>
+      <a class="start-btn" href="quiz.html">Enter My Soul Journey ✨</a>
     </div>
-  </header>
-
-  <main class="container">
-    <section class="intro">
-      <h2>💖 What is Soulink?</h2>
-      <p>Soulink is not just another dating platform. It's a movement that helps people connect through values, energy, and authentic compatibility. Powered by AI, love languages, and your unique soul sign.</p>
-    </section>
-    <section class="intro">
-      <h2>🎯 Our Mission</h2>
-      <p>To create a safe, meaningful, and powerful space where genuine friendships and relationships thrive. Soulink is open to all orientations and age groups.</p>
-    </section>
-    <section class="intro">
-      <h2>🚀 Get Started Now</h2>
-      <p>Ready to find your soul match?</p>
-      <a href="quiz.html" class="link-quiz">Start the Quiz</a>
-    </section>
-    <section class="testimonials">
-      <h2>💬 User Testimonials</h2>
-      <blockquote>“Finally, a platform that truly understands me. Soulink helped me meet who I was meant to.” – <em>Sophia, 37</em></blockquote>
-      <blockquote>“Even as a skeptic, I felt safe. The magic of Soulink.” – <em>Alex, 29</em></blockquote>
-    </section>
-  </main>
-
-  <footer class="site-footer">
+  </div>
+  <footer>
     © 2025 Soulink.global | All rights reserved
   </footer>
-
-  <script>
-    // Mobile menu toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
-    const authButtons = document.getElementById('authButtons');
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      authButtons.classList.toggle('active');
-    });
-
-    // Auth button navigation
-    document.getElementById('login-btn').addEventListener('click', () => {
-      window.location.href = 'login.html';
-    });
-    document.getElementById('signup-btn').addEventListener('click', () => {
-      window.location.href = 'signup.html';
-    });
-  </script>
 </body>
 </html>
