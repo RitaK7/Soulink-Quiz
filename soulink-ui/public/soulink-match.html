@@ -127,6 +127,12 @@
   </style>
 </head>
 <body>
+  <script>
+  if (!sessionStorage.getItem('soulinkBetaAccess')) {
+    window.location.href = 'beta-login.html';
+  }
+</script>
+
 <header class="main-nav">
   <div class="logo">Soulink</div>
   <ul>
