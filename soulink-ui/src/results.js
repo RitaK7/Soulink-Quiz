@@ -150,3 +150,27 @@ window.addEventListener('load', () => {
       });
   });
 });
+
+
+import emailjs from 'https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  emailjs.init('hA4C5JwTrK8j2dZyK');
+
+  const form = document.getElementById('feedback-form');
+  const status = document.getElementById('feedback-status');
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      emailjs.sendForm('soulink_feedback', 'feedback_request', this)
+        .then(() => {
+          status.textContent = '✅ Thanks for your feedback!';
+          form.reset();
+        }, (err) => {
+          status.textContent = '❌ Failed to send. Please try again later.';
+          console.error('EmailJS error:', err);
+        });
+    });
+  }
+});
