@@ -48,6 +48,11 @@
   </style>
 </head>
 <body>
+<script>
+  if (!sessionStorage.getItem('soulinkBetaAccess')) {
+    window.location.href = 'beta-login.html';
+  }
+</script>
   <div class="signup-container">
     <h2>Create Your Soul Account</h2>
     <form id="signupForm">

@@ -127,6 +127,11 @@
   </style>
 </head>
 <body>
+<script>
+  if (!sessionStorage.getItem('soulinkBetaAccess')) {
+    window.location.href = 'beta-login.html';
+  }
+</script>
   <script>
   if (!sessionStorage.getItem('soulinkBetaAccess')) {
     window.location.href = 'beta-login.html';
