@@ -4,24 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Soulink – Your Soul Results</title>
+
+  <!-- favicon -->
   <link rel="icon" href="favicon.ico" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="/style.css" />
+  <!-- html2pdf for PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+
   <style>
-    body { background: #003c43; color:#fff; margin:0; padding:0; font-family:'Segoe UI',sans-serif }
-    .main-nav { display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; background:rgba(0,0,0,0.3) }
-    .main-nav .logo { font-size:1.8rem; font-weight:bold }
-    .main-nav nav ul { list-style:none; display:flex; gap:1.5rem; margin:0; padding:0 }
-    .main-nav a { color:#00ffd0; text-decoration:none; font-weight:500 }
-    .container { max-width:700px; margin:2rem auto; padding:0 1rem; text-align:center }
-    .card { background:rgba(1,75,81,0.85); border-radius:1rem; padding:1.5rem; margin:1.5rem 0; box-shadow:0 8px 24px rgba(0,255,204,0.2) }
-    .card h2, .card h3 { margin-top:0 }
-    #downloadBtn { margin-top:1.5rem; padding:0.8rem 1.6rem; border:none; border-radius:30px; background:linear-gradient(135deg,#00ffd0,#00bfa5); color:#003c43; font-size:1rem; font-weight:bold; cursor:pointer }
-    #downloadBtn:hover { opacity:0.9 }
-    footer { text-align:center; padding:1rem 0; font-size:0.85rem; color:#bbb }
+    body { background: #003c43; color: #fff; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+    .main-nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(0,0,0,0.3); }
+    .main-nav .logo { font-size: 1.8rem; font-weight: bold; }
+    .main-nav nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
+    .main-nav a { color: #00ffd0; text-decoration: none; font-weight: 500; }
+    .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; text-align: center; }
+    .card { background: rgba(1,75,81,0.85); border-radius: 1rem; padding: 1.5rem; margin: 1.5rem 0; box-shadow: 0 8px 24px rgba(0,255,204,0.2); }
+    .card h2, .card h3 { margin-top: 0; }
+    #downloadBtn { margin-top: 1.5rem; padding: 0.8rem 1.6rem; border: none; border-radius: 30px; background: linear-gradient(135deg, #00ffd0, #00bfa5); color: #003c43; font-size: 1rem; font-weight: bold; cursor: pointer; }
+    #downloadBtn:hover { opacity: 0.9; }
+
+    /* Hide Download button during PDF export */
+    .hide-for-pdf { display: none !important; }
+
+    footer { text-align: center; padding: 1rem 0; font-size: 0.85rem; color: #bbb; }
   </style>
 </head>
 <body>
+
   <header class="main-nav">
     <div class="logo">Soulink</div>
     <nav>
@@ -41,7 +51,7 @@
 
   <main class="container" id="pdf-content">
     <h2>🌟 Your Soul Results</h2>
-    <p style="font-style:italic">Here's what the universe reveals about you</p>
+    <p style="font-style:italic;">Here's what the universe reveals about you</p>
 
     <section class="card">
       <h2>Hello, <span id="res-name">—</span>!</h2>
@@ -77,37 +87,38 @@
     <button id="downloadBtn">⬇️ Download Your Soul PDF</button>
 
     <!-- Feedback Form -->
-    <section id="feedback" class="card" style="background:#002c2f">
-      <h3 style="color:#99ffe5; text-align:center">💬 Your Feedback</h3>
-      <form id="feedback-form" style="color:white; max-width:600px; margin:auto">
-        <label for="email">Your Email:</label><br/>
-        <input type="email" id="email" name="email" required style="width:100%; padding:8px"/><br/><br/>
+    <section id="feedback" class="card" style="background:#002c2f;">
+      <h3 style="color:#99ffe5; text-align:center;">💬 Your Feedback</h3>
+      <form id="feedback-form" style="color:white; max-width:600px; margin:auto; text-align:left;">
+        <label for="email">Your Email:</label><br />
+        <input type="email" id="email" name="email" required style="width:100%; padding:8px;" /><br /><br />
 
-        <label for="page">Page You Are On:</label><br/>
-        <input type="text" id="page" name="page" value="result.html" readonly style="width:100%; padding:8px"/><br/><br/>
+        <label for="page">Page You Are On:</label><br />
+        <input type="text" id="page" name="page" value="result.html" readonly style="width:100%; padding:8px;" /><br /><br />
 
-        <label for="rating">How would you rate it? (1–5)</label><br/>
-        <select id="rating" name="rating" required style="width:100%; padding:8px">
+        <label for="rating">How would you rate it? (1–5)</label><br />
+        <select id="rating" name="rating" required style="width:100%; padding:8px;">
           <option value="5">🌟🌟🌟🌟🌟 Excellent</option>
           <option value="4">🌟🌟🌟🌟 Good</option>
           <option value="3">🌟🌟🌟 Average</option>
           <option value="2">🌟🌟 Needs Work</option>
           <option value="1">🌟 Poor</option>
-        </select><br/><br/>
+        </select><br /><br />
 
-        <label for="message">Your Feedback:</label><br/>
-        <textarea id="message" name="message" rows="5" required style="width:100%; padding:8px"></textarea><br/><br/>
+        <label for="message">Your Feedback:</label><br />
+        <textarea id="message" name="message" rows="5" required style="width:100%; padding:8px;"></textarea><br /><br />
 
-        <button type="submit" style="background:#00a388;border:none;padding:10px 20px;color:white;font-weight:bold;cursor:pointer">
+        <button type="submit" style="background:#00a388; border:none; padding:10px 20px; color:white; font-weight:bold; cursor:pointer;">
           Send Feedback
         </button>
-        <p id="feedback-status" style="margin-top:10px;color:#fff"></p>
+        <p id="feedback-status" style="margin-top:10px; color:#fff;"></p>
       </form>
     </section>
   </main>
 
   <footer>© 2025 Soulink.global | All rights reserved</footer>
 
+  <!-- Module Script -->
   <script type="module" src="/src/results.js" defer></script>
 </body>
 </html>
