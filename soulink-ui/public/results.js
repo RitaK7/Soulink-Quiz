@@ -107,12 +107,17 @@ function initFeedback() {
   form.addEventListener('submit', e => {
     e.preventDefault();
     status.textContent = 'Sending…';
-   emailjs.send('service_ifo7026','template_1rn1v8j',{        
-  email:   form.email.value,
-  page:    form.page.value,
-  rating:  form.rating.value,
-  message: form.message.value
-})
+    emailjs.send('service_ifo7026', 'template_1rn1v8j', {
+    email: form.email.value,
+    page: form.page.value,
+    rating: form.rating.value,
+    message: form.message.value
+  }, 'SY7ptjuNl88paiVbz')'service_ifo7026','feedback_request',{        
+      email:   form.email.value,
+      page:    form.page.value,
+      rating:  form.rating.value,
+      message: form.message.value
+    })
     .then(() => { status.textContent = '✅ Thank you for your feedback!'; form.reset(); })
     .catch(err => { console.error(err); status.textContent = '❌ Failed to send feedback.'; });
   });
