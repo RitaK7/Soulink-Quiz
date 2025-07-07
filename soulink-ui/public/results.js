@@ -99,16 +99,17 @@ function loadAndRender() {
 }
 
 function initFeedback() {
-  emailjs.init('SV7ptjuNI88paiVbz');
+  emailjs.init("SV7ptjuNI88paiVbz");
   const form = document.getElementById('feedback-form');
   const status = document.getElementById('feedback-status');
 
   form.addEventListener('submit', e => {
     e.preventDefault();
     status.textContent = 'Sending…';
-    emailjs.send(
+    emailjs.send("service_ifo7026", "template_1rn1v8j", templateParams)
+
       'service_ifo7026',
-       'template_cjntt9l',
+       'template_1rn1v8j',
       {
         email: form.email.value,
         page: form.page.value,
