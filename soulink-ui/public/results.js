@@ -108,7 +108,7 @@ function initFeedback() {
     status.textContent = 'Sending…';
     emailjs.send(
       'service_ifo7026',
-      'template_1rn1v8j',
+       'template_cjntt9l',
       {
         email: form.email.value,
         page: form.page.value,
