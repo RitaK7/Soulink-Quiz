@@ -112,7 +112,7 @@ function initFeedback() {
     page: form.page.value,
     rating: form.rating.value,
     message: form.message.value
-  }, 'SY7ptjuNl88paiVbz')'service_ifo7026','feedback_request',{        
+  }, 'SY7ptjuNl88paiVbz')        
       email:   form.email.value,
       page:    form.page.value,
       rating:  form.rating.value,
