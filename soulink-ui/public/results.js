@@ -1,132 +1,81 @@
-// ✅ results.js – Final version with AI descriptions + EmailJS Feedback
-
-// 1. Description Maps
-const loveLangMap = {
-  "Words of Affirmation": "You thrive on heartfelt compliments and spoken appreciation.",
-  "Acts of Service": "Actions speak louder than words—you feel loved when help arrives.",
-  "Receiving Gifts": "Tangible tokens show you how much you’re cherished.",
-  "Quality Time": "Undivided attention and shared moments fill your soul.",
-  "Physical Touch": "Touch is your language of connection and security."
-};
-
-const westernMap = {
-  "Aries": "bold and ambitious, driven by passion.",
-  "Taurus": "grounded and reliable, with a love for beauty.",
-  "Gemini": "curious and adaptable, thrives on communication.",
-  "Cancer": "deeply intuitive and emotionally in tune.",
-  "Leo": "radiates confidence, charisma, and creativity.",
-  "Virgo": "meticulous, thoughtful, and practical.",
-  "Libra": "balanced, diplomatic, and values harmony.",
-  "Scorpio": "intense, powerful, and passionate.",
-  "Sagittarius": "free-spirited, adventurous, and wise.",
-  "Capricorn": "ambitious, disciplined, and goal-oriented.",
-  "Aquarius": "innovative, humanitarian, and independent.",
-  "Pisces": "dreamy, sensitive, and deeply empathetic."
-};
-
-const chineseMap = {
-  "Rat": "clever, charming, and sociable.",
-  "Ox": "dependable, patient, and determined.",
-  "Tiger": "brave, confident, and competitive.",
-  "Rabbit": "gentle, kind, and creative.",
-  "Dragon": "energetic, charismatic, and intelligent.",
-  "Snake": "wise, intuitive, and mysterious.",
-  "Horse": "active, energetic, and independent.",
-  "Goat": "calm, gentle, and sympathetic.",
-  "Monkey": "playful, curious, and clever.",
-  "Rooster": "observant, hardworking, and courageous.",
-  "Dog": "loyal, honest, and prudent.",
-  "Pig": "generous, compassionate, and diligent."
-};
-
-const numerologyMap = {
-  1: "a leader with strong independence and determination.",
-  2: "a peacekeeper who values harmony and cooperation.",
-  3: "a creative soul who brings joy and expression.",
-  4: "a builder, dependable and grounded.",
-  5: "a freedom-seeker who thrives on adventure.",
-  6: "a nurturer with a heart for service.",
-  7: "a thinker, deeply introspective and wise.",
-  8: "a powerhouse with ambition and success.",
-  9: "a humanitarian, selfless and compassionate."
-};
-
-function computeLifePath(dateStr) {
-  if (!dateStr) return '--';
-  const nums = dateStr.replace(/[^0-9]/g, '').split('').map(Number);
-  let sum = nums.reduce((a, b) => a + b, 0);
-  while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
-    sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
-  }
-  return sum;
-}
 
 function loadAndRender() {
-  const data = JSON.parse(localStorage.getItem('soulQuiz')) || {};
+  const data = JSON.parse(localStorage.getItem("soulQuiz")) || {};
 
-  const name = data.name || data.username || 'Friend';
-  const birthdate = data.birthdate || '--';
-  const connection = data.connectionType || data.connection || '--';
-  const love = data.loveLanguage || data.loveLang || '--';
-  const wz = data.zodiacSign || data.zodiac || '--';
-  const cz = data.chineseSign || data.chineseZodiac || '--';
-  let lp = data.lifePathNumber || computeLifePath(data.birthdate);
+  function set(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
 
-  document.getElementById('res-name').textContent = name;
-  document.getElementById('res-birthdate').textContent = birthdate;
-  document.getElementById('res-connection').textContent = connection;
-  document.getElementById('res-loveLang').textContent = love;
-  document.getElementById('res-loveDesc').textContent = loveLangMap[love] || '...';
-  document.getElementById('res-astro').textContent = wz;
-  document.getElementById('res-astro-desc').textContent = westernMap[wz] || '...';
-  document.getElementById('res-castro').textContent = cz;
-  document.getElementById('res-castro-desc').textContent = chineseMap[cz] || '...';
-  document.getElementById('res-numerology').textContent = lp;
-  document.getElementById('res-num-desc').textContent = numerologyMap[lp] || '...';
+  set("name", data.name || "Soul Seeker");
+  set("birthdate", data.birthdate || "Unknown");
+  set("connectionType", data.connectionType || "Unknown");
+  set("loveLanguage", data.loveLanguage || "Unknown");
+  set("zodiacSign", data.zodiacSign || "Unknown");
+  set("chineseSign", data.chineseSign || "Unknown");
+  set("lifePathNumber", data.lifePathNumber || "Unknown");
 
-  document.getElementById('ai-analysis').innerHTML = `
-    <h3>🧠 AI Soul Insight</h3>
-    <p>Dear <strong>${name}</strong>, your soul resonates with the energy of a <strong>${wz}</strong> — ${westernMap[wz] || ''}</p>
-    <p>Your love language, <strong>${love}</strong>, shows that ${loveLangMap[love] || ''}</p>
-    <p>As a <strong>${cz}</strong> in Chinese astrology, you’re ${chineseMap[cz] || ''}</p>
-    <p>Your Life Path number <strong>${lp}</strong> indicates you are ${numerologyMap[lp] || ''}</p>
-  `;
+  const loveDescriptions = {
+    "Words of Affirmation": "You thrive on kind words and meaningful praise.",
+    "Acts of Service": "Actions speak louder than words—you feel loved when help arrives.",
+    "Receiving Gifts": "Gifts are a symbol of love and thoughtfulness for you.",
+    "Quality Time": "You value undivided attention and shared moments.",
+    "Physical Touch": "You feel most connected through physical presence and touch."
+  };
+
+  const zodiacDescriptions = {
+    "Aries": "Bold, ambitious, and full of energy.",
+    "Taurus": "Reliable, patient, and devoted.",
+    "Gemini": "Curious, adaptable, and expressive.",
+    "Cancer": "Deeply intuitive and sentimental.",
+    "Leo": "Passionate, generous, and warm-hearted.",
+    "Virgo": "Logical, practical, and detail-oriented.",
+    "Libra": "Charming, diplomatic, and balanced.",
+    "Scorpio": "Intense, mysterious, and powerful.",
+    "Sagittarius": "Free-spirited, adventurous, and wise.",
+    "Capricorn": "Disciplined, responsible, and ambitious.",
+    "Aquarius": "Innovative, independent, and humanitarian.",
+    "Pisces": "Empathetic, artistic, and wise."
+  };
+
+  const chineseDescriptions = {
+    "Rat": "Clever, charming, and sociable.",
+    "Ox": "Strong, reliable, and trustworthy.",
+    "Tiger": "Brave, competitive, and confident.",
+    "Rabbit": "Gentle, quiet, and kind.",
+    "Dragon": "Energetic, fearless, and charismatic.",
+    "Snake": "Wise, elegant, and enigmatic.",
+    "Horse": "Energetic, independent, and impatient.",
+    "Goat": "Calm, gentle, and sympathetic.",
+    "Monkey": "Witty, curious, and playful.",
+    "Rooster": "Hardworking, observant, and confident.",
+    "Dog": "Loyal, honest, and kind.",
+    "Pig": "Generous, diligent, and compassionate."
+  };
+
+  const lifePathDescriptions = {
+    "1": "You are a leader, independent and self-sufficient.",
+    "2": "You are a peacemaker, deeply intuitive and supportive.",
+    "3": "You are a creative, optimistic communicator.",
+    "4": "You are practical, disciplined, and hardworking.",
+    "5": "You are a free spirit, curious and adventurous.",
+    "6": "You are nurturing, responsible and loving.",
+    "7": "A thinker, deeply introspective and wise.",
+    "8": "You are ambitious, goal-oriented and efficient.",
+    "9": "You are compassionate, generous and wise."
+  };
+
+  set("loveDescription", loveDescriptions[data.loveLanguage] || "Description here...");
+  set("zodiacDescription", zodiacDescriptions[data.zodiacSign] || "Description here...");
+  set("chineseDescription", chineseDescriptions[data.chineseSign] || "Description here...");
+  set("lifePathDescription", lifePathDescriptions[data.lifePathNumber] || "Description here...");
+
+  const aiText = `Dear ${data.name || "Soul Seeker"}, your soul resonates with the energy of a ${data.zodiacSign || "mystery"}.
+  Your love language, ${data.loveLanguage}, shows that ${loveDescriptions[data.loveLanguage] || "you have a unique way of expressing affection."}
+  As a ${data.chineseSign} in Chinese astrology, ${chineseDescriptions[data.chineseSign] || "you possess unique characteristics."}
+  Your Life Path number ${data.lifePathNumber} indicates ${lifePathDescriptions[data.lifePathNumber] || "you have a unique life mission."}`;
+
+  set("aiInsight", aiText);
 }
 
-function initFeedback() {
-  emailjs.init("SV7ptjuNI88paiVbz");
-
-  const form = document.getElementById("feedback-form");
-  const status = document.getElementById("feedback-status");
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    status.textContent = "Sending...";
-
-    emailjs
-      .send(
-        "service_ifo7026",
-        "cjntt9l",
-        {
-          email: form.email.value,
-          page: form.page.value,
-          rating: form.rating.value,
-          message: form.message.value,
-        },
-        "SV7ptjuNI88paiVbz"
-      )
-      .then(() => {
-        status.textContent = "✅ Thank you for your feedback!";
-        form.reset();
-      })
-      .catch((error) => {
-        console.error(error);
-        status.textContent = "❌ Failed to send feedback.";
-      });
-  });
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  loadAndRender();
-  initFeedback();
-});
+window.onload = loadAndRender;

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,145 +15,84 @@
       padding: 0;
     }
     header {
-      background: #002c2f;
+      background-color: #002c2f;
       padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav a {
-      color: #99ffe5;
-      margin-left: 1rem;
-      text-decoration: none;
-    }
-    h1, h2, h3 {
+      font-size: 1.5rem;
       color: #99ffe5;
     }
-    section {
-      max-width: 700px;
-      margin: 2rem auto;
+    .container {
+      max-width: 800px;
+      margin: auto;
       padding: 2rem;
-      background: #004d4d;
-      border-radius: 12px;
     }
     .card {
-      background: #005f5f;
+      background: linear-gradient(to right, #004d4d, #003c3c);
       padding: 1.5rem;
-      border-radius: 10px;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
     }
-    .card h3 {
-      margin-top: 0;
+    h2 {
+      color: #99ffe5;
+    }
+    .label {
+      color: #99ffe5;
+      font-weight: bold;
+    }
+    .feedback-form {
+      background-color: #002c2f;
+      padding: 1rem;
+      border-radius: 10px;
     }
     footer {
       text-align: center;
       padding: 20px;
-      background: #002c2f;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 6px;
-    }
-    button {
-      background-color: #009688;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #00bfa5;
+      font-size: 0.9rem;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div><strong>Soulink</strong></div>
-    <nav>
-      <a href="home.html">Home</a>
-      <a href="quiz.html">Quiz</a>
-      <a href="my-soul.html">My Soul</a>
-      <a href="soul-chart.html">Soul Chart</a>
-      <a href="soul-coach.html">Soul Coach</a>
-      <a href="soulink-match.html">Match</a>
-      <a href="friends.html">Friends</a>
-      <a href="result.html">Results</a>
-    </nav>
-  </header>
-
-  <section>
-    <h2>🌟 Soulink – Your Soulprint Results</h2>
+  <header>🌟 Soulink – Your Soulprint Results</header>
+  <div class="container">
     <div class="card">
-      <h3>Hello, <span id="name">Rita</span>!</h3>
-      <p><strong>Birthdate:</strong> <span id="birthdate">1972-11-22</span></p>
-      <p><strong>Connection Type:</strong> <span id="connectionType">Friendship</span></p>
+      <h2>Hello, <span id="name">...</span>!</h2>
+      <p><span class="label">Birthdate:</span> <span id="birthdate">...</span></p>
+      <p><span class="label">Connection Type:</span> <span id="connectionType">...</span></p>
     </div>
 
     <div class="card">
       <h3>💖 Love Language</h3>
-      <p><strong><span id="loveLanguage">Acts of Service</span></strong></p>
-      <p id="loveLanguageDesc">Description here...</p>
+      <p id="loveLanguage">...</p>
+      <p id="loveDescription">...</p>
     </div>
 
     <div class="card">
-      <h3>♐ Zodiac Sign</h3>
-      <p><strong><span id="zodiacSign">Sagittarius</span></strong></p>
-      <p id="zodiacSignDesc">Description here...</p>
+      <h3>⚡ Zodiac Sign</h3>
+      <p id="zodiacSign">...</p>
+      <p id="zodiacDescription">...</p>
     </div>
 
     <div class="card">
-      <h3>🐀 Chinese Zodiac</h3>
-      <p><strong><span id="chineseSign">Rat</span></strong></p>
-      <p id="chineseSignDesc">Description here...</p>
+      <h3>🐉 Chinese Zodiac</h3>
+      <p id="chineseSign">...</p>
+      <p id="chineseDescription">...</p>
     </div>
 
     <div class="card">
       <h3>🔢 Life Path Number</h3>
-      <p><strong><span id="lifePath">7</span></strong></p>
-      <p id="numerologyDesc">Description here...</p>
+      <p id="lifePathNumber">...</p>
+      <p id="lifePathDescription">...</p>
     </div>
 
     <div class="card">
       <h3>🧠 AI Soul Insight</h3>
-      <p id="aiInsight">Final AI insight will appear here...</p>
+      <p id="aiInsight">Loading insight...</p>
     </div>
+  </div>
 
-    <div style="text-align: center; margin-top: 2rem;">
-      <button onclick="window.print()">📄 Download as PDF</button>
-    </div>
-  </section>
+  <footer>© 2025 Soulink. All rights reserved.</footer>
 
-  <section>
-    <h3>💬 Your Feedback</h3>
-    <form id="feedback-form">
-      <label>Your Email:</label>
-      <input type="email" name="user_email" required>
-      <label>Page You Are On:</label>
-      <input type="text" name="page" value="result.html" readonly>
-      <label>How would you rate it? (1–5)</label>
-      <select name="rating">
-        <option value="1">★☆☆☆☆ Poor</option>
-        <option value="2">★★☆☆☆ Fair</option>
-        <option value="3">★★★☆☆ Good</option>
-        <option value="4">★★★★☆ Very Good</option>
-        <option value="5" selected>★★★★★ Excellent</option>
-      </select>
-      <label>Your Feedback:</label>
-      <textarea name="message" rows="4" placeholder="Write your thoughts..."></textarea>
-      <button type="submit">Send Feedback</button>
-    </form>
-    <p id="feedback-message" style="margin-top:10px;"></p>
-  </section>
-
-  <footer>
-    <p>© 2025 Soulink. All rights reserved.</p>
-  </footer>
-
-  <script src="results.js" defer></script>
+  <script src="results.js"></script>
 </body>
 </html>
