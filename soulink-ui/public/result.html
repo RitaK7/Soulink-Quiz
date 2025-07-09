@@ -2,129 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soulink – Your Soul Results</title>
-  <script>
-  if (!sessionStorage.getItem('soulinkBetaAccess') && location.pathname !== '/beta-login.html') {
-    window.location.href = 'beta-login.html';
-  }
-</script>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <!-- Global CSS -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="/style.css" />
-  <!-- html2pdf for PDF export -->
+  <script>
+    if (!sessionStorage.getItem('soulinkBetaAccess') && location.pathname !== '/beta-login.html') {
+      window.location.href = 'beta-login.html';
+    }
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
-
-  <style>
-    body { background: #003c43; color: #fff; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-    .main-nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(0,0,0,0.3); }
-    .main-nav .logo { font-size: 1.8rem; font-weight: bold; }
-    .main-nav nav ul { list-style: none; display: flex; gap: 1.5rem; margin: 0; padding: 0; }
-    .main-nav a { color: #00ffd0; text-decoration: none; font-weight: 500; }
-    .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; text-align: center; }
-    .card { background: rgba(1,75,81,0.85); border-radius: 1rem; padding: 1.5rem; margin: 1.5rem 0; box-shadow: 0 8px 24px rgba(0,255,204,0.2); }
-    .card h2, .card h3 { margin-top: 0; }
-    #downloadBtn { margin-top: 1.5rem; padding: 0.8rem 1.6rem; border: none; border-radius: 30px; background: linear-gradient(135deg, #00ffd0, #00bfa5); color: #003c43; font-size: 1rem; font-weight: bold; cursor: pointer; }
-    #downloadBtn:hover { opacity: 0.9; }
-
-    /* Hide Download button during PDF export */
-    .hide-for-pdf { display: none !important; }
-
-    footer { text-align: center; padding: 1rem 0; font-size: 0.85rem; color: #bbb; }
-  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
+  <script src="results.js" defer></script>
 </head>
 <body>
-
-  <header class="main-nav">
-    <div class="logo">Soulink</div>
-    <nav>
-      <ul>
-        <li><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
-        <li><a href="quiz.html"><i class="bi bi-question-circle"></i> Quiz</a></li>
-        <li><a href="my-soul.html"><i class="bi bi-person"></i> My Soul</a></li>
-        <li><a href="edit-profile.html"><i class="bi bi-pencil-square"></i> Edit Profile</a></li>
-        <li><a href="soul-chart.html"><i class="bi bi-graph-up"></i> Soul Chart</a></li>
-        <li><a href="soul-coach.html"><i class="bi bi-chat-dots"></i> Soul Coach</a></li>
-        <li><a href="soulink-match.html"><i class="bi bi-heart"></i> Match</a></li>
-        <li><a href="friends.html"><i class="bi bi-people"></i> Friends</a></li>
-        <li><a href="result.html"><i class="bi bi-bar-chart-line"></i> Results</a></li>
-      </ul>
-    </nav>
+  <header>
+    <h1>🌟 Soulink – Your Soulprint Results</h1>
   </header>
 
-  <main class="container" id="pdf-content">
-    <h2>🌟 Your Soul Results</h2>
-    <p style="font-style:italic;">Here's what the universe reveals about you</p>
-
+  <main id="pdf-content">
     <section class="card">
-      <h2>Hello, <span id="res-name">—</span>!</h2>
-      <p>You were born on <strong><span id="res-birthdate">—</span></strong> and you're looking for <strong><span id="res-connection">—</span></strong>.</p>
-      <p>Your primary love language is <strong><span id="res-loveLang">—</span></strong>.</p>
+      <h2>Hello, <span id="res-name">...</span>!</h2>
+      <p>Birthdate: <span id="res-birthdate">...</span></p>
+      <p>Connection Type: <span id="res-connection">...</span></p>
     </section>
 
     <section class="card">
       <h3>💖 Love Language</h3>
-      <p id="res-loveDesc">Description not available.</p>
+      <p><strong><span id="res-loveLang">...</span></strong></p>
+      <p id="res-loveDesc"></p>
     </section>
 
     <section class="card">
-      <h3>🔮 Western Zodiac</h3>
-      <p><strong><span id="res-astro">—</span></strong></p>
-      <p id="res-astro-desc">Description not available.</p>
+      <h3>♓ Zodiac Sign</h3>
+      <p><strong><span id="res-astro">...</span></strong></p>
+      <p id="res-astro-desc"></p>
     </section>
 
     <section class="card">
       <h3>🐉 Chinese Zodiac</h3>
-      <p><strong><span id="res-castro">—</span></strong></p>
-      <p id="res-castro-desc">Description not available.</p>
+      <p><strong><span id="res-castro">...</span></strong></p>
+      <p id="res-castro-desc"></p>
     </section>
 
     <section class="card">
-      <h3>🔢 Numerology (Life Path)</h3>
-      <p>Your Life Path number is <strong><span id="res-numerology">—</span></strong>.</p>
-      <p id="res-num-desc">Numerology meaning not available.</p>
+      <h3>🔢 Life Path Number</h3>
+      <p><strong><span id="res-numerology">...</span></strong></p>
+      <p id="res-num-desc"></p>
     </section>
 
-    <section class="card" id="ai-analysis"><!-- Populated by JS --></section>
-
-    <button id="downloadBtn">⬇️ Download Your Soul PDF</button>
-
-    <!-- Feedback Form -->
-    <section id="feedback" class="card" style="background:#002c2f;">
-      <h3 style="color:#99ffe5; text-align:center;">💬 Your Feedback</h3>
-      <form id="feedback-form" style="color:white; max-width:600px; margin:auto; text-align:left;">
-        <label for="email">Your Email:</label><br />
-        <input type="email" id="email" name="email" required style="width:100%; padding:8px;" /><br /><br />
-
-        <label for="page">Page You Are On:</label><br />
-        <input type="text" id="page" name="page" value="result.html" readonly style="width:100%; padding:8px;" /><br /><br />
-
-        <label for="rating">How would you rate it? (1–5)</label><br />
-        <select id="rating" name="rating" required style="width:100%; padding:8px;">
-          <option value="5">🌟🌟🌟🌟🌟 Excellent</option>
-          <option value="4">🌟🌟🌟🌟 Good</option>
-          <option value="3">🌟🌟🌟 Average</option>
-          <option value="2">🌟🌟 Needs Work</option>
-          <option value="1">🌟 Poor</option>
-        </select><br /><br />
-
-        <label for="message">Your Feedback:</label><br />
-        <textarea id="message" name="message" rows="5" required style="width:100%; padding:8px;"></textarea><br /><br />
-
-        <button type="submit" style="background:#00a388; border:none; padding:10px 20px; color:white; font-weight:bold; cursor:pointer;">
-          Send Feedback
-        </button>
-        <p id="feedback-status" style="margin-top:10px; color:#fff;"></p>
-      </form>
+    <section class="card">
+      <div id="ai-analysis"></div>
     </section>
+
+    <div style="text-align: center; margin: 2rem">
+      <button id="downloadBtn">📄 Download as PDF</button>
+    </div>
   </main>
 
-  <footer>© 2025 Soulink.global | All rights reserved</footer>
-  <!-- CDN EmailJS support -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <section id="feedback" class="card" style="background:#002c2f;">
+    <h3 style="color:#99ffe5; text-align:center;">💬 Your Feedback</h3>
+    <form id="feedback-form" style="color:white; max-width:600px; margin:auto; text-align:left;">
+      <label for="email">Your Email:</label><br />
+      <input type="email" id="email" name="email" required style="width:100%; padding:8px;" /><br /><br />
 
+      <label for="page">Page You Are On:</label><br />
+      <input type="text" id="page" name="page" value="result.html" readonly style="width:100%; padding:8px;" /><br /><br />
 
-  <!-- Module Script -->
-  <script src="results.js"></script>
+      <label for="rating">How would you rate it? (1–5)</label><br />
+      <select id="rating" name="rating" required style="width:100%; padding:8px;">
+        <option value="5">🌟🌟🌟🌟🌟 Excellent</option>
+        <option value="4">🌟🌟🌟🌟 Good</option>
+        <option value="3">🌟🌟🌟 Average</option>
+        <option value="2">🌟🌟 Needs Work</option>
+        <option value="1">🌟 Poor</option>
+      </select><br /><br />
+
+      <label for="message">Your Feedback:</label><br />
+      <textarea id="message" name="message" rows="5" required style="width:100%; padding:8px;"></textarea><br /><br />
+
+      <button type="submit" style="background:#00a388; border:none; padding:10px 20px; color:white; font-weight:bold; cursor:pointer;">
+        Send Feedback
+      </button>
+      <p id="feedback-status" style="margin-top:10px; color:#fff;"></p>
+    </form>
+  </section>
+
+  <footer style="text-align:center; padding:20px;">
+    <p>© 2025 Soulink. All rights reserved.</p>
+  </footer>
 </body>
 </html>
