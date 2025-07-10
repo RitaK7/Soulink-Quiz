@@ -71,19 +71,20 @@ function loadAndRender() {
   const cz = data.chineseSign || '--';
   const lp = computeLifePath(data.birthdate);
 
-  document.getElementById('name').textContent = name;
-  document.getElementById('birthdate').textContent = birthdate;
-  document.getElementById('connectionType').textContent = connection;
-  document.getElementById('loveLanguage').textContent = love;
-  document.getElementById('loveLanguageDesc').textContent = loveLangMap[love] || '';
-  document.getElementById('zodiacSign').textContent = wz;
-  document.getElementById('zodiacSignDesc').textContent = westernMap[wz] || '';
-  document.getElementById('chineseSign').textContent = cz;
-  document.getElementById('chineseSignDesc').textContent = chineseMap[cz] || '';
-  document.getElementById('lifePath').textContent = lp;
-  document.getElementById('numerologyDesc').textContent = numerologyMap[lp] || '';
+  document.getElementById('res-name').textContent = name;
+  document.getElementById('res-birthdate').textContent = birthdate;
+  document.getElementById('res-connection').textContent = connection;
+  document.getElementById('res-loveLang').textContent = love;
+  document.getElementById('res-loveDesc').textContent = loveLangMap[love] || '';
+  document.getElementById('res-astro').textContent = wz;
+  document.getElementById('res-astro-desc').textContent = westernMap[wz] || '';
+  document.getElementById('res-castro').textContent = cz;
+  document.getElementById('res-castro-desc').textContent = chineseMap[cz] || '';
+  document.getElementById('res-numerology').textContent = lp;
+  document.getElementById('res-num-desc').textContent = numerologyMap[lp] || '';
 
-  document.getElementById('aiInsight').innerHTML = `
+  document.getElementById('ai-analysis').innerHTML = `
+    <h3>🧠 AI Soul Insight</h3>
     <p>Dear <strong>${name}</strong>, your soul resonates with the energy of a <strong>${wz}</strong> — ${westernMap[wz] || ''}</p>
     <p>Your love language, <strong>${love}</strong>, shows that ${loveLangMap[love] || ''}</p>
     <p>As a <strong>${cz}</strong> in Chinese astrology, you’re ${chineseMap[cz] || ''}</p>
