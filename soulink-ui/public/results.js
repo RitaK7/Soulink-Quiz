@@ -55,8 +55,8 @@ function loadAndRender() {
     <h3>🌟 Hello, ${name || "Soul Seeker"}!</h3>
     <p>Your Soulprint reveals a unique energy map. Here's what we discovered:</p>
     <p>💖 <strong>Love Language:</strong> ${loveLanguage}: ${loveLangMap[loveLanguage] || "Unknown"}.</p>
-    <p>♈ <strong>Western Zodiac:</strong> ${zodiacSign}: ${westernMap[zodiacSign] || "Unknown"}.</p>
-    <p>🐉 <strong>Chinese Sign:</strong> ${chineseSign}: ${chineseMap[chineseSign] || "Unknown"}.</p>
+    <p>♐ <strong>Western Zodiac:</strong> ${zodiacSign}: ${westernMap[zodiacSign] || "Unknown"}.</p>
+    <p>🐀 <strong>Chinese Sign:</strong> ${chineseSign}: ${chineseMap[chineseSign] || "Unknown"}.</p>
     <p>🔢 <strong>Life Path Number:</strong> ${lifePath}</p>
   `;
 
@@ -74,7 +74,9 @@ function loadAndRender() {
 }
 
 function initFeedback() {
-  emailjs.init("UYuKR_3UnPjeqJFL7");
+  // Pakeiskite 'YOUR_USER_ID' į savo EmailJS public key
+  emailjs.init("YOUR_USER_ID");
+
   const form = document.getElementById("feedback-form");
   const status = document.getElementById("feedback-message");
   const button = form.querySelector("button");
@@ -85,20 +87,15 @@ function initFeedback() {
     button.disabled = true;
     button.textContent = "Sending…";
 
-    emailjs.send("service_3j9h9ei", "template_99hg4ni", {
-      user_email: form.user_email.value,
-      page: form.page.value,
-      rating: form.rating.value,
-      message: form.message.value,
-      to_email: "ritakairiene7@gmail.com"
-    })
+    // Naudojame sendForm, kad automatiškai paimtų visus lauko reikšmes
+    emailjs.sendForm("service_3j9h9ei", "template_99hg4ni", this)
       .then(() => {
         status.textContent = "✅ Message sent!";
         button.textContent = "Sent ✓";
       })
       .catch((err) => {
         console.error("EmailJS Error:", err);
-        status.textContent = "❌ Send failed";
+        status.textContent = "❌ Send failed: " + (err.text || err.statusText);
         button.disabled = false;
         button.textContent = "Send Feedback";
       });

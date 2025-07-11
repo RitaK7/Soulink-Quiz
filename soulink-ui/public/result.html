@@ -21,6 +21,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      /* PRIDĖTA sticky nav */
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
     .logo {
       font-size: 1.8rem;
@@ -91,7 +96,15 @@
 
   <section id="pdf-section">
     <h2>🌟 Soulink – Your Soulprint Results</h2>
+
+    <!-- STATINIS AI APRAŠYMAS -->
+    <div class="card" id="ai-static">
+      <p>Šiuos rezultatus sugeneravo mūsų pažangi AI sistema, kuri susieja Jūsų gimimo duomenis su meilės kalba ir ženklų žiniomis, kad atskleistų Jūsų unikalų energijos žemėlapį.</p>
+    </div>
+
+    <!-- Dinaminis AI turinys -->
     <div class="card" id="ai-description"></div>
+    <!-- Vartotojo duomenys -->
     <div class="card" id="user-data"></div>
   </section>
 
