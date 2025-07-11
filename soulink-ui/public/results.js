@@ -107,7 +107,7 @@ function initFeedback() {
     button.disabled = true;
     button.textContent = "Sending...";
 
-    emailjs.send("service_ifo7026", "cjntt9l", {
+    emailjs.send("service_ifo7026", "99hg4ni", {
       email: form.user_email.value,
       page: form.page.value,
       rating: form.rating.value,
