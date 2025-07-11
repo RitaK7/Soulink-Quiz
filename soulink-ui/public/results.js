@@ -1,4 +1,5 @@
-// ✅ results.js – Soulink Final with Feedback + AI Soul Insight
+
+// ✅ results.js – Soulink Final UX+ with Feedback animation + AI Soul Insight
 
 const loveLangMap = {
   "Words of Affirmation": "You thrive on heartfelt compliments and spoken appreciation.",
@@ -97,10 +98,14 @@ function initFeedback() {
 
   const form = document.getElementById("feedback-form");
   const status = document.getElementById("feedback-message");
+  const button = form.querySelector("button");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    status.textContent = "Sending...";
+
+    status.textContent = "📨 Sending...";
+    button.disabled = true;
+    button.textContent = "Sending...";
 
     emailjs.send("service_ifo7026", "cjntt9l", {
       email: form.user_email.value,
@@ -109,10 +114,12 @@ function initFeedback() {
       message: form.message.value,
     }).then(() => {
       status.textContent = "✅ Thank you for your feedback!";
-      form.reset();
+      button.textContent = "Sent ✓";
     }).catch((err) => {
       console.error(err);
       status.textContent = "❌ Failed to send feedback.";
+      button.disabled = false;
+      button.textContent = "Send Feedback";
     });
   });
 }
