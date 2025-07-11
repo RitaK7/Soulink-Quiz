@@ -1,4 +1,4 @@
-// Love language descriptions
+// Description Maps
 const loveLangMap = {
   "Words of Affirmation": "You thrive on heartfelt compliments and spoken appreciation.",
   "Acts of Service": "Actions speak louder than words—you feel loved when help arrives.",
@@ -7,77 +7,70 @@ const loveLangMap = {
   "Physical Touch": "Touch is your language of connection and security."
 };
 
-// Western zodiac
 const westernMap = {
-  Aries: "Bold and ambitious, driven by passion.",
-  Taurus: "Grounded and reliable, with a love for beauty.",
-  Gemini: "Curious and adaptable, thrives on communication.",
-  Cancer: "Deeply intuitive and emotionally in tune.",
-  Leo: "Radiates confidence, charisma, and creativity.",
-  Virgo: "Meticulous, thoughtful, and practical.",
-  Libra: "Seeks balance, harmony, and deep connection.",
-  Scorpio: "Intense, loyal, and magnetically mysterious.",
-  Sagittarius: "Adventurous spirit with a philosophical mind.",
-  Capricorn: "Disciplined, goal-oriented, and wise beyond years.",
-  Aquarius: "Innovative, independent, and visionary thinker.",
-  Pisces: "Empathetic dreamer, deeply spiritual and creative."
+  "Aries": "bold and ambitious, driven by passion.",
+  "Taurus": "grounded and reliable, with a love for beauty.",
+  "Gemini": "curious and adaptable, thrives on communication.",
+  "Cancer": "deeply intuitive and emotionally in tune.",
+  "Leo": "radiates confidence, charisma, and creativity.",
+  "Virgo": "meticulous, thoughtful, and practical.",
+  "Libra": "balanced and fair, seeks harmony in all things.",
+  "Scorpio": "intense and mysterious, driven by deep emotions.",
+  "Sagittarius": "adventurous spirit with a philosophical mind.",
+  "Capricorn": "disciplined and ambitious, striving for success.",
+  "Aquarius": "innovative thinker, humanitarian at heart.",
+  "Pisces": "deeply empathetic, artistic, and spiritual."
 };
 
-// Chinese zodiac
 const chineseMap = {
-  Rat: "Intelligent and resourceful, quick-witted and clever.",
-  Ox: "Strong, dependable, and determined.",
-  Tiger: "Brave, competitive, and confident.",
-  Rabbit: "Gentle, quiet, and elegant.",
-  Dragon: "Ambitious, energetic, and charismatic.",
-  Snake: "Wise, graceful, and analytical.",
-  Horse: "Energetic, free-spirited, and strong-willed.",
-  Goat: "Calm, gentle, and compassionate.",
-  Monkey: "Inventive, playful, and curious.",
-  Rooster: "Observant, hardworking, and courageous.",
-  Dog: "Loyal, honest, and deeply faithful.",
-  Pig: "Generous, diligent, and sincere."
+  "Rat": "intelligent and resourceful, quick-witted and clever.",
+  "Ox": "strong, dependable, and trustworthy.",
+  "Tiger": "brave, competitive, and unpredictable.",
+  "Rabbit": "gentle, quiet, and elegant.",
+  "Dragon": "confident, intelligent, and enthusiastic.",
+  "Snake": "wise, discreet, and strategic.",
+  "Horse": "energetic, independent, and impatient.",
+  "Goat": "gentle-hearted and creative, sometimes moody.",
+  "Monkey": "clever, curious, and mischievous.",
+  "Rooster": "observant, hardworking, and courageous.",
+  "Dog": "loyal, honest, and prudent.",
+  "Pig": "generous, compassionate, and diligent."
 };
 
-// Life path
-function computeLifePath(dateStr) {
-  const digits = dateStr.replace(/\D/g, "").split("").map(Number);
+function computeLifePath(dob) {
+  const digits = dob.replace(/[^0-9]/g, '').split('').map(Number);
   let sum = digits.reduce((a, b) => a + b, 0);
-  while (sum > 9 && sum !== 11 && sum !== 22) {
-    sum = sum.toString().split("").reduce((a, b) => a + Number(b), 0);
+  while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+    sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
   }
   return sum;
 }
 
 function loadAndRender() {
-  const data = JSON.parse(localStorage.getItem('soulQuiz')) || {};
+  const data = JSON.parse(localStorage.getItem("soulQuiz")) || {};
+  const { name, birthdate, loveLanguage, zodiacSign, chineseSign } = data;
+  const lifePath = birthdate ? computeLifePath(birthdate) : "Unknown";
 
-  const name = data.name || "Soul Seeker";
-  const birth = data.birthdate || "Unknown";
-  const love = data.loveLanguage || "Unknown";
-  const western = data.zodiacSign || "Unknown";
-  const chinese = data.chineseSign || "Unknown";
-  const path = computeLifePath(birth);
-
-  document.getElementById("summary-card").innerHTML = `
-    <h3>🌟 Hello, ${name}!</h3>
+  const aiText = `
+    <h3>🌟 Hello, ${name || "Soul Seeker"}!</h3>
     <p>Your Soulprint reveals a unique energy map. Here's what we discovered:</p>
-    <ul>
-      <li><strong>💖 Love Language:</strong> ${loveLangMap[love] || "Unknown"}</li>
-      <li><strong>♓ Western Zodiac:</strong> ${westernMap[western] || "Unknown"}</li>
-      <li><strong>🐉 Chinese Sign:</strong> ${chineseMap[chinese] || "Unknown"}</li>
-      <li><strong>🔢 Life Path Number:</strong> ${path}</li>
-    </ul>
+    <p>💖 <strong>Love Language:</strong> ${loveLanguage}: ${loveLangMap[loveLanguage] || "Unknown"}.</p>
+    <p>♈ <strong>Western Zodiac:</strong> ${zodiacSign}: ${westernMap[zodiacSign] || "Unknown"}.</p>
+    <p>🐉 <strong>Chinese Sign:</strong> ${chineseSign}: ${chineseMap[chineseSign] || "Unknown"}.</p>
+    <p>🔢 <strong>Life Path Number:</strong> ${lifePath}</p>
   `;
 
-  document.getElementById("detail-card").innerHTML = `
+  const userData = `
     <p><strong>Name:</strong> ${name}</p>
-    <p><strong>Birth Date:</strong> ${birth}</p>
-    <p><strong>Love Language:</strong> ${love}</p>
-    <p><strong>Western Zodiac:</strong> ${western}</p>
-    <p><strong>Chinese Zodiac:</strong> ${chinese}</p>
-    <p><strong>Life Path:</strong> ${path}</p>
+    <p><strong>Birth Date:</strong> ${birthdate}</p>
+    <p><strong>Love Language:</strong> ${loveLanguage}</p>
+    <p><strong>Western Zodiac:</strong> ${zodiacSign}</p>
+    <p><strong>Chinese Zodiac:</strong> ${chineseSign}</p>
+    <p><strong>Life Path:</strong> ${lifePath}</p>
   `;
+
+  document.getElementById("ai-description").innerHTML = aiText;
+  document.getElementById("user-data").innerHTML = userData;
 }
 
 function initFeedback() {
@@ -98,15 +91,17 @@ function initFeedback() {
       rating: form.rating.value,
       message: form.message.value,
       to_email: "ritakairiene7@gmail.com"
-    }).then(() => {
-      status.textContent = "✅ Message sent!";
-      button.textContent = "Sent ✓";
-    }).catch(err => {
-      console.error("EmailJS Error:", err);
-      status.textContent = "❌ Send failed";
-      button.disabled = false;
-      button.textContent = "Send Feedback";
-    });
+    })
+      .then(() => {
+        status.textContent = "✅ Message sent!";
+        button.textContent = "Sent ✓";
+      })
+      .catch((err) => {
+        console.error("EmailJS Error:", err);
+        status.textContent = "❌ Send failed";
+        button.disabled = false;
+        button.textContent = "Send Feedback";
+      });
   });
 }
 
@@ -114,12 +109,15 @@ function initPDFDownload() {
   document.getElementById("download-pdf")
     .addEventListener("click", () => {
       const element = document.getElementById("pdf-section");
-      html2pdf().set({
-        margin: [0.5, 0.5, 0.5, 0.5],
-        filename: 'Soulink-Results.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 }
-      }).from(element).save();
+      html2pdf()
+        .set({
+          margin: [0.5, 0.5, 0.5, 0.5],
+          filename: "Soulink-Results.pdf",
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2 }
+        })
+        .from(element)
+        .save();
     });
 }
 
