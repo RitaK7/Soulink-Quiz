@@ -129,31 +129,24 @@ function initFeedback() {
     btn.textContent = "Sending…";
     status.textContent = "";
 
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form, PUBLIC_KEY)
+    // Sukuriame paprastą objektą vietoje FormData
+    const vars = {
+      user_email: form.user_email.value,
+      page:       form.page.value,
+      rating:     form.rating.value,
+      feedback:   form.feedback.value
+    };
+
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, vars, PUBLIC_KEY)
       .then(() => {
         status.textContent = "✅ Feedback sent!";
         btn.textContent   = "Sent ✓";
       })
       .catch(err => {
-        console.error("EmailJS Error:", err);
+        console.error("EmailJS Error (send):", err);
         status.textContent = `❌ Send failed (${err.status}): ${err.text}`;
         btn.disabled = false;
         btn.textContent = "Send Feedback";
       });
   });
 }
-
-// ─── PDF DOWNLOAD ─────────────────────────────────────────────────
-function initPDF() {
-  document.getElementById("download-pdf")
-    .addEventListener("click", () => {
-      const el = document.getElementById("results-output");
-      html2pdf().set({ margin: .5, filename: "Soulink-Results.pdf", html2canvas:{ scale:2 }}).from(el).save();
-    });
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  renderResults();
-  initFeedback();
-  initPDF();
-});
