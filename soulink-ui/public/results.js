@@ -114,7 +114,7 @@ function renderResults() {
 // ─── FEEDBACK VIA EmailJS ─────────────────────────────────────────
 function initFeedback() {
   const PUBLIC_KEY  = "SV7ptjuNI88paiVbz";
-  const SERVICE_ID  = "service_3j9h9ei";
+  const SERVICE_ID  = "service_if07026";
   const TEMPLATE_ID = "template_99hg4ni";
 
   emailjs.init(PUBLIC_KEY);
