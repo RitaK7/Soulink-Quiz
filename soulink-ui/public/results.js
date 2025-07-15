@@ -1,4 +1,4 @@
-// ─── DATA MAPS ─────────────────────────────────────────────────────
+// ─── DATA MAPPINGS ────────────────────────────────────────────────
 const loveLangMap = {
   "Words of Affirmation": "You thrive on heartfelt compliments and spoken appreciation.",
   "Acts of Service": "Actions speak louder than words—you feel loved when help arrives.",
@@ -37,89 +37,87 @@ const chineseMap = {
   Pig:    "generous, compassionate, and diligent."
 };
 
-// ─── UTIL: Life Path Calculation ──────────────────────────────────
+// ─── UTIL: Calculate Life Path Number ─────────────────────────────
 function computeLifePath(dob) {
-  let sum = dob.replace(/[^0-9]/g,'')
-               .split('').map(n=>+n)
-               .reduce((a,b)=>a+b,0);
-  while (sum>9 && ![11,22,33].includes(sum)) {
-    sum = sum.toString().split('').map(n=>+n).reduce((a,b)=>a+b,0);
+  let sum = dob.replace(/[^0-9]/g, '')
+               .split('').map(n => +n)
+               .reduce((a, b) => a + b, 0);
+  while (sum > 9 && ![11,22,33].includes(sum)) {
+    sum = sum.toString().split('').map(n => +n).reduce((a, b) => a + b, 0);
   }
   return sum;
 }
 
-// ─── RENDER RESULTS ───────────────────────────────────────────────
+// ─── RENDERING RESULTS ────────────────────────────────────────────
 function renderResults() {
   const data = JSON.parse(localStorage.getItem("soulQuiz") || "{}");
-  const { name="Soul Seeker", birthdate, loveLanguage, zodiacSign, chineseSign } = data;
+  const { name="Soul Seeker", birthdate, loveLanguage, zodiacSign, chineseSign, goal="Self-Discovery" } = data;
   const lifePath = birthdate ? computeLifePath(birthdate) : "Unknown";
 
-  // Greeting
   document.getElementById("greeting-card").innerHTML = `
     <h3>🌟 Hello, ${name}!</h3>
-    <p>You were born on <strong>${birthdate}</strong> and you’re looking for <strong>${data.goal||"Self-Discovery"}</strong>.</p>
+    <p>You were born on <strong>${birthdate}</strong> and you’re looking for <strong>${goal}</strong>.</p>
     <p>Your primary love language is <strong>${loveLanguage}</strong>.</p>
   `;
 
-  // Love Language
   document.getElementById("love-card").innerHTML = `
     <h3>💖 Love Language</h3>
-    <p>${loveLanguageMapOrDefault(loveLanguage)}</p>
+    <p>${loveLangMap[loveLanguage] || ""}</p>
   `;
 
-  // Western Zodiac
   document.getElementById("western-card").innerHTML = `
     <h3>♐ Western Zodiac</h3>
     <p><strong>${zodiacSign}</strong></p>
-    <p>${westernMap[zodiacSign] || "Unknown traits."}</p>
+    <p>${westernMap[zodiacSign] || ""}</p>
   `;
 
-  // Chinese Zodiac
   document.getElementById("chinese-card").innerHTML = `
     <h3>🐉 Chinese Zodiac</h3>
     <p><strong>${chineseSign}</strong></p>
-    <p>${chineseMap[chineseSign] || "Unknown traits."}</p>
+    <p>${chineseMap[chineseSign] || ""}</p>
   `;
 
-  // Numerology
   document.getElementById("numerology-card").innerHTML = `
     <h3>🔢 Numerology (Life Path)</h3>
     <p>Your Life Path number is <strong>${lifePath}</strong>.</p>
-    <p>${numerologyDescription(lifePath)}</p>
+    <p>${{
+      1: "a trailblazer and independent spirit.",
+      2: "a peacemaker yearning for balance.",
+      3: "a creative communicator full of joy.",
+      4: "a solid foundation builder.",
+      5: "a freedom seeker and explorer.",
+      6: "a nurturer and caregiver at heart.",
+      7: "a seeker of truth, introspective and wise.",
+      8: "an achiever driven by abundance.",
+      9: "a humanitarian with a big vision."
+    }[lifePath] || ""}</p>
   `;
 
-  // AI Insight
   document.getElementById("ai-insight-content").innerHTML = `
     <p>Dear <strong>${name}</strong>, your soul resonates with the energy of a <strong>${zodiacSign}</strong> — ${westernMap[zodiacSign] || ""}</p>
     <p>Your love language, <strong>${loveLanguage}</strong>, shows that ${loveLangMap[loveLanguage]}</p>
     <p>As a <strong>${chineseSign}</strong> in Chinese astrology, you’re ${chineseMap[chineseSign]}</p>
-    <p>Your Life Path number <strong>${lifePath}</strong> indicates ${numerologyDescription(lifePath)}</p>
+    <p>Your Life Path number <strong>${lifePath}</strong> indicates ${{
+      1: "you are a trailblazer and independent spirit.",
+      2: "you are a peacemaker yearning for balance.",
+      3: "you are a creative communicator full of joy.",
+      4: "you build solid foundations.",
+      5: "you seek freedom and adventure.",
+      6: "you nurture and care for others.",
+      7: "you are introspective and wise.",
+      8: "you are driven by abundance and success.",
+      9: "you are a humanitarian with a big vision."
+    }[lifePath] || ""}.</p>
   `;
 }
 
-// ─── HELPERS ─────────────────────────────────────────────────────
-function loveLanguageMapOrDefault(key) {
-  return loveLangMap[key] || "Unknown";
-}
-
-function numerologyDescription(num) {
-  const desc = {
-    1: "a trailblazer and independent spirit.",
-    2: "a peacemaker yearning for balance.",
-    3: "a creative communicator full of joy.",
-    4: "a solid foundation builder.",
-    5: "a freedom seeker and explorer.",
-    6: "a nurturer and caregiver at heart.",
-    7: "a seeker of truth, introspective and wise.",
-    8: "an achiever driven by abundance.",
-    9: "a humanitarian with a big vision."
-  };
-  return desc[num] || "";
-}
-
-// ─── FEEDBACK (EmailJS) ──────────────────────────────────────────
+// ─── FEEDBACK VIA EmailJS ─────────────────────────────────────────
 function initFeedback() {
-  emailjs.init("SV7ptjuNI88paiVbz"); // tavo Public Key
+  const PUBLIC_KEY  = "SV7ptjuNI88paiVbz";
+  const SERVICE_ID  = "service_3j9h9ei";
+  const TEMPLATE_ID = "template_99hg4ni";
+
+  emailjs.init(PUBLIC_KEY);
 
   const form   = document.getElementById("feedback-form");
   const status = document.getElementById("feedback-message");
@@ -127,31 +125,33 @@ function initFeedback() {
 
   form.addEventListener("submit", e => {
     e.preventDefault();
-    status.textContent = "📨 Sending…";
     btn.disabled = true;
+    btn.textContent = "Sending…";
+    status.textContent = "";
 
-    emailjs.sendForm("service_3j9h9ei", "template_99hg4ni", form)
+    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form, PUBLIC_KEY)
       .then(() => {
         status.textContent = "✅ Feedback sent!";
         btn.textContent   = "Sent ✓";
       })
       .catch(err => {
         console.error("EmailJS Error:", err);
-        status.textContent = "❌ Send failed, please try again.";
+        status.textContent = `❌ Send failed (${err.status}): ${err.text}`;
         btn.disabled = false;
+        btn.textContent = "Send Feedback";
       });
   });
 }
 
-// ─── PDF DOWNLOAD ────────────────────────────────────────────────
+// ─── PDF DOWNLOAD ─────────────────────────────────────────────────
 function initPDF() {
-  document.getElementById("download-pdf").addEventListener("click", () => {
-    const el = document.getElementById("results-output");
-    html2pdf().set({ margin: .5, filename: "Soulink-Results.pdf", html2canvas:{ scale:2 }}).from(el).save();
-  });
+  document.getElementById("download-pdf")
+    .addEventListener("click", () => {
+      const el = document.getElementById("results-output");
+      html2pdf().set({ margin: .5, filename: "Soulink-Results.pdf", html2canvas:{ scale:2 }}).from(el).save();
+    });
 }
 
-// ─── ON LOAD ─────────────────────────────────────────────────────
 window.addEventListener("DOMContentLoaded", () => {
   renderResults();
   initFeedback();
