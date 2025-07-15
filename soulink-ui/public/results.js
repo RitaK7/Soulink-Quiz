@@ -150,3 +150,9 @@ function initFeedback() {
       });
   });
 }
+// ─── PALEIDŽIAME VISKĄ DOM UIKUS ─────────────────────────────────
+window.addEventListener("DOMContentLoaded", () => {
+  renderResults();
+  initFeedback();
+  initPDF();
+});
