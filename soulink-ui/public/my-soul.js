@@ -1,60 +1,65 @@
-// ─── APRAŠAI ──────────────────────────────────────────────────────
+// ─── APRAŠYMAI ────────────────────────────────────────────────────
+// Zodiako aprašymai
 const westernDescriptions = {
-  Aries:      "Bold and ambitious, driven by passion.",
-  Taurus:     "Grounded and reliable, with a love for beauty.",
-  Gemini:     "Curious and adaptable, thriving on communication.",
-  Cancer:     "Deeply intuitive and emotionally in tune.",
-  Leo:        "Radiates confidence, charisma, and creativity.",
-  Virgo:      "Meticulous, thoughtful, and practical.",
-  Libra:      "Balanced and fair, seeking harmony in all things.",
-  Scorpio:    "Intense and mysterious, driven by deep emotions.",
-  Sagittarius:"Adventurous and optimistic, seeking freedom and wisdom.",
-  Capricorn:  "Disciplined and ambitious, striving for success.",
-  Aquarius:   "Innovative thinker, humanitarian at heart.",
-  Pisces:     "Deeply empathetic, artistic, and spiritual."
+  Aries:   "As an Aries, you’re courageous and energetic – a true pioneer who leads with passion.",
+  Taurus:  "Taurus souls are grounded and reliable. You cherish comfort and beauty in every form.",
+  Gemini:  "Geminis are curious communicators, adaptable and always seeking new ideas.",
+  Cancer:  "Cancer signs are nurturing and intuitive, placing family and emotion above all.",
+  Leo:     "Leos shine with confidence and warmth, natural-born leaders with generous hearts.",
+  Virgo:   "Virgos are detail-oriented and analytical, striving for perfection in every task.",
+  Libra:   "Libras value harmony and beauty, skilled at mediation and building relationships.",
+  Scorpio: "Scorpios are intense and magnetic, digging deep into the mysteries of life.",
+  Sagittarius: "Sagittarians are free spirits and adventurers, always chasing truth and wisdom.",
+  Capricorn:   "Capricorns are disciplined and ambitious, climbing steadily toward long-term goals.",
+  Aquarius:    "Aquarians are innovative thinkers and humanitarians, valuing freedom and progress.",
+  Pisces:      "Pisceans are empathetic dreamers, guided by emotion and artistic inspiration."
 };
 
+// Meilės kalbų aprašymai
 const loveLanguageDescriptions = {
-  "Words of Affirmation": "You thrive on heartfelt compliments and spoken appreciation.",
-  "Acts of Service":      "Actions speak louder than words—you feel loved when help arrives.",
-  "Receiving Gifts":      "Tangible tokens show you how much you’re cherished.",
-  "Quality Time":         "Undivided attention and shared moments fill your soul.",
-  "Physical Touch":       "Touch is your language of connection and security."
+  "Words of Affirmation": "You thrive on verbal appreciation and heartfelt compliments.",
+  "Acts of Service":      "Actions speak louder than words – you love when someone lightens your load.",
+  "Receiving Gifts":      "Tangible tokens of love mean the world to you and show you’re cherished.",
+  "Quality Time":         "Undivided attention and shared experiences fill your cup.",
+  "Physical Touch":       "Touch is your primary language of affection and security."
 };
 
+// Kinų zodiako aprašymai
 const chineseDescriptions = {
-  Rat:    "Quick-witted and resourceful, often finding success in creative ways.",
-  Ox:     "Strong, dependable, and trustworthy.",
-  Tiger:  "Brave, competitive, and unpredictable.",
-  Rabbit: "Gentle, quiet, and elegant.",
-  Dragon: "Confident, intelligent, and enthusiastic.",
-  Snake:  "Wise, discreet, and strategic.",
-  Horse:  "Energetic, independent, and impatient.",
-  Goat:   "Gentle-hearted and creative, sometimes moody.",
-  Monkey: "Clever, curious, and mischievous.",
-  Rooster:"Observant, hardworking, and courageous.",
-  Dog:    "Loyal, honest, and prudent.",
-  Pig:    "Generous, compassionate, and diligent."
+  Rat:    "Rats are clever and resourceful, with quick minds and charming personalities.",
+  Ox:     "Oxen are strong and dependable, building their lives on hard work and honesty.",
+  Tiger:  "Tigers are brave and competitive, drawing admiration with their daring spirit.",
+  Rabbit: "Rabbits are gentle and compassionate, seeking peace and comfort in relationships.",
+  Dragon: "Dragons are charismatic and confident, destined for leadership and creativity.",
+  Snake:  "Snakes are wise and enigmatic, trusting their intuition to guide them.",
+  Horse:  "Horses are energetic and free-spirited, loving adventure and independence.",
+  Goat:   "Goats are calm and artistic, appreciating beauty and deep connections.",
+  Monkey: "Monkeys are witty and playful, always the life of the party.",
+  Rooster:"Roosters are observant and hardworking, with a strong sense of pride.",
+  Dog:    "Dogs are loyal and honest, devoted friends who protect and support you.",
+  Pig:    "Pigs are generous and warm-hearted, valuing comfort and good company."
 };
 
+// Numerologijos (Life Path) aprašymai
 const lifePathDescriptions = {
-  1: "A trailblazer and independent spirit.",
-  2: "A peacemaker yearning for balance.",
-  3: "A creative communicator full of joy.",
-  4: "A solid foundation builder.",
-  5: "A freedom seeker and explorer.",
-  6: "A nurturer and caregiver at heart.",
-  7: "A seeker of truth, introspective and wise.",
-  8: "An achiever driven by abundance.",
-  9: "A humanitarian with a big vision."
+  1: "Life Path 1: You’re a natural-born leader, independent and ambitious.",
+  2: "Life Path 2: You’re a peacemaker, intuitive and diplomatic.",
+  3: "Life Path 3: You’re a creative communicator, optimistic and expressive.",
+  4: "Life Path 4: You’re a builder, practical and disciplined.",
+  5: "Life Path 5: You’re an adventurer, freedom-loving and adaptable.",
+  6: "Life Path 6: You’re a nurturer, responsible and caring.",
+  7: "Life Path 7: You’re a seeker, analytical and spiritual.",
+  8: "Life Path 8: You’re an executive, driven and successful.",
+  9: "Life Path 9: You’re a humanitarian, generous and compassionate.",
+  11: "Life Path 11 (Master Teacher): You have high ideals and deep intuition.",
+  22: "Life Path 22 (Master Builder): You can turn dreams into reality on a grand scale."
 };
 
 // ─── PAGALBINĖS FUNKCIJOS ────────────────────────────────────────
-function getWesternZodiac(dob) {
-  const [year, month, day] = dob.split('-').map(Number);
-  const m = month, d = day;
-  if ((m === 1 && d >= 20) || (m === 2 && d <= 18)) return 'Aquarius';
-  if ((m === 2 && d >= 19) || (m === 3 && d <= 20)) return 'Pisces';
+// Skaičiuoja Vakarų zodiaką pagal datą
+function getWesternZodiac(dateStr) {
+  const date = new Date(dateStr);
+  const m = date.getMonth() + 1, d = date.getDate();
   if ((m === 3 && d >= 21) || (m === 4 && d <= 19)) return 'Aries';
   if ((m === 4 && d >= 20) || (m === 5 && d <= 20)) return 'Taurus';
   if ((m === 5 && d >= 21) || (m === 6 && d <= 20)) return 'Gemini';
@@ -64,90 +69,88 @@ function getWesternZodiac(dob) {
   if ((m === 9 && d >= 23) || (m === 10 && d <= 22)) return 'Libra';
   if ((m === 10 && d >= 23) || (m === 11 && d <= 21)) return 'Scorpio';
   if ((m === 11 && d >= 22) || (m === 12 && d <= 21)) return 'Sagittarius';
-  return 'Capricorn';
+  if ((m === 12 && d >= 22) || (m === 1 && d <= 19)) return 'Capricorn';
+  if ((m === 1 && d >= 20) || (m === 2 && d <= 18)) return 'Aquarius';
+  if ((m === 2 && d >= 19) || (m === 3 && d <= 20)) return 'Pisces';
+  return 'Unknown';
 }
 
-function getChineseZodiac(dob) {
-  const year = Number(dob.split('-')[0]);
-  const animals = [
-    'Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake',
-    'Horse', 'Goat', 'Monkey', 'Rooster', 'Dog', 'Pig'
-  ];
-  return animals[(year - 4) % 12];
+// Skaičiuoja Kinų zodiaką
+function getChineseZodiac(dateStr) {
+  const year = new Date(dateStr).getFullYear();
+  const list = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
+  return list[(year - 1900) % 12];
 }
 
-function getLifePathNumber(dob) {
-  let sum = dob.replace(/-/g, '').split('')
-               .map(n => +n).reduce((a, b) => a + b, 0);
-  while (sum > 9 && ![11,22,33].includes(sum)) {
-    sum = sum.toString().split('')
-             .map(n => +n).reduce((a, b) => a + b, 0);
+// Skaičiuoja Life Path skaičių
+function getLifePathNumber(dateStr) {
+  let sum = dateStr.replace(/-/g, '').split('').map(Number).reduce((a, b) => a + b, 0);
+  while (sum > 9 && ![11, 22].includes(sum)) {
+    sum = sum.toString().split('').map(Number).reduce((a, b) => a + b, 0);
   }
   return sum;
 }
 
-// ─── RENDERINIMAS ───────────────────────────────────────────────
+// ─── PAGRINDINĖ RODYMO FUNKCIJA ─────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
-  const soulQuiz = JSON.parse(localStorage.getItem('soulQuiz') || '{}');
-  const profile  = JSON.parse(localStorage.getItem('profile')  || '{}');
+  const profile = JSON.parse(localStorage.getItem('soulQuiz') || '{}');
+  const extra   = JSON.parse(localStorage.getItem('profile')   || '{}');
+  const container = document.getElementById('soul-profile');
 
-  // Sinchronizuojame birthdate lauką
-  if (profile.birthday) profile.birthdate = profile.birthday;
-
-  // Merginame duomenis (redaguoti užgožia quiz)
-  const data = { ...soulQuiz, ...profile };
-
-  // Jeigu nėra vardo, rodome nukreipimą
-  if (!data.name) {
-    document.getElementById('soul-profile').innerHTML =
-      '<p>No profile data found. <a href="edit-profile.html">Edit your profile first.</a></p>';
+  if (!profile.name) {
+    container.innerHTML = '<p>No data found. <a href="quiz.html">Take the Quiz</a> first.</p>';
     return;
   }
 
-  // Apskaičiuojame ženklus ir skaičių
-  const western = getWesternZodiac(data.birthdate);
-  const chinese = getChineseZodiac(data.birthdate);
-  const life     = getLifePathNumber(data.birthdate);
+  const west  = getWesternZodiac(profile.birthdate);
+  const china = getChineseZodiac(profile.birthdate);
+  const life  = getLifePathNumber(profile.birthdate);
 
-  // Sudedame galutinį HTML
-  document.getElementById('soul-profile').innerHTML = `
+  container.innerHTML = `
+    <section class="card">
+      <h3>🖼️ Your Photos</h3>
+      ${extra.photo1 ? `<img src="${extra.photo1}" class="preview">` : ''}
+      ${extra.photo2 ? `<img src="${extra.photo2}" class="preview">` : ''}
+      ${extra.photo3 ? `<img src="${extra.photo3}" class="preview">` : ''}
+    </section>
+
     <section class="card highlight">
-      <h2>Welcome, ${data.name}!</h2>
+      <h2>Welcome, ${profile.name}!</h2>
       <p><em>Your soul profile at a glance</em></p>
     </section>
 
     <section class="card">
       <h3>📚 Personal Details</h3>
-      <p><strong>Birth Date:</strong> ${data.birthdate}</p>
-      <p><strong>About Me:</strong> ${data.bio || '—'}</p>
+      <p><strong>Birth Date:</strong> ${profile.birthdate}</p>
+      <p><strong>About Me:</strong> ${extra.bio || '—'}</p>
     </section>
 
     <section class="card">
       <h3>🔗 What You Seek</h3>
-      <p><strong>Connection Type:</strong> ${data.connectionType || '—'}</p>
-      <p><strong>Love Language:</strong> ${data.loveLanguage || '—'}</p>
-      <p>${loveLanguageDescriptions[data.loveLanguage] || ''}</p>
+      <p><strong>Connection Type:</strong> ${profile.connectionType || '—'}</p>
+      <p><strong>Love Language:</strong> ${profile.loveLanguage || '—'}</p>
+      <p>${loveLanguageDescriptions[profile.loveLanguage] || ''}</p>
     </section>
 
     <section class="card">
       <h3>🎯 Hobbies & Core Values</h3>
-      <p><strong>Hobbies:</strong> ${(data.hobbies || []).join(', ') || '—'}</p>
-      <p><strong>Core Values:</strong> ${(data.values  || []).join(', ') || '—'}</p>
+      <p><strong>Hobbies:</strong> ${(profile.hobbies || []).join(', ') || '—'}</p>
+      <p><strong>Core Values:</strong> ${(profile.values || []).join(', ') || '—'}</p>
     </section>
 
     <section class="card">
-      <h3>✨ Western Zodiac: ${western}</h3>
-      <p>${westernDescriptions[western]}</p>
-      <h3>✨ Chinese Zodiac: ${chinese}</h3>
-      <p>${chineseDescriptions[chinese]}</p>
+      <h3>✨ Western Zodiac: ${west}</h3>
+      <p>${westernDescriptions[west] || ''}</p>
+      <h3>✨ Chinese Zodiac: ${china}</h3>
+      <p>${chineseDescriptions[china] || ''}</p>
       <h3>🔢 Life Path Number: ${life}</h3>
-      <p>${lifePathDescriptions[life]}</p>
+      <p>${lifePathDescriptions[life] || ''}</p>
     </section>
 
     <div class="buttons">
       <a href="edit-profile.html" class="btn">Edit Profile</a>
-      <a href="soul-chart.html"    class="btn">Soul Chart</a>
-      <a href="soul-coach.html"    class="btn">Soul Coach</a>
+      <a href="soul-chart.html"   class="btn">Soul Chart</a>
+      <a href="soul-coach.html"   class="btn">Soul Coach</a>
     </div>
 
     <p class="premium-note">
