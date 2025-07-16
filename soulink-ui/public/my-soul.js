@@ -100,9 +100,11 @@ window.addEventListener("DOMContentLoaded", () => {
   el.innerHTML = `
     <section class="card">
       <h3>🖼️ Your Photos</h3>
-      ${prof.photo1? `<img src="${prof.photo1}" class="preview">` : ""}
-      ${prof.photo2? `<img src="${prof.photo2}" class="preview">` : ""}
-      ${prof.photo3? `<img src="${prof.photo3}" class="preview">` : ""}
+      <div style="display:flex; flex-wrap:wrap; gap:1rem;">
+        ${prof.photo1? `<img src="${prof.photo1}" class="preview">` : ""}
+        ${prof.photo2? `<img src="${prof.photo2}" class="preview">` : ""}
+        ${prof.photo3? `<img src="${prof.photo3}" class="preview">` : ""}
+      </div>
     </section>
 
     <section class="card highlight">
