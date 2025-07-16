@@ -5,65 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Soulink – My Soul</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- Bootstrap Icons, jei naudojate -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
   />
   <style>
-    /* Tau įprasti stiliai… */
     body {
       font-family: 'Poppins', sans-serif;
       background: #002f33;
       color: #eefefe;
-      margin:0;
-      padding:0;
+      margin: 0; padding: 0;
     }
-    header { /* …yg. tavo navigacija… */ }
-    main { width:90%; max-width:900px; margin:2rem auto; }
+    header {
+      background: #003d41;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,.4);
+    }
+    .nav-logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #2ae49d;
+    }
+    nav {
+      margin-left: auto;
+    }
+    nav a {
+      margin-left: 1.5rem;
+      color: #eefefe;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    nav a.active,
+    nav a:hover {
+      color: #2ae49d;
+    }
+    main {
+      width: 90%;
+      max-width: 900px;
+      margin: 2rem auto;
+    }
     .card {
       background: #004d4d;
-      border-radius:12px;
-      padding:1.5rem;
-      margin-bottom:1.5rem;
-      box-shadow:0 4px 12px rgba(0,0,0,.5);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,.5);
     }
     .card.highlight {
       box-shadow: 0 0 20px #2ae49daa;
     }
     .card h2 {
-      margin:0;
-      color:#2ae49d;
+      margin: 0 0 .5rem 0;
+      color: #2ae49d;
     }
     .card h3 {
-      margin-top:0;
-      color:#2ae49d;
+      margin-top: 0;
+      color: #2ae49d;
     }
     .buttons {
-      display:flex;
-      gap:1rem;
-      justify-content:center;
-      margin:1.5rem 0;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.5rem 0;
     }
     .btn {
-      background:#2ae49d;
-      color:#002f33;
-      padding:.8rem 1.2rem;
-      border:none;
-      border-radius:6px;
-      cursor:pointer;
-      text-decoration:none;
-      font-weight:600;
-      transition:opacity .2s;
+      background: #2ae49d;
+      color: #002f33;
+      padding: .8rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity .2s;
     }
-    .btn:hover { opacity:.9; }
+    .btn:hover { opacity: .9; }
     .premium-note {
-      text-align:center;
-      font-size:.9rem;
-      opacity:.8;
+      text-align: center;
+      font-size: .9rem;
+      opacity: .8;
     }
-    /* Nuotraukų mažo režimo stiliai */
-    .card img.preview {
+    img.preview {
       max-width: 100%;
       border-radius: 8px;
       margin-top: 1rem;
@@ -71,24 +96,26 @@
   </style>
 </head>
 <body>
-  <!-- Jeigu reikia – įkelti navigaciją -->
   <header>
-    <div class="nav-wrap">
-      <div class="nav-logo">Soulink</div>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="quiz.html">Quiz</a>
-        <a href="my-soul.html" class="active">My Soul</a>
-        <a href="edit-profile.html">Edit Profile</a>
-        <a href="soul-chart.html">Soul Chart</a>
-        <a href="soul-coach.html">Soul Coach</a>
-        <a href="match.html">Match</a>
-        <a href="friends.html">Friends</a>
-        <a href="result.html">Results</a>
-      </nav>
-    </div>
+    <div class="nav-logo">Soulink</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="my-soul.html" class="active">My Soul</a>
+      <a href="edit-profile.html">Edit Profile</a>
+      <a href="soul-chart.html">Soul Chart</a>
+      <a href="soul-coach.html">Soul Coach</a>
+      <a href="match.html">Match</a>
+      <a href="friends.html">Friends</a>
+      <a href="result.html">Results</a>
+    </nav>
   </header>
+
   <main>
-  <div id="soul-profile"></div>
+    <!-- JS will populate this -->
+    <div id="soul-profile"></div>
+  </main>
+
+  <script src="my-soul.js" defer></script>
 </body>
 </html>
