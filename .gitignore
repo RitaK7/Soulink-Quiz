@@ -1,12 +1,4 @@
-# Ignore environment files
-.env
-.env.production
-
-# Ignore node modules
 node_modules/
-
-# Ignore Vite build output
-dist/
-
-# Ignore system files (optional)
+.env
 .DS_Store
+.vscode/
