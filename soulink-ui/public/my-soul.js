@@ -1,115 +1,99 @@
 
-// Soul Profile Rendering Script – Cleaned and Final
+// my-soul.js
 
-window.addEventListener("DOMContentLoaded", () => {
-  const quiz = JSON.parse(localStorage.getItem("soulQuiz")  || "{}");
-  const prof = JSON.parse(localStorage.getItem("profile")   || "{}");
-  const el   = document.getElementById("soul-profile");
+function getSoulData() {
+  const quiz = JSON.parse(localStorage.getItem('soulQuiz')) || {};
+  const profile = JSON.parse(localStorage.getItem('profile')) || {};
 
-  if (!quiz.name) {
-    el.innerHTML = `<p>No profile data. <a href="quiz.html">Take the Quiz</a> first.</p>`;
-    return;
-  }
+  const name = quiz.name || 'Soul Seeker';
+  const birthdate = quiz.birthdate || 'Unknown';
+  const zodiac = quiz.zodiacSign || 'Unknown';
+  const chinese = quiz.chineseSign || 'Unknown';
+  const loveLang = quiz.loveLanguage || 'Unknown';
+  const lifePath = quiz.lifePath || 'Unknown';
+  const hobbies = quiz.hobbies || '—';
+  const values = quiz.values || '—';
+  const aboutMe = profile.aboutMe || 'Not shared yet';
+  const type = quiz.relationType || 'Romantic or Friendship';
+  const country = quiz.country || '—';
+  const photo1 = profile.photo1 || '';
+  const photo2 = profile.photo2 || '';
 
-  function getWesternZodiac(dateStr) {
-    const d = new Date(dateStr), m = d.getMonth() + 1, day = d.getDate();
-    if ((m === 3 && day >= 21) || (m === 4 && day <= 19)) return "Aries";
-    if ((m === 4 && day >= 20) || (m === 5 && day <= 20)) return "Taurus";
-    if ((m === 5 && day >= 21) || (m === 6 && day <= 20)) return "Gemini";
-    if ((m === 6 && day >= 21) || (m === 7 && day <= 22)) return "Cancer";
-    if ((m === 7 && day >= 23) || (m === 8 && day <= 22)) return "Leo";
-    if ((m === 8 && day >= 23) || (m === 9 && day <= 22)) return "Virgo";
-    if ((m === 9 && day >= 23) || (m === 10 && day <= 22)) return "Libra";
-    if ((m === 10 && day >= 23) || (m === 11 && day <= 21)) return "Scorpio";
-    if ((m === 11 && day >= 22) || (m === 12 && day <= 21)) return "Sagittarius";
-    if ((m === 12 && day >= 22) || (m === 1 && day <= 19)) return "Capricorn";
-    if ((m === 1 && day >= 20) || (m === 2 && day <= 18)) return "Aquarius";
-    if ((m === 2 && day >= 19) || (m === 3 && day <= 20)) return "Pisces";
-    return "Unknown";
-  }
-
-  function getChineseZodiac(dateStr) {
-    const year = new Date(dateStr).getFullYear();
-    return ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"][(year - 1900) % 12];
-  }
-
-  function getLifePathNumber(dateStr) {
-    let sum = dateStr.replace(/-/g, "").split("").map(Number).reduce((a,b)=>a+b,0);
-    while (sum > 9 && ![11,22].includes(sum)) {
-      sum = sum.toString().split("").map(Number).reduce((a,b)=>a+b,0);
-    }
-    return sum;
-  }
-
-  const westernDescriptions = {
-    Sagittarius: "Sagittarians are free spirits and adventurers, always chasing truth and wisdom."
-  };
-  const loveLanguageDescriptions = {
-    "Acts of Service": "Actions speak louder than words – you love when someone lightens your load."
-  };
-  const chineseDescriptions = {
-    Rat: "Rats are clever and resourceful, with quick minds and charming personalities."
-  };
-  const lifePathDescriptions = {
-    7: "Life Path 7: You’re a seeker, analytical and spiritual."
+  const insights = {
+    "Words of Affirmation": "You thrive on kind words and meaningful praise.",
+    "Acts of Service": "You show you care through thoughtful help and kind deeds.",
+    "Receiving Gifts": "You appreciate symbolic gestures of love and thought.",
+    "Quality Time": "You value undivided attention and shared moments.",
+    "Physical Touch": "You connect through closeness and physical presence.",
+    "Unknown": "Your love language is still a mystery to be explored."
   };
 
-  const west = getWesternZodiac(quiz.birthdate);
-  const chi  = getChineseZodiac(quiz.birthdate);
-  const life = getLifePathNumber(quiz.birthdate);
+  const westernZodiac = {
+    "Aries": "You are bold, energetic, and love challenges.",
+    "Taurus": "You value stability, loyalty, and sensory pleasures.",
+    "Gemini": "You are curious, witty, and love communication.",
+    "Cancer": "You are deeply intuitive, caring, and home-loving.",
+    "Leo": "You are creative, passionate, and love to be admired.",
+    "Virgo": "You are practical, analytical, and detail-oriented.",
+    "Libra": "You value harmony, beauty, and social connections.",
+    "Scorpio": "You are intense, powerful, and love transformation.",
+    "Sagittarius": "You are adventurous, idealistic, and crave freedom.",
+    "Capricorn": "You are disciplined, ambitious, and value success.",
+    "Aquarius": "You are visionary, quirky, and value innovation.",
+    "Pisces": "You are sensitive, dreamy, and deeply empathetic.",
+    "Unknown": "Zodiac traits await your discovery."
+  };
 
-  el.innerHTML = `
-    <section class="card">
-      <h3>🖼️ Your Photos</h3>
-      <div style="display:flex; flex-wrap:wrap; gap:1rem;">
-        ${prof.photo1? `<img src="${prof.photo1}" class="preview">` : ""}
-        ${prof.photo2? `<img src="${prof.photo2}" class="preview">` : ""}
-        ${prof.photo3? `<img src="${prof.photo3}" class="preview">` : ""}
-      </div>
-    </section>
+  const chineseZodiac = {
+    "Rat": "Clever, quick-witted, resourceful.",
+    "Ox": "Strong, reliable, fair.",
+    "Tiger": "Brave, confident, unpredictable.",
+    "Rabbit": "Gentle, elegant, alert.",
+    "Dragon": "Strong, charismatic, lucky.",
+    "Snake": "Wise, mysterious, determined.",
+    "Horse": "Energetic, independent, impatient.",
+    "Goat": "Kind, calm, creative.",
+    "Monkey": "Smart, curious, versatile.",
+    "Rooster": "Hardworking, observant, confident.",
+    "Dog": "Loyal, honest, cautious.",
+    "Pig": "Compassionate, generous, diligent.",
+    "Unknown": "The stars are silent for now."
+  };
 
-    <section class="card highlight">
-      <h2>Welcome, ${quiz.name}!</h2>
-      <p><em>Your soul profile at a glance</em></p>
-    </section>
-
-    <section class="card">
-      <h3>📚 Personal Details</h3>
-      <p><strong>Birth Date:</strong> ${quiz.birthdate}</p>
-      <p><strong>About Me:</strong> ${prof.bio || "—"}</p>
-    </section>
-
-    <section class="card">
-      <h3>🔗 What You Seek</h3>
-      <p><strong>Connection Type:</strong> ${quiz.connectionType || "—"}</p>
-      <p><strong>Love Language:</strong> ${quiz.loveLanguage || "—"}</p>
-      <p>${loveLanguageDescriptions[quiz.loveLanguage] || ""}</p>
-    </section>
-
-    <section class="card">
-      <h3>🎯 Hobbies & Core Values</h3>
-      <p><strong>Hobbies:</strong> ${(quiz.hobbies||[]).join(", ") || "—"}</p>
-      <p><strong>Core Values:</strong> ${(quiz.values||[]).join(", ") || "—"}</p>
-    </section>
-
-    <section class="card">
-      <h3>✨ Western Zodiac: ${west}</h3>
-      <p>${westernDescriptions[west] || ""}</p>
-      <h3>🐉 Chinese Zodiac: ${chi}</h3>
-      <p>${chineseDescriptions[chi] || ""}</p>
-      <h3>🔢 Life Path Number: ${life}</h3>
-      <p>${lifePathDescriptions[life] || ""}</p>
-    </section>
-
-    <div class="buttons">
-      <a href="edit-profile.html" class="btn">Edit Profile</a>
-      <a href="soul-chart.html"    class="btn">Soul Chart</a>
-      <a href="soul-coach.html"    class="btn">Soul Coach</a>
+  const profileHtml = `
+    <div class="card highlight">
+      <h3>${name}</h3>
+      <p><strong>Birthdate:</strong> ${birthdate}</p>
+      <p><strong>Relation Type:</strong> ${type}</p>
+      <p><strong>Country:</strong> ${country}</p>
+      <p><strong>Hobbies:</strong> ${hobbies}</p>
+      <p><strong>Values:</strong> ${values}</p>
+      <p><strong>About Me:</strong> ${aboutMe}</p>
     </div>
-
-    <p class="premium-note">
-      🔒 Some features are exclusive to <strong>Soulink Premium</strong>.
-      <a href="signup.html">Upgrade now.</a>
-    </p>
+    <div class="card">
+      <h3>🖼️ Your Photos</h3>
+      ${photo1 ? `<img src="${photo1}" class="preview">` : ''}
+      ${photo2 ? `<img src="${photo2}" class="preview">` : ''}
+    </div>
+    <div class="card">
+      <h3>💖 Love Language Insight</h3>
+      <p>${insights[loveLang]}</p>
+    </div>
+    <div class="card">
+      <h3>♓ Western Zodiac Insight</h3>
+      <p>${westernZodiac[zodiac]}</p>
+    </div>
+    <div class="card">
+      <h3>🐉 Chinese Zodiac Insight</h3>
+      <p>${chineseZodiac[chinese]}</p>
+    </div>
+    <div class="card">
+      <h3>🔢 Life Path Number</h3>
+      <p>${lifePath}</p>
+    </div>
   `;
-});
+
+  document.getElementById('soul-profile').innerHTML = profileHtml;
+}
+
+window.addEventListener('DOMContentLoaded', getSoulData);
