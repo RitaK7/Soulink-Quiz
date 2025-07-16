@@ -116,7 +116,7 @@ function renderResults() {
 // ─── FEEDBACK VIA EmailJS v3 ──────────────────────────────────────
 function initFeedback() {
   const PUBLIC_KEY  = "SV7ptjuNI88paiVbz";
-  const SERVICE_ID  = "service_if07026";   // pažiūrėk Dashboard → Email Services
+  const SERVICE_ID  = "default_service";
   const TEMPLATE_ID = "template_99hg4ni";
 
   emailjs.init(PUBLIC_KEY);
@@ -138,7 +138,7 @@ function initFeedback() {
       feedback:   form.feedback.value
     };
 
-    console.log("📤 EmailJS params:", SERVICE_ID, TEMPLATE_ID, vars);
+    console.log("EmailJS ▶", SERVICE_ID, TEMPLATE_ID, vars);
 
     emailjs.send(SERVICE_ID, TEMPLATE_ID, vars, PUBLIC_KEY)
       .then(() => {
