@@ -105,10 +105,10 @@ a:hover {
 .photo-gallery img {
   flex: 1 1 calc(33% - 0.5rem);
   max-width: calc(33% - 0.5rem);
-  max-height: 200px;
-  object-fit: cover;
+  max-height: 200px;          /* cap height */
+  object-fit: cover;          /* crop/scale nicely */
   border-radius: 8px;
-  box-shadow: 0 0 8px rgba(42, 228, 157, 0.6);
+  box-shadow: 0 0 8px rgba(42,228,157,.6);
 }
 
 /* ─── BUTTON GROUP & PREV/NEXT ──────────────────────────────────── */
