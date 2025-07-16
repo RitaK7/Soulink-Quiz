@@ -2,114 +2,180 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Soulink – My Soul</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
   <style>
+    /* GLOBAL */
     body {
-      background-color: #003c43;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
       margin: 0;
-      padding: 0;
-    }
-    a { color: #00fdd8; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .main-nav {
-      background-color: #002c33;
-      padding: 1rem;
+      font-family: 'Poppins', sans-serif;
+      background: #003c43;
+      color: #eefefe;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a { color: #2ae49d; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAVIGATION */
+    header.main-nav {
+      background: #002f33;
+      padding: .8rem 1rem;
+      display: flex;
       align-items: center;
       flex-wrap: wrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,.5);
     }
     .main-nav .logo {
       font-size: 1.5rem;
       font-weight: bold;
-      color: #00fdd8;
+      color: #2ae49d;
     }
     .main-nav ul {
       list-style: none;
       display: flex;
-      gap: 1rem;
+      gap: .8rem;
+      margin-left: 2rem;
       padding: 0;
-      margin: 0;
       flex-wrap: wrap;
     }
-    .main-nav a {
-      color: #00fdd8;
-      font-weight: bold;
+    .main-nav ul li { }
+    .main-nav ul a {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+    }
+    .auth-buttons {
+      margin-left: auto;
+      display: flex;
+      gap: .5rem;
     }
     .auth-buttons a {
-      margin-left: 0.5rem;
-      color: white;
-      text-decoration: none;
-      border: 1px solid #00fdd8;
-      padding: 0.3rem 0.6rem;
-      border-radius: 0.5rem;
+      border: 1px solid #2ae49d;
+      padding: .3rem .6rem;
+      border-radius: 6px;
+      background: transparent;
+      color: #2ae49d;
+      transition: background .2s, color .2s;
     }
-    .container {
+    .auth-buttons a:hover {
+      background: #2ae49d;
+      color: #002f33;
+    }
+
+    /* CONTAINER */
+    main.container {
+      flex: 1;
+      width: 90%;
       max-width: 800px;
       margin: 2rem auto;
-      padding: 1rem;
     }
-    .card {
-      background-color: #014247;
-      border-radius: 1rem;
-      padding: 1rem;
+    h1.page-title {
+      font-size: 2rem;
       margin-bottom: 1rem;
-      box-shadow: 0 0 15px #00fdd8;
+      color: #2ae49d;
+    }
+
+    /* CARDS */
+    .card {
+      background: #014247;
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 12px rgba(42,228,157,.5);
     }
     .card.highlight {
-      background-color: #015e63;
+      background: #015e63;
+      box-shadow: 0 0 20px rgba(42,228,157,.7);
     }
-    .buttons .btn {
-      display: inline-block;
-      background-color: #00fdd8;
-      color: black;
-      margin: 0.5rem;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      border-radius: 0.5rem;
+    .card h2, .card h3 {
+      margin: 0 0 .6rem;
+      color: #2ae49d;
     }
-    img.preview {
-      max-width: 100%;
-      max-height: 400px;
-      margin: 0.5rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 0 5px #00fdd8;
+    .card p {
+      margin: .4rem 0;
+    }
+
+    /* PHOTO GALLERY */
+    .photo-gallery {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-top: .5rem;
+    }
+    .photo-gallery img {
+      flex: 1 1 calc(50% - .5rem);
+      max-width: calc(50% - .5rem);
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(42,228,157,.6);
       object-fit: cover;
     }
-    .bottom-nav {
+
+    /* BUTTONS ROW */
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+    .buttons .btn {
+      background: #2ae49d;
+      color: #002f33;
+      padding: .6rem 1.2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: transform .2s;
+      text-decoration: none;
+    }
+    .buttons .btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* PREMIUM NOTE */
+    .premium-note {
+      text-align: center;
+      font-size: .9rem;
+      opacity: .8;
+    }
+
+    /* BOTTOM NAV */
+    nav.bottom-nav {
       display: flex;
       justify-content: space-between;
-      padding: 1rem;
-      font-size: 0.9rem;
+      background: #002f33;
+      padding: .8rem 1rem;
+      box-shadow: 0 -2px 8px rgba(0,0,0,.5);
+      flex-wrap: wrap;
     }
-    .premium-note {
-      margin-top: 1rem;
-      font-size: 0.9rem;
+    nav.bottom-nav a {
+      color: #2ae49d;
+      font-weight: 500;
+    }
+
+    /* RESPONSIVE TWEAKS */
+    @media (max-width: 600px) {
+      .main-nav ul { justify-content: center; margin-left: 0; }
+      .auth-buttons { margin-top: .5rem; }
+      .photo-gallery img { flex: 1 1 100%; max-width: 100%; }
     }
   </style>
 </head>
 <body>
-<script>
-  if (!sessionStorage.getItem('soulinkBetaAccess')) {
-    window.location.href = 'beta-login.html';
-  }
-</script>
-
+  <!-- HEADER NAVIGATION -->
   <header class="main-nav">
     <div class="logo">Soulink</div>
     <ul>
-      <li><a href="home.html"><i class="bi bi-house"></i> Home</a></li>
+      <li><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
       <li><a href="quiz.html"><i class="bi bi-question-circle"></i> Quiz</a></li>
       <li><a href="my-soul.html"><i class="bi bi-person"></i> My Soul</a></li>
       <li><a href="edit-profile.html"><i class="bi bi-pencil-square"></i> Edit Profile</a></li>
       <li><a href="soul-chart.html"><i class="bi bi-graph-up"></i> Soul Chart</a></li>
       <li><a href="soul-coach.html"><i class="bi bi-chat-dots"></i> Soul Coach</a></li>
-      <li><a href="soulink-match.html"><i class="bi bi-heart"></i> Match</a></li>
+      <li><a href="match.html"><i class="bi bi-heart"></i> Match</a></li>
       <li><a href="friends.html"><i class="bi bi-people"></i> Friends</a></li>
       <li><a href="result.html"><i class="bi bi-bar-chart-line"></i> Results</a></li>
     </ul>
@@ -119,16 +185,19 @@
     </div>
   </header>
 
+  <!-- MAIN CONTENT -->
   <main class="container">
-    <h2>My Soul</h2>
+    <h1 class="page-title">My Soul</h1>
     <div id="soul-profile"></div>
   </main>
 
+  <!-- PREV / NEXT -->
   <nav class="bottom-nav">
     <a href="result.html"><i class="bi bi-arrow-left"></i> Previous</a>
     <a href="edit-profile.html">Next <i class="bi bi-arrow-right"></i></a>
   </nav>
 
-  <script src="my-soul.js"></script>
+  <!-- LOGIC -->
+  <script src="my-soul.js" defer></script>
 </body>
 </html>
