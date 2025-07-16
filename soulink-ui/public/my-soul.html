@@ -1,150 +1,100 @@
-<!-- public/my-soul.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Soulink – My Soul</title>
-  <script>
-  if (!sessionStorage.getItem('soulinkBetaAccess') && location.pathname !== '/beta-login.html') {
-    window.location.href = 'beta-login.html';
-  }
-</script><script>
-  if (!sessionStorage.getItem('soulinkBetaAccess') && location.pathname !== '/beta-login.html') {
-    window.location.href = 'beta-login.html';
-  }
-</script>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"/>
+  <link rel="stylesheet" href="style.css"/>
   <style>
+    /* ─── GLOBAL ─────────────────────────────────────────────────── */
     body {
-      background-color: #003c43;
-      color: white;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background: #002f33;
+      color: #eefefe;
       margin: 0;
-      padding: 0;
+    }
+    .container { width: 90%; max-width: 960px; margin: 0 auto; padding: 2rem 0; }
+
+    /* ─── HEADER ──────────────────────────────────────────────────── */
+    header {
+      background: #003d41;
+      position: sticky; top: 0; z-index:1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,.4);
+    }
+    .nav-wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+    }
+    .nav-logo { font-size: 1.8rem; font-weight: bold; color: #2ae49d; }
+    nav a {
+      margin-left: 1.2rem; color: #eefefe; font-weight:500;
+      transition: color .2s;
+    }
+    nav a:hover, nav a.active { color: #2ae49d; }
+
+    /* ─── PAGE TITLE ──────────────────────────────────────────────── */
+    .page-header {
+      margin-bottom:2rem;
+    }
+    .page-header h1 {
+      color:#2ae49d; font-size:2rem;
     }
 
-    a { color: #00fdd8; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .main-nav {
-      background-color: #002c33;
-      padding: 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .main-nav .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #00fdd8;
-    }
-    .main-nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-      padding: 0;
-      margin: 0;
-      flex-wrap: wrap;
-    }
-    .main-nav a {
-      color: #00fdd8;
-      font-weight: bold;
-    }
-    .auth-buttons a {
-      margin-left: 0.5rem;
-      color: white;
-      text-decoration: none;
-      border: 1px solid #00fdd8;
-      padding: 0.3rem 0.6rem;
-      border-radius: 0.5rem;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
+    /* ─── CARDS ───────────────────────────────────────────────────── */
     .card {
-      background-color: #014247;
-      border-radius: 1rem;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 0 15px #00fdd8;
+      background: #004d4d;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 20px rgba(42, 228, 157, .4);
     }
-    .card.highlight {
-      background-color: #015e63;
+    .card h2, .card h3 {
+      margin-bottom:.8rem; color:#2ae49d;
+    }
+    .buttons {
+      display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;
     }
     .buttons .btn {
-      display: inline-block;
-      background-color: #00fdd8;
-      color: black;
-      margin: 0.5rem;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      border-radius: 0.5rem;
+      background: linear-gradient(90deg,#2ae49d,#1bc08b);
+      color:#002f33; padding:.6rem 1.2rem; border:none;
+      border-radius:6px; cursor:pointer; text-decoration:none;
+      font-weight:600; transition:opacity .2s;
     }
-    img.preview {
-      max-width: 100px;
-      margin: 0.5rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 0 5px #00fdd8;
-    }
-    .bottom-nav {
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem;
-      font-size: 0.9rem;
-    }
+    .buttons .btn:hover { opacity:.85; }
+
     .premium-note {
-      margin-top: 1rem;
-      font-size: 0.9rem;
+      margin-top:1rem; font-size:.9rem; color:#ccc;
     }
   </style>
 </head>
 <body>
-<script>
-  if (!sessionStorage.getItem('soulinkBetaAccess')) {
-    window.location.href = 'beta-login.html';
-  }
-</script>
-  <script>
-  if (!sessionStorage.getItem('soulinkBetaAccess')) {
-    window.location.href = 'beta-login.html';
-  }
-</script>
-
-  <header class="main-nav">
-    <div class="logo">Soulink</div>
-    <ul>
-      <li><a href="home.html"><i class="bi bi-house"></i> Home</a></li>
-      <li><a href="quiz.html"><i class="bi bi-question-circle"></i> Quiz</a></li>
-      <li><a href="my-soul.html"><i class="bi bi-person"></i> My Soul</a></li>
-      <li><a href="edit-profile.html"><i class="bi bi-pencil-square"></i> Edit Profile</a></li>
-      <li><a href="soul-chart.html"><i class="bi bi-graph-up"></i> Soul Chart</a></li>
-      <li><a href="soul-coach.html"><i class="bi bi-chat-dots"></i> Soul Coach</a></li>
-      <li><a href="soulink-match.html"><i class="bi bi-heart"></i> Match</a></li>
-      <li><a href="friends.html"><i class="bi bi-people"></i> Friends</a></li>
-      <li><a href="result.html"><i class="bi bi-bar-chart-line"></i> Results</a></li>
-    </ul>
-    <div class="auth-buttons">
-      <a href="login.html">Log In</a>
-      <a href="signup.html">Sign Up</a>
+  <header>
+    <div class="nav-wrap container">
+      <div class="nav-logo">Soulink</div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="my-soul.html" class="active">My Soul</a>
+        <a href="edit-profile.html">Edit Profile</a>
+        <a href="soul-chart.html">Soul Chart</a>
+        <a href="soul-coach.html">Soul Coach</a>
+        <a href="match.html">Match</a>
+        <a href="friends.html">Friends</a>
+        <a href="result.html">Results</a>
+      </nav>
     </div>
   </header>
 
   <main class="container">
-    <h2>My Soul</h2>
+    <div class="page-header">
+      <h1>My Soul</h1>
+    </div>
+
+    <!-- ČIA ĮKELIAME AJAX/JS GENERUOJAMĄ TURINĮ -->
     <div id="soul-profile"></div>
   </main>
 
-  <nav class="bottom-nav">
-    <a href="result.html"><i class="bi bi-arrow-left"></i> Previous</a>
-    <a href="edit-profile.html">Next <i class="bi bi-arrow-right"></i></a>
-  </nav>
-
-  <script src="my-soul.js"></script>
+  <script src="my-soul.js" defer></script>
 </body>
 </html>
