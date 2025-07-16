@@ -56,8 +56,8 @@ a:hover {
   color: #eefefe;
   font-weight: 500;
 }
-.auth-buttons {
-  margin-left:  auto;
+.main-nav .auth-buttons {
+  margin-left: auto;
 }
 .auth-buttons a.btn-outline {
   margin-left: 0.5rem;
@@ -103,12 +103,12 @@ a:hover {
   gap: 0.5rem;
 }
 .photo-gallery img {
-  flex: 1 1 calc(33% - 0.5rem);
-  max-width: calc(33% - 0.5rem);
-  max-height: 200px;          /* cap height */
-  object-fit: cover;          /* crop/scale nicely */
+  flex: 1 1 30%;
+  max-width: 30%;
+  max-height: 200px;
+  object-fit: cover;
   border-radius: 8px;
-  box-shadow: 0 0 8px rgba(42,228,157,.6);
+  box-shadow: 0 0 8px rgba(42, 228, 157, 0.6);
 }
 
 /* ─── BUTTON GROUP & PREV/NEXT ──────────────────────────────────── */
@@ -171,5 +171,12 @@ footer.navigation a {
   .photo-gallery img {
     flex: 1 1 100%;
     max-width: 100%;
+  }
+}
+
+/* Extra small padding on very narrow phones */
+@media (max-width: 400px) {
+  .container {
+    padding: 0 1rem;
   }
 }
